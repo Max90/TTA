@@ -16,7 +16,6 @@ $(document).ready(function () {
         login();
     });
 
-
 });
 
 function getPlayerData() {
@@ -37,26 +36,6 @@ function getPlayerData() {
     });
 }
 
-function saveNewPlayer() {
-    var Tabelle = Parse.Object.extend("Test");
-    var player = new Tabelle();
-
-    player.set("name", $("#name-input").val());
-    player.set("training", $('#training-input').val() * 1);
-
-    player.save(null, {
-        success: function (gameScore) {
-            // Execute any logic that should take place after the object is saved.
-            alert('New object created with objectId: ' + gameScore.id);
-        },
-        error: function (gameScore, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
-        }
-    });
-}
-
 function saveUser(teamName, role, pw) {
     var user = new Parse.User();
     user.set("username", teamName + "_" + role);
@@ -65,6 +44,7 @@ function saveUser(teamName, role, pw) {
     user.signUp(null, {
         success: function (user) {
             alert("eingeloggt");
+            $('#myModal').foundation('reveal', 'close');
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
