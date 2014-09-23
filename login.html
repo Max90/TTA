@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>TeamApp login</title>
+    <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css"/>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <script src="foundation-js/modernizr.js"></script>
+</head>
+<body>
+<div class="fixed">
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#">Team App</a></h1>
+            </li>
+            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            <!-- Right Nav Section -->
+            <ul class="right">
+            </ul>
+            <!--Left Nav Section-->
+            <ul class="left">
+                <li class=""><a href="#">Training</a></li>
+            </ul>
+        </section>
+    </nav>
+</div>
+
+
+<!--End of Navbar-->
+<div id="login-form">
+    <div class="large-12 columns">
+        <div class="large-1 columns">
+            <input id="username-input" type="text" onfocus="this.value=''" value="Teamname"/>
+        </div>
+        <div class="large-1 columns">
+            <input id="password-input" type="text" onfocus="this.value=''; type='password'" value="Passwort"/>
+        </div>
+        <button id="login-button">Login/Sign up</button>
+    </div>
+</div>
+
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="foundation-js/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+</script>
+<script src="js/loginController.js"></script>
+</body>
+</html>

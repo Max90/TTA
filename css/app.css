@@ -1,0 +1,12 @@
+#login-form {
+    right: 0px;
+    position: absolute;
+}
+
+#login-form label input {
+    width: 30px;
+}
+
+#create-team-button {
+    margin: 0 auto;
+}
