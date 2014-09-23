@@ -1,6 +1,7 @@
 $(document).ready(function () {
     Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 
+    checkIfUserLoggedIn();
     getPlayerData();
 
     $('#submit-button').on('click', function () {
@@ -16,7 +17,24 @@ $(document).ready(function () {
         login();
     });
 
+    $('#button-logout').on('click', function () {
+        Parse.User.logOut();
+
+        var currentUser = Parse.User.current();
+        checkIfUserLoggedIn();
+    })
+
 });
+
+function checkIfUserLoggedIn() {
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        $('#button-logout').show();
+    } else {
+        $('#button-logout').hide();
+        $('#login-form').show();
+    }
+}
 
 function getPlayerData() {
     var Tabelle = Parse.Object.extend("Test");
@@ -104,6 +122,7 @@ function login() {
         success: function (user) {
             alert("eingeloggt");
             $('.login-form').hide();
+            checkIfUserLoggedIn();
         },
         error: function (user, error) {
             self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
