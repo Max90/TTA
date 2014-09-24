@@ -35,25 +35,35 @@
 <!--End of navbar-------------------------------------------------------------------------------------------------------->
 
 <div id="login-form">
-    <div class="large-12 columns">
-        <form class="login-form">
-            <div class="error" style="display:none"></div>
-            <div class="large-1 columns">
-                <select id="select-role">
-                    <option value="1">Trainer</option>
-                    <option value="2">Verwalter</option>
-                    <option value="3">Spieler</option>
-                </select>
-            </div>
-            <div class="large-1 columns">
-                <input id="input-teamname-login" type="text" placeholder="Teamname"/>
-            </div>
-            <div class="large-1 columns">
-                <input id="input-password-login" type="password" placeholder="Passwort"/>
-            </div>
-            <button id="button-login">Login</button>
-            <a id="button-forgotten-pw" href="#" data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
-        </form>
+    <div class="row">
+        <div class="large-12 small-12 columns">
+            <form class="login-form">
+                <div class="error" style="display:none"></div>
+                <div class="row">
+                    <!--<div class="large-1 small-12 columns">-->
+                    <select id="select-role" class="large-1 small-12 columns">
+                        <option value="1">Trainer</option>
+                        <option value="2">Verwalter</option>
+                        <option value="3">Spieler</option>
+                    </select>
+                    <!--</div>-->
+                </div>
+                <div class="row">
+                    <!--<div class="large-1 small-12 columns">-->
+                    <input class="large-1 small-9 columns" id="input-teamname-login" type="text"
+                           placeholder="Teamname"/>
+                    <!--</div>-->
+                </div>
+                <div class="row">
+                    <!--<div class="large-1 small-12 columns">-->
+                    <input class="large-1 small-12 columns" id="input-password-login" type="password"
+                           placeholder="Passwort"/>
+                    <!--</div>-->
+                </div>
+                <button id="button-login">Login</button>
+                <a id="button-forgotten-pw" href="#" data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
+            </form>
+        </div>
     </div>
 </div>
 
