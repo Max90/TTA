@@ -32,7 +32,7 @@ function checkIfUserLoggedIn() {
         $('#button-logout').show();
     } else {
         $('#button-logout').hide();
-        $('#login-form').show();
+        $('.login-form').show();
     }
 }
 
