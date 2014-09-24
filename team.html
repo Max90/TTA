@@ -6,12 +6,26 @@
     <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
     <link rel="stylesheet" href="css/foundation.min.css"/>
     <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
     <script src="foundation-js/modernizr.js"></script>
 </head>
 <body>
-<div class="large-12 columns">
+<div class="row">
+    <div class="large-6 columns">
     <a class="button" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
 </div>
+    <div class="large-6 columns">
+        <a class="button" href="#" data-reveal-id="modal-add-training">Training anlegen</a>
+    </div>
+</div>
+
+<!-- player-container -------------------------------------------------------------------------------------------------------->
+<div class="row">
+    <div class="large-12 columns" id="player-container">
+        <ul id="players"></ul>
+    </div>
+</div>
+
 
 <!--spieler anlegen modal------------------------------------------------------------------------------------------------>
 <div id="modal-add-player" class="reveal-modal" data-reveal>
@@ -23,6 +37,16 @@
     <button id="button-add-next-player">Weiteren Spieler anlegen</button>
     <a class="close-reveal-modal">&#215;</a>
 </div>
+
+<!--Training  anlegen modal------------------------------------------------------------------------------------------------>
+<div id="modal-add-training" class="reveal-modal" data-reveal>
+    <h2>Neues Training anlegen</h2>
+    <input type="date" id="input-date-training">
+    <input type="time" id="input-time-training">
+    <button id="button-add-training">Training anlegen</button>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
 <script src="js/jquery-2.1.1.min.js"></script>
 <script src="foundation-js/foundation.min.js"></script>
 <script>

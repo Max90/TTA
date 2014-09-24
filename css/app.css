@@ -10,3 +10,11 @@
 #create-team-button {
     margin: 0 auto;
 }
+
+.anwesend {
+    color: red;
+}
+
+.nicht-anwesend {
+    color: black;
+}

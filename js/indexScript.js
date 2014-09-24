@@ -48,23 +48,6 @@ function checkIfUserLoggedIn() {
     }
 }
 
-function getPlayerData() {
-    var Tabelle = Parse.Object.extend("Test");
-    var query = new Parse.Query(Tabelle);
-    query.find({
-        success: function (results) {
-            // Do something with the returned Parse.Object values
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-                console.log(object.get('name') + "-" + object.get("training"));
-                $("#content-div").append($("<p>").text(object.get("name") + object.get("training")))
-            }
-        },
-        error: function (error) {
-            alert("Error: " + error.code + " " + error.message);
-        }
-    });
-}
 
 function saveUser(teamName, role, pw, email) {
     var user = new Parse.User();
