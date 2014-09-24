@@ -33,7 +33,6 @@ function savePlayer(playerName) {
     players.save(null, {
         success: function (players) {
             // Execute any logic that should take place after the object is saved.
-            //@todo: super fancy teamerstellungsmeldung
             alert('New object created with objectId: ' + players);
         },
         error: function (players, error) {
