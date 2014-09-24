@@ -71,6 +71,7 @@ function saveUser(teamName, role, pw, email) {
     user.set("username", teamName + "_" + role);
     user.set("password", pw);
     user.set("email", email);
+    user.set("teamname", teamName);
 
     user.signUp(null, {
         success: function (user) {
