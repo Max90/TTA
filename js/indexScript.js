@@ -2,7 +2,7 @@ $(document).ready(function () {
     Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 
     checkIfUserLoggedIn();
-    getPlayerData();
+
 
     $('#submit-button').on('click', function () {
         saveNewPlayer();
@@ -117,9 +117,17 @@ function login() {
     var password = $('#input-password-login').val();
     Parse.User.logIn(username, password, {
         success: function (user) {
-            alert("eingeloggt");
             $('.login-form').hide();
             checkIfUserLoggedIn();
+            console.log(getRole());
+            if (getRole() == "admin") {
+                console.log("hierhierhier");
+                window.location.href = 'trainer.html';
+            } else if (getRole() == "manager") {
+                window.location.href = 'manager.html'
+            } else if (getRole() == 'player') {
+                window.location.href = 'player.html';
+            }
         },
         error: function (user, error) {
             self.$(".login-form .error").html("Invalid username or password. Please try again.").show();

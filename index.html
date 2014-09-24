@@ -13,7 +13,7 @@
     <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="#">Team App</a></h1>
+                <h1><a href="#">Top Team</a></h1>
             </li>
             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -26,13 +26,19 @@
             </ul>
             <!--Left Nav Section-->
             <ul class="left">
-                <li class=""><a href="#">Training</a></li>
+                <!--<li class=""><a href="#">Training</a></li>-->
             </ul>
         </section>
     </nav>
 </div>
 
 <!--End of navbar-------------------------------------------------------------------------------------------------------->
+
+<div class="row" id="button-create-new-team">
+    <a class="button large-9 small-10 small-offset-1 columns" href="#" data-reveal-id="modal-create-team">Neues Team
+        anlegen</a>
+</div>
+
 
 <div id="login-form">
     <div class="row">
@@ -41,8 +47,8 @@
                 <div class="error" style="display:none"></div>
                 <div class="row">
                     <!--<div class="large-1 small-12 columns">-->
-                    <select id="select-role" class="large-1 small-12 columns">
-                        <option value="1">Trainer</option>
+                    <select id="select-role" class="large-12 small-12 columns">
+                    <option value="1">Trainer</option>
                         <option value="2">Verwalter</option>
                         <option value="3">Spieler</option>
                     </select>
@@ -50,18 +56,23 @@
                 </div>
                 <div class="row">
                     <!--<div class="large-1 small-12 columns">-->
-                    <input class="large-1 small-9 columns" id="input-teamname-login" type="text"
+                    <input class="large-12 small-9 columns" id="input-teamname-login" type="text"
                            placeholder="Teamname"/>
                     <!--</div>-->
                 </div>
                 <div class="row">
                     <!--<div class="large-1 small-12 columns">-->
-                    <input class="large-1 small-12 columns" id="input-password-login" type="password"
+                    <input class="large-12 small-12 columns" id="input-password-login" type="password"
                            placeholder="Passwort"/>
                     <!--</div>-->
                 </div>
-                <button id="button-login">Login</button>
-                <a id="button-forgotten-pw" href="#" data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
+                <div class="row">
+                    <a id="button-forgotten-pw" class="large-12 small-12 columns" href="#"
+                       data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
+                </div>
+                <div class="row">
+                    <button id="button-login" class="large-9 small-10 small-offset-1 columns">Login</button>
+                </div>
             </form>
         </div>
     </div>
@@ -69,15 +80,6 @@
 
 <!--End of login form--------------------------------------------------------------------------------------------------->
 
-<div class="large-12 columns">
-    <a class="button" href="#" data-reveal-id="modal-create-team">Team anlegen</a>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <a href="team.html">hier gehts zum team</a>
-    </div>
-</div>
 
 <!--team erstellen modal------------------------------------------------------------------------------------------------>
 <div id="modal-create-team" class="reveal-modal" data-reveal>
