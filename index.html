@@ -52,6 +52,7 @@
                 <input id="input-password-login" type="password" placeholder="Passwort"/>
             </div>
             <button id="button-login">Login</button>
+            <a id="button-forgotten-pw" href="#" data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
         </form>
     </div>
 </div>
@@ -59,20 +60,20 @@
 <!--End of login form--------------------------------------------------------------------------------------------------->
 
 <div class="large-12 columns">
-    <a class="button" href="#" data-reveal-id="myModal">Team anlegen</a>
+    <a class="button" href="#" data-reveal-id="modal-create-team">Team anlegen</a>
 </div>
 
 <!--team erstellen modal------------------------------------------------------------------------------------------------>
 
 
-<div id="myModal" class="reveal-modal" data-reveal>
+<div id="modal-create-team" class="reveal-modal" data-reveal>
     <h2>Erstellen Sie ihr eigenes Team</h2>
 
     <p class="lead">Informationen für den Admin Bereich</p>
 
     <p><input id="input-team-name" required="true" type="text" placeholder="Teamname"/>
-        <input id="input-admin-pw" required="true" type="password"
-               placeholder="Admin Passwort"/>
+        <input id="input-admin-email" required="true" type="email" placeholder="E-mail"/>
+        <input id="input-admin-pw" required="true" type="password" placeholder="Admin Passwort"/>
     </p>
 
     <p class="lead">Sonstige Benutzergruppen</p>
@@ -84,11 +85,23 @@
     <a class="close-reveal-modal">&#215;</a>
 </div>
 
+<!--reset password modal------------------------------------------------------------------------------------------------->
+<div id="modal-reset-pw" class="reveal-modal" data-reveal>
+    <h2>Wollen Sie Ihr Passwort wirklich zurücksetzen?</h2>
+
+    <p class="lead">Bitte geben Sie Ihre E-mail Adresse an, mit der Sie bei TopTeam angemeldet sind!</p>
+
+    <p><input id="input-email-reset-pw" required="true" type="email" placeholder="E-mail"/></p>
+
+    <button id="button-reset-pw">Passwort zurücksetzen</button>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
 <script src="js/jquery-2.1.1.min.js"></script>
 <script src="foundation-js/foundation.min.js"></script>
 <script>
     $(document).foundation();
 </script>
-<script src="js/TeamModel.js"></script>
+<script src="js/indexScript.js"></script>
 </body>
 </html>

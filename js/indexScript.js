@@ -22,7 +22,19 @@ $(document).ready(function () {
 
         var currentUser = Parse.User.current();
         checkIfUserLoggedIn();
-    })
+    });
+
+    $('#button-reset-pw').on('click', function () {
+        Parse.User.requestPasswordReset($('#input-email-reset-pw').val(), {
+            success: function () {
+                // Password reset request was sent successfully
+            },
+            error: function (error) {
+                // Show the error message somewhere
+                alert("Error: " + error.code + " " + error.message);
+            }
+        });
+    });
 
 });
 
@@ -54,15 +66,16 @@ function getPlayerData() {
     });
 }
 
-function saveUser(teamName, role, pw) {
+function saveUser(teamName, role, pw, email) {
     var user = new Parse.User();
     user.set("username", teamName + "_" + role);
     user.set("password", pw);
+    user.set("email", email);
 
     user.signUp(null, {
         success: function (user) {
             alert("eingeloggt");
-            $('#myModal').foundation('reveal', 'close');
+            $('#modal-create-team').foundation('reveal', 'close');
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
@@ -99,7 +112,7 @@ function saveNewTeam() {
 //        }
 //    });
 
-    saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val());
+    saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val(), $('#input-admin-email').val());
     saveUser($('#input-team-name').val(), "manager", $('#input-manager-pw').val());
     saveUser($('#input-team-name').val(), "player", $('#input-player-pw').val());
 }
