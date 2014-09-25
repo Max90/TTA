@@ -13,6 +13,7 @@ $(document).ready(function () {
         addNewTraining();
     });
 
+
     showPlayers();
 
     showTrainingList();
@@ -115,10 +116,12 @@ function savePlayerCount(count, dateTraining) {
 
     var Tabelle = Parse.Object.extend(teamNameTraining);
     var training = new Tabelle();
-    training.equalTo("dateTraining", dateTraining);
+    training.set("dateTraining", dateTraining);
+    training.set("timeTraining", "18:00");
     training.save(null, {
         success: function (training) {
             training.set("trPlayerCount", count);
+            training.save();
         },
         error: function (training, error) {
             // Execute any logic that should take place if the save fails.
@@ -183,12 +186,11 @@ function showPlayersForModal(dateTraining) {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                $("#player-modal-table").append($("<tr>").append($('<td>avatar</td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
-
+                var attended = "";
+                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td>avatar</td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-
+                    updatePlayerCount(dateTraining);
                 }));
-
             }
         },
         error: function (error) {
@@ -200,6 +202,7 @@ function showPlayersForModal(dateTraining) {
 
 
 function addPlayerToTraining(playerObject, playerName, dateTraining) {
+    console.log(playerObject);
     playerObject.toggleClass("anwesend", "nicht-anwesend");
     if (playerObject.hasClass("anwesend")) {
         addToParseTrainingTable(playerName, dateTraining);

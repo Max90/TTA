@@ -12,11 +12,11 @@
 }
 
 .anwesend {
-    color: red;
+    background-color: lightskyblue !important;
 }
 
 .nicht-anwesend {
-    color: black;
+    background-color: transparent;
 }
 
 .top-bar {
