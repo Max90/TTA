@@ -10,6 +10,8 @@ $(document).ready(function () {
     $('#button-add-training').on('click', function () {
         addNewTraining();
     });
+
+    showPlayers();
 });
 
 function addNewPlayer(string) {
@@ -25,6 +27,8 @@ function addNewPlayer(string) {
             $('#input-player-name').val("");
             $('#input-player-name').attr("placeholder", "Vorname Nachname");
         }
+        $('#player-table tr:not(:first)').remove();
+        showPlayers();
     }
 }
 
@@ -36,7 +40,7 @@ function savePlayer(playerName) {
     players.save(null, {
         success: function (players) {
             // Execute any logic that should take place after the object is saved.
-            alert('New object created with objectId: ' + players);
+//            alert('New object created with objectId: ' + players);
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
@@ -53,11 +57,33 @@ function addNewTraining() {
     var timeTraining = $('#input-time-training').val();
     console.log("Datum " + dateTraining + "Time " + timeTraining);
     $('#modal-add-training').foundation('reveal', 'close');
-    showPlayers(dateTraining, timeTraining);
+    showPlayersForTraining(dateTraining, timeTraining);
 }
 
 
 function showPlayers(dateTraining, timeTraining) {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.find({
+        success: function (results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                $("#player-table").append($("<tr>").append($('<td>avatar</td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
+                    console.log($(this).text());
+                }));
+
+            }
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+
+}
+
+function showPlayersForTraining(dateTraining, timeTraining) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);

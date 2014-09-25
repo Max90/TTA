@@ -46,11 +46,11 @@
 <!-- player-container -------------------------------------------------------------------------------------------------------->
 <div class="row">
     <div class="large-12 columns" id="player-container">
-        <table id="player-table">
+        <table id="training-table">
             <thead>
             <tr>
-                <th width="200" id="player-icon">Spieler Avatar</th>
-                <th width="150" id="player-name">Spieler Name</th>
+                <th width="200" id="player-icon">Datum</th>
+                <th width="150" id="player-name">Anzahl der Spieler</th>
             </tr>
             </thead>
             <tbody>
@@ -59,15 +59,12 @@
     </div>
 </div>
 
-
-<!--spieler anlegen modal------------------------------------------------------------------------------------------------>
-<div id="modal-add-player" class="reveal-modal" data-reveal>
-    <h2>Spieler anlegen</h2>
-
-    <p class="lead">Informationen zum Spieler</p>
-    <p><input id="input-player-name" required="true" placeholder="Vorname Nachname"/></p>
-    <button id="button-add-player">Spieler anlegen</button>
-    <button id="button-add-next-player">Weiteren Spieler anlegen</button>
+<!--Training  anlegen modal------------------------------------------------------------------------------------------------>
+<div id="modal-add-training" class="reveal-modal" data-reveal>
+    <h2>Neues Training anlegen</h2>
+    <input type="date" id="input-date-training">
+    <input type="time" id="input-time-training">
+    <button id="button-add-training">Training anlegen</button>
     <a class="close-reveal-modal">&#215;</a>
 </div>
 
