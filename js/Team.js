@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
 
+
     Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 
     $('#button-add-player').on('click', function () {
@@ -61,7 +62,6 @@ function savePlayer(playerName) {
 function addNewTraining() {
     var dateTraining = $('#input-date-training').val();
     var timeTraining = $('#input-time-training').val();
-    console.log("Datum " + dateTraining + "Time " + timeTraining);
     $('#modal-add-training').foundation('reveal', 'close');
 //    showPlayersForTraining(dateTraining, timeTraining);
     saveTraining(dateTraining, timeTraining);
@@ -82,7 +82,6 @@ function showTrainingList() {
 
                 $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-player-to-tr'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
                     + '<td>' + object.get('trPlayerCount') + '</td>')).on("click", function () {
-                    console.log($(this).closest('tr').children('td:first').text());
                     showPlayersForModal($(this).closest('tr').children('td:first').text());
                 }));
 
@@ -115,10 +114,9 @@ function savePlayerCount(count, dateTraining) {
     var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_trDates";
 
     var Tabelle = Parse.Object.extend(teamNameTraining);
-    var training = new Tabelle();
-    training.set("dateTraining", dateTraining);
-    training.set("timeTraining", "18:00");
-    training.save(null, {
+    var training = new Parse.Query(Tabelle);
+    training.equalTo("dateTraining", dateTraining);
+    training.first( {
         success: function (training) {
             training.set("trPlayerCount", count);
             training.save();
@@ -181,13 +179,17 @@ function showPlayersForModal(dateTraining) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
+    var attended = "";
     query.find({
         success: function (results) {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                var attended = "";
-                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
+                console.log(playerIsInTraining(object.get('playerName'), dateTraining));
+                playerIsInTraining(object.get('playerName'), dateTraining, function (result) {
+                    console.log("result" + result);
+                });
+                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td><img src="../img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                     updatePlayerCount(dateTraining);
                 }));
@@ -202,7 +204,6 @@ function showPlayersForModal(dateTraining) {
 
 
 function addPlayerToTraining(playerObject, playerName, dateTraining) {
-    console.log(playerObject);
     playerObject.toggleClass("anwesend", "nicht-anwesend");
     if (playerObject.hasClass("anwesend")) {
         addToParseTrainingTable(playerName, dateTraining);
@@ -242,6 +243,27 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
     trainingQuery.find({
         success: function (object) {
             object[0].destroy({});
+        },
+        error: function (players, error) {
+            // Execute any logic that should take place if the save fails.
+            // error is a Parse.Error with an error code and message.
+            alert('Failed to create new object, with error code: ' + error.message);
+        }
+    });
+}
+
+function playerIsInTraining(playerName, dateTraining){
+    console.log(playerName + " " + dateTraining);
+    var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
+
+    var Tabelle = Parse.Object.extend(teamNameTraining);
+    var trainingQuery = new Parse.Query(Tabelle);
+    trainingQuery.equalTo("playerName", playerName);
+    trainingQuery.equalTo("dateTraining", dateTraining);
+    trainingQuery.first({
+        success: function (object) {
+            console.log(object);
+            callback(object);
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
