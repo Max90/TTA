@@ -164,7 +164,7 @@ function showPlayers() {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 $("#player-table").append($("<tr>").append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
-                    console.log($(this).text());
+                    //@todo: was kann man durch klicken auf player machen?
                 }));
 
             }
@@ -252,31 +252,5 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
 }
 
 
-function showPlayersForTraining(dateTraining, timeTraining) {
-    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
-    var team = Parse.Object.extend(teamName);
-    var query = new Parse.Query(team);
-    query.find({
-        success: function (results) {
-            // Do something with the returned Parse.Object values
-            $("#player-container").append($("<p>").text("Training " + dateTraining + " " + timeTraining + " Uhr " + "Spieler die im TR sind markieren!"));
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-//                $("#players").append($("<li>").text(object.get("playerName")).on("click", function () {
-//                    console.log($(this).text());
-//                    addPlayerToTraining($(this), $(this).text(), dateTraining);
-//                }));
-
-                $("#training-table").append($("<tr>").append($('<td>avatar</td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
-                    console.log($(this).text());
-                    //addPlayerToTraining($(this), $(this).text(), dateTraining);
-                }));
-            }
-        },
-        error: function (error) {
-            alert("Error: " + error.code + " " + error.message);
-        }
-    });
-}
 
 
