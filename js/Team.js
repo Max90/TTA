@@ -163,7 +163,7 @@ function showPlayers() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                $("#player-table").append($("<tr>").append($('<td>avatar</td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
+                $("#player-table").append($("<tr>").append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
                     console.log($(this).text());
                 }));
 
@@ -187,7 +187,7 @@ function showPlayersForModal(dateTraining) {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 var attended = "";
-                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td>avatar</td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
+                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                     updatePlayerCount(dateTraining);
                 }));
