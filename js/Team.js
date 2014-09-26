@@ -127,6 +127,8 @@ function savePlayerCount(count, dateTraining) {
             alert('Failed to create new object, with error code: ' + error.message);
         }
     });
+    $('#training-table tr:not(:first)').remove();
+    showTrainingList();
 
 }
 
@@ -189,7 +191,7 @@ function showPlayersForModal(dateTraining) {
                 playerIsInTraining(object.get('playerName'), dateTraining, function (result) {
                     console.log("result" + result);
                 });
-                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td><img src="../img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
+                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                     updatePlayerCount(dateTraining);
                 }));

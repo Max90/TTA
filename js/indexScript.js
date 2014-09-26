@@ -54,11 +54,12 @@ function saveUser(teamName, role, pw, email) {
     user.set("username", teamName + "_" + role);
     user.set("password", pw);
     user.set("email", email);
-    user.set("teamname", teamName);
+
+
+    user.set("teamname", teamName.replace(" ", ""));
 
     user.signUp(null, {
         success: function (user) {
-            alert("eingeloggt");
             $('#modal-create-team').foundation('reveal', 'close');
         },
         error: function (user, error) {
