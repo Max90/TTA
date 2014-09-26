@@ -42,7 +42,6 @@ function showTrainingList() {
     });
 }
 
-//trainingsteilnahme ändern
 function updatePlayerCount(dateTraining) {
     var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_training";
     var training = Parse.Object.extend(teamTrainingName);

@@ -25,11 +25,8 @@ function addNewPlayer(string) {
             $('#input-player-name').val("");
             $('#input-player-name').attr("placeholder", "Vorname Nachname");
         }
-        $('#player-table tr:not(:first)').remove();
-        showPlayers();
     }
 }
-
 
 function savePlayer(playerName) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
@@ -38,8 +35,8 @@ function savePlayer(playerName) {
     players.set("playerName", playerName);
     players.save(null, {
         success: function (players) {
-            // Execute any logic that should take place after the object is saved.
-//            alert('New object created with objectId: ' + players);
+            $('#player-table tr:not(:first)').remove();
+            showPlayers();
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
@@ -60,7 +57,7 @@ function showPlayers() {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 $("#player-table").append($("<tr>").append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
-                    //@todo: was kann man durch klicken auf player machen?
+                    //@todo: was kann man durch klicken auf player machen? bild hinzufügen; spieler löschen; trainingsbeteiligung speziell von diesem Spieler betrachten
                 }));
 
             }
