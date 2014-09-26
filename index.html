@@ -2,7 +2,8 @@
 <html>
 <head lang="de">
     <meta charset="UTF-8">
-    <title>TeamApp</title>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Top Team</title>
     <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
     <link rel="stylesheet" href="css/foundation.min.css"/>
     <link rel="stylesheet" href="css/normalize.css"/>
@@ -22,7 +23,7 @@
         <section class="top-bar-section">
             <!-- Right Nav Section -->
             <ul class="right">
-                <li id="button-logout" class="button">Logout</li>
+                <li><a id="button-logout" class="button">Logout</a></li>
             </ul>
             <!--Left Nav Section-->
             <ul class="left">
@@ -42,12 +43,12 @@
 
 <div id="login-form">
     <div class="row">
-        <div class="large-12 small-12 columns">
+        <div class="large-12 small-12 medium-12 columns">
             <form class="login-form">
                 <div class="error" style="display:none"></div>
                 <div class="row">
                     <!--<div class="large-1 small-12 columns">-->
-                    <select id="select-role" class="large-12 small-12 columns">
+                    <select id="select-role" class="large-12 small-12 medium-12 columns">
                     <option value="1">Trainer</option>
                         <option value="2">Verwalter</option>
                         <option value="3">Spieler</option>
@@ -56,13 +57,13 @@
                 </div>
                 <div class="row">
                     <!--<div class="large-1 small-12 columns">-->
-                    <input class="large-12 small-9 columns" id="input-teamname-login" type="text"
+                    <input class="large-12 small-3 medium-12 columns" id="input-teamname-login" type="text"
                            placeholder="Teamname"/>
                     <!--</div>-->
                 </div>
                 <div class="row">
                     <!--<div class="large-1 small-12 columns">-->
-                    <input class="large-12 small-12 columns" id="input-password-login" type="password"
+                    <input class="large-12 small-12 medium-12 columns" id="input-password-login" type="password"
                            placeholder="Passwort"/>
                     <!--</div>-->
                 </div>
@@ -71,7 +72,7 @@
                        data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
                 </div>
                 <div class="row">
-                    <button id="button-login" class="large-9 small-10 small-offset-1 columns">Login</button>
+                    <button id="button-login" class="large-9 small-10 medium-10 small-offset-1 columns">Login</button>
                 </div>
             </form>
         </div>
