@@ -64,7 +64,7 @@ function saveUser(teamName, role, pw, email) {
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
-            alert("Error: " + error.code + " " + error.message);
+            $('#modal-existing-team').foundation('reveal', 'open');
         }
     });
 
@@ -73,9 +73,14 @@ function saveUser(teamName, role, pw, email) {
 
 //es werden drei verschiedene benutzer angelegt: admin, manager, player
 function saveNewTeam() {
+    checkForValidTeamName();
     saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val(), $('#input-admin-email').val());
     saveUser($('#input-team-name').val(), "manager", $('#input-manager-pw').val());
     saveUser($('#input-team-name').val(), "player", $('#input-player-pw').val());
+}
+
+function checkForValidTeamName() {
+
 }
 
 function getRole() {
