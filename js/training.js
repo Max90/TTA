@@ -17,7 +17,7 @@ function addNewTraining() {
     saveTraining(dateTraining, timeTraining);
 
 }
-
+var inTraining = false;
 function showTrainingList() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
     var trDates = Parse.Object.extend(teamName);
@@ -108,17 +108,18 @@ function showPlayersForModal(dateTraining) {
     var attended = "";
     query.find({
         success: function (results) {
+            $('#player-modal-table tr:not(:first)').remove();
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                console.log(playerIsInTraining(object.get('playerName'), dateTraining));
-                playerIsInTraining(object.get('playerName'), dateTraining, function (result) {
-                    console.log("result" + result);
-                });
-                $("#player-modal-table").append($('<tr class="' + attended + '">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
-                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-                    updatePlayerCount(dateTraining);
-                }));
+                playerIsInTraining(object.get('playerName'), dateTraining);
+
+
+            }
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                playerIsNotInTraining(object.get('playerName'), dateTraining);
+
             }
         },
         error: function (error) {
@@ -178,7 +179,33 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
 }
 
 function playerIsInTraining(playerName, dateTraining) {
-    console.log(playerName + " " + dateTraining);
+    var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
+
+    var Tabelle = Parse.Object.extend(teamNameTraining);
+    var trainingQuery = new Parse.Query(Tabelle);
+    trainingQuery.equalTo("playerName", playerName);
+    trainingQuery.equalTo("dateTraining", dateTraining);
+    trainingQuery.first({
+        success: function (object) {
+            if (object != undefined) {
+                console.log(playerName + "ist im tr");
+                $("#player-modal-table").append($('<tr class="anwesend">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
+                    updatePlayerCount(dateTraining);
+                }));
+            }
+
+        },
+        error: function (players, error) {
+            // Execute any logic that should take place if the save fails.
+            // error is a Parse.Error with an error code and message.
+            alert('Failed to create new object, with error code: ' + error.message);
+        }
+    });
+}
+
+
+function playerIsNotInTraining(playerName, dateTraining) {
     var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
 
     var Tabelle = Parse.Object.extend(teamNameTraining);
@@ -188,7 +215,13 @@ function playerIsInTraining(playerName, dateTraining) {
     trainingQuery.first({
         success: function (object) {
             console.log(object);
-            callback(object);
+            if (object == undefined) {
+                console.log(playerName + "ist nicht im tr");
+                $("#player-modal-table").append($('<tr>').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
+                    updatePlayerCount(dateTraining);
+                }));
+            }
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
