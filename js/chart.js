@@ -7,9 +7,16 @@ Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFg
 
 google.setOnLoadCallback(drawChart);
 function drawChart() {
-    var tdata = new google.visualization.DataTable();
-    tdata.addColumn('date', 'Datum');
-    tdata.addColumn('number', 'Spieler');
+    data = [];
+    data.push(['Datum', 'Spieler']);
+    var tdata;
+//    tdata.addColumn('date', 'Datum');
+//    tdata.addColumn('number', 'Spieler');
+    var options = {
+        title: 'Spieler im Training'
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     function getDataForChart() {
         var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
         var trDates = Parse.Object.extend(teamName);
@@ -20,8 +27,10 @@ function drawChart() {
                 // Do something with the returned Parse.Object values
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
-                    tdata.addRow([new Date(object.get('dateTraining')), parseInt(object.get('trPlayerCount'))]);
+                    data.push([object.get('dateTraining'), parseInt(object.get('trPlayerCount'))]);
                 }
+                tdata = new google.visualization.arrayToDataTable(data);
+                chart.draw(tdata, options);
             },
             error: function (error) {
                 alert("Error: " + error.code + " " + error.message);
@@ -31,12 +40,5 @@ function drawChart() {
 
     getDataForChart();
 
-    console.log(tdata);
-    var options = {
-        title: 'Spieler im Training'
-    };
 
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-    chart.draw(tdata, options);
 }
