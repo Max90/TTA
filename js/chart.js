@@ -27,7 +27,7 @@ function drawChart() {
                 // Do something with the returned Parse.Object values
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
-                    data.push([object.get('dateTraining'), parseInt(object.get('trPlayerCount'))]);
+                    data.push([new Date(object.get('dateTraining')), parseInt(object.get('trPlayerCount'))]);
                 }
                 tdata = new google.visualization.arrayToDataTable(data);
                 chart.draw(tdata, options);

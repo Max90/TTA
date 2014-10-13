@@ -49,6 +49,7 @@ function updatePlayerCount(dateTraining) {
     query.equalTo("dateTraining", dateTraining);
     query.count({
         success: function (count) {
+            console.log(count);
             savePlayerCount(count, dateTraining);
         },
         error: function (error) {
@@ -147,7 +148,8 @@ function addToParseTrainingTable(playerName, dateTraining) {
     training.set("dateTraining", dateTraining);
     training.save(null, {
         success: function (players) {
-            //@todo: Feedback TR erstellt
+            //muss hier gemacht werden, weil sonst wegen asynchroner anfrage zahl manchmal nicht stimmt
+            updatePlayerCount(dateTraining);
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
@@ -168,6 +170,8 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
 
     trainingQuery.find({
         success: function (object) {
+            //muss hier gemacht werden, weil sonst wegen asynchroner anfrage zahl manchmal nicht stimmt
+            updatePlayerCount(dateTraining);
             object[0].destroy({});
         },
         error: function (players, error) {
@@ -188,10 +192,8 @@ function playerIsInTraining(playerName, dateTraining) {
     trainingQuery.first({
         success: function (object) {
             if (object != undefined) {
-                console.log(playerName + "ist im tr");
                 $("#player-modal-table").append($('<tr class="anwesend">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-                    updatePlayerCount(dateTraining);
                 }));
             }
 
@@ -214,12 +216,9 @@ function playerIsNotInTraining(playerName, dateTraining) {
     trainingQuery.equalTo("dateTraining", dateTraining);
     trainingQuery.first({
         success: function (object) {
-            console.log(object);
             if (object == undefined) {
-                console.log(playerName + "ist nicht im tr");
                 $("#player-modal-table").append($('<tr>').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-                    updatePlayerCount(dateTraining);
                 }));
             }
         },
