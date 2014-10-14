@@ -13,7 +13,8 @@ function drawChart() {
 //    tdata.addColumn('date', 'Datum');
 //    tdata.addColumn('number', 'Spieler');
     var options = {
-        title: 'Spieler im Training'
+        title: 'Spieler im Training',
+        curveType: 'function'
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -29,6 +30,10 @@ function drawChart() {
                     var object = results[i];
                     data.push([new Date(object.get('dateTraining')), parseInt(object.get('trPlayerCount'))]);
                 }
+                data.sort(function (x, y) {
+                    return x > y;
+                });
+                console.log(data);
                 tdata = new google.visualization.arrayToDataTable(data);
                 chart.draw(tdata, options);
             },
