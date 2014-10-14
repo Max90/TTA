@@ -10,6 +10,29 @@ $(document).ready(function () {
     });
 
     showPlayers();
+
+    $.contextMenu({
+        selector: '.player-context-menu',
+        trigger: 'left',
+
+        items: {
+            "viewDetails": {name: "Details ansehen"},
+            "delete": {name: "Spieler löschen",
+                callback: function (key, options) {
+                    deletePlayer(this.children('.player-name').html());
+                }},
+            "addImage": {name: "Bild hinzufügen", icon: "cut"}
+//            "copy": {name: "Copy", icon: "copy"},
+//            "paste": {name: "Paste", icon: "paste"},
+//            "delete": {name: "Delete", icon: "delete"},
+//            "sep1": "---------",
+//            "quit": {name: "Quit", icon: "quit"}
+        }
+    });
+
+    $('.player-context-menu').on('click', function (e) {
+//        console.log('clicked', this);
+    });
 });
 
 function addNewPlayer(string) {
@@ -26,6 +49,24 @@ function addNewPlayer(string) {
             $('#input-player-name').attr("placeholder", "Vorname Nachname");
         }
     }
+}
+
+function deletePlayer(playerName) {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+    query.find({
+        success: function (myObj) {
+            console.log(myObj[0]);
+            myObj[0].destroy({});
+            location.reload();
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
 }
 
 function savePlayer(playerName) {
@@ -56,7 +97,7 @@ function showPlayers() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                $("#player-table").append($("<tr>").append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + object.get('playerName') + '</td>')).on("click", function () {
+                $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="img/avatar.jpg"></td>' + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
                     //@todo: was kann man durch klicken auf player machen? bild hinzufügen; spieler löschen; trainingsbeteiligung speziell von diesem Spieler betrachten
                 }));
 

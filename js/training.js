@@ -6,6 +6,12 @@ $(document).ready(function () {
         addNewTraining();
     });
 
+    //reloads page to refresh count of players in training
+    //@todo: evtl noch mit ajax machen
+    $('#close-player-addition-modal').on('click', function () {
+        location.reload();
+    });
+
     showTrainingList();
 
     $.contextMenu({
@@ -26,13 +32,13 @@ $(document).ready(function () {
     $('.context-menu-one').on('click', function (e) {
         console.log('clicked', this);
     });
+
 });
 
 function addNewTraining() {
     var dateTraining = $('#input-date-training').val();
     var timeTraining = $('#input-time-training').val();
     $('#modal-add-training').foundation('reveal', 'close');
-//    showPlayersForTraining(dateTraining, timeTraining);
     saveTraining(dateTraining, timeTraining);
 
 }
