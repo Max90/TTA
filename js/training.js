@@ -14,25 +14,6 @@ $(document).ready(function () {
 
     showTrainingList();
 
-    $.contextMenu({
-        selector: '.context-menu-one',
-        trigger: 'left',
-
-        items: {
-            "addToTraining": {name: "Zu Training hinzufügen/entfernen", icon: "edit"},
-            "addNutmeg": {name: "Beinschuss hinzufügen", icon: "cut"}
-//            "copy": {name: "Copy", icon: "copy"},
-//            "paste": {name: "Paste", icon: "paste"},
-//            "delete": {name: "Delete", icon: "delete"},
-//            "sep1": "---------",
-//            "quit": {name: "Quit", icon: "quit"}
-        }
-    });
-
-    $('.context-menu-one').on('click', function (e) {
-        console.log('clicked', this);
-    });
-
 });
 
 function addNewTraining() {
