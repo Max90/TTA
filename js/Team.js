@@ -81,6 +81,63 @@ function savePlayer(playerName) {
 
 }
 
+
+function updatePicture(playerName, picUrl) {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+    query.first({
+        success: function (player) {
+            player.set("profilePic", picUrl);
+            player.save();
+            location.reload();
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+function uploadFile (playerName) {
+    var file;
+
+    // Set an event listener on the Choose File field.
+    $('#fileselect').bind("change", function (e) {
+        var files = e.target.files || e.dataTransfer.files;
+        // Our file var now holds the selected file
+        file = files[0];
+    });
+
+    // This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
+    $('#uploadbutton').click(function () {
+        var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+
+        $.ajax({
+            type: "POST",
+            beforeSend: function (request) {
+                request.setRequestHeader("X-Parse-Application-Id", '9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz');
+                request.setRequestHeader("X-Parse-REST-API-Key", 'Fw3q2oYcK0e8ZdEbEG7dZmEeCEjrQ8smGQCxmqRn');
+                request.setRequestHeader("Content-Type", file.type);
+            },
+            url: serverUrl,
+            data: file,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data.url);
+                console.log(playerName);
+                updatePicture(playerName, data.url)
+            },
+            error: function (data) {
+                var obj = jQuery.parseJSON(data);
+                alert(obj.error);
+            }
+        });
+    });
+}
+
 function showPlayers() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
@@ -90,7 +147,9 @@ function showPlayers() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="img/avatar.jpg"></td>' + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
+                var imageSrc = "img/avatar.jpg";
+                $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img></td>'
+                    + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
 
 
 
@@ -108,13 +167,13 @@ function showPlayers() {
                         saveChangedPlayerName($('.input-player-name').attr("placeholder"), $('.input-player-name').val());
                     });
 
-                    $('.button-delete-player').on('click', function (){
+                    $('.button-delete-player').on('click', function () {
                         deletePlayer($('.input-player-name').attr("placeholder"))
-                    })
-
-
+                    });
+                    uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
 
                 }));
+                console.log($(this).closest('img').attr('src', "img/avatar.jpg"));
 
             }
         },
