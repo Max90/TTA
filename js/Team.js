@@ -159,6 +159,10 @@ function getImageSrc(object, playerName) {
 
 
                 $('.modal-change-player').foundation('reveal', 'open');
+
+
+                $('.modal-change-player').find(".img-player").attr("src", imgSrc);
+
                 $('.modal-change-player').find(".input-player-name").attr("placeholder", $(this).closest('tr').find('.player-name').text());
                 $('#input-player-name-small').on("change", function () {
                     $('#input-player-name-big').val($('#input-player-name-small').val());
@@ -178,7 +182,8 @@ function getImageSrc(object, playerName) {
                 uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
 
             }));
-            console.log(player.get("profilePic"));
+
+
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);

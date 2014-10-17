@@ -216,11 +216,9 @@ function playerIsInTraining(playerName, dateTraining) {
     trainingQuery.equalTo("dateTraining", dateTraining);
     trainingQuery.first({
         success: function (object) {
-            if (object != undefined) {
-                $("#player-modal-table").append($('<tr class="anwesend">').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
-                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-                }));
-            }
+
+            showPlayersInTraining(object, playerName, dateTraining);
+
 
         },
         error: function (players, error) {
@@ -229,6 +227,35 @@ function playerIsInTraining(playerName, dateTraining) {
             alert('Failed to create new object, with error code: ' + error.message);
         }
     });
+}
+
+function showPlayersInTraining(object, playerName, dateTraining) {
+
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+
+    query.first({
+        success: function (player) {
+            var imgSrc = player.get("profilePic");
+            if (imgSrc == undefined) {
+                imgSrc = "img/avatar.jpg";
+            }
+
+            if (object != undefined) {
+                $("#player-modal-table").append($('<tr class="anwesend">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
+                }));
+            }
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+
+
 }
 
 
@@ -241,11 +268,9 @@ function playerIsNotInTraining(playerName, dateTraining) {
     trainingQuery.equalTo("dateTraining", dateTraining);
     trainingQuery.first({
         success: function (object) {
-            if (object == undefined) {
-                $("#player-modal-table").append($('<tr>').append($('<td><img src="img/avatar.jpg"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
-                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-                }));
-            }
+            showPlayersNotInTraining(object, playerName, dateTraining);
+
+
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
@@ -253,6 +278,36 @@ function playerIsNotInTraining(playerName, dateTraining) {
             alert('Failed to create new object, with error code: ' + error.message);
         }
     });
+}
+
+
+function showPlayersNotInTraining(object, playerName, dateTraining) {
+
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+
+    query.first({
+        success: function (player) {
+            var imgSrc = player.get("profilePic");
+            if (imgSrc == undefined) {
+                imgSrc = "img/avatar.jpg";
+            }
+
+            if (object == undefined) {
+                $("#player-modal-table").append($('<tr>').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
+                }));
+            }
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+
+
 }
 
 
