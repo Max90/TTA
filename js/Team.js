@@ -138,6 +138,57 @@ function uploadFile (playerName) {
     });
 }
 
+
+function getImageSrc(object, playerName) {
+
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+    var test = "";
+
+    query.first({
+        success: function (player) {
+            var imgSrc = player.get("profilePic");
+            if (imgSrc == undefined) {
+                imgSrc = "img/avatar.jpg";
+            }
+
+            $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="' + imgSrc + '"></td>'
+                + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
+
+
+                $('.modal-change-player').foundation('reveal', 'open');
+                $('.modal-change-player').find(".input-player-name").attr("placeholder", $(this).closest('tr').find('.player-name').text());
+                $('#input-player-name-small').on("change", function () {
+                    $('#input-player-name-big').val($('#input-player-name-small').val());
+                });
+
+                $('#input-player-name-big').on("change", function () {
+                    $('#input-player-name-small').val($('#input-player-name-big').val());
+                });
+
+                $('.modal-change-player').find(".button-save-changes").on("click", function () {
+                    saveChangedPlayerName($('.input-player-name').attr("placeholder"), $('.input-player-name').val());
+                });
+
+                $('.button-delete-player').on('click', function () {
+                    deletePlayer($('.input-player-name').attr("placeholder"))
+                });
+                uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
+
+            }));
+            console.log(player.get("profilePic"));
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+
+
+}
+
+
 function showPlayers() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
@@ -147,32 +198,11 @@ function showPlayers() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                var imageSrc = "img/avatar.jpg";
-                $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="' + imageSrc+'"></td>'
-                    + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
+
+                getImageSrc(object, object.get('playerName'));
 
 
 
-                    $('.modal-change-player').foundation('reveal', 'open');
-                    $('.modal-change-player').find(".input-player-name").attr("placeholder", $(this).closest('tr').find('.player-name').text());
-                    $('#input-player-name-small').on("change", function () {
-                        $('#input-player-name-big').val($('#input-player-name-small').val());
-                    });
-
-                    $('#input-player-name-big').on("change", function () {
-                        $('#input-player-name-small').val($('#input-player-name-big').val());
-                    });
-
-                    $('.modal-change-player').find(".button-save-changes").on("click", function () {
-                        saveChangedPlayerName($('.input-player-name').attr("placeholder"), $('.input-player-name').val());
-                    });
-
-                    $('.button-delete-player').on('click', function () {
-                        deletePlayer($('.input-player-name').attr("placeholder"))
-                    });
-//                    uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
-
-                }));
 
             }
         },
