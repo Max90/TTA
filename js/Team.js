@@ -148,7 +148,7 @@ function showPlayers() {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 var imageSrc = "img/avatar.jpg";
-                $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img></td>'
+                $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="' + imageSrc+'"></td>'
                     + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
 
 
@@ -170,10 +170,9 @@ function showPlayers() {
                     $('.button-delete-player').on('click', function () {
                         deletePlayer($('.input-player-name').attr("placeholder"))
                     });
-                    uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
+//                    uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
 
                 }));
-                console.log($(this).find('img').attr('src' ));
 
             }
         },
