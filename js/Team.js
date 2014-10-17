@@ -10,29 +10,6 @@ $(document).ready(function () {
     });
 
     showPlayers();
-
-    $.contextMenu({
-        selector: '.player-context-menu',
-        trigger: 'left',
-
-        items: {
-            "viewDetails": {name: "Details ansehen"},
-            "delete": {name: "Spieler löschen",
-                callback: function (key, options) {
-                    deletePlayer(this.children('.player-name').html());
-                }},
-            "addImage": {name: "Bild hinzufügen", icon: "cut"}
-//            "copy": {name: "Copy", icon: "copy"},
-//            "paste": {name: "Paste", icon: "paste"},
-//            "delete": {name: "Delete", icon: "delete"},
-//            "sep1": "---------",
-//            "quit": {name: "Quit", icon: "quit"}
-        }
-    });
-
-    $('.player-context-menu').on('click', function (e) {
-//        console.log('clicked', this);
-    });
 });
 
 function addNewPlayer(string) {
