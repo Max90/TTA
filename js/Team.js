@@ -173,7 +173,7 @@ function showPlayers() {
                     uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
 
                 }));
-                console.log($(this).closest('img').attr('src', "img/avatar.jpg"));
+                console.log($(this).find('img').attr('src' ));
 
             }
         },
