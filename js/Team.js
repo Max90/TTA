@@ -91,10 +91,8 @@ function showPlayers() {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="img/avatar.jpg"></td>' + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
-                    //@todo: was kann man durch klicken auf player machen? bild hinzufügen; spieler löschen; trainingsbeteiligung speziell von diesem Spieler betrachten
 
 
-                    console.log($(this).closest('tr').find('.player-name').text());
 
                     $('.modal-change-player').foundation('reveal', 'open');
                     $('.modal-change-player').find(".input-player-name").attr("placeholder", $(this).closest('tr').find('.player-name').text());
@@ -107,9 +105,7 @@ function showPlayers() {
                     });
 
                     $('.modal-change-player').find(".button-save-changes").on("click", function () {
-
-                        console.log($('.input-player-name') + $('.input-player-name').attr("placeholder"));
-                        console.log($('.input-player-name').val());
+                        saveChangedPlayerName($('.input-player-name').attr("placeholder"), $('.input-player-name').val());
                     });
 
 
@@ -117,6 +113,27 @@ function showPlayers() {
                 }));
 
             }
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+
+}
+
+
+function saveChangedPlayerName(playerName, newPlayerName) {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+    query.first({
+        success: function (player) {
+
+            player.set("playerName", newPlayerName);
+            player.save();
+            location.reload();
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
