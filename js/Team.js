@@ -98,8 +98,18 @@ function showPlayers() {
 
                     $('.modal-change-player').foundation('reveal', 'open');
                     $('.modal-change-player').find(".input-player-name").attr("placeholder", $(this).closest('tr').find('.player-name').text());
+                    $('#input-player-name-small').on("change", function () {
+                        $('#input-player-name-big').val($('#input-player-name-small').val());
+                    });
+
+                    $('#input-player-name-big').on("change", function () {
+                        $('#input-player-name-small').val($('#input-player-name-big').val());
+                    });
+
                     $('.modal-change-player').find(".button-save-changes").on("click", function () {
-                        console.log("Spielername " + "wurde geändert zu: " + $('.input-player-name').attr("placeholder").text());
+
+                        console.log($('.input-player-name') + $('.input-player-name').attr("placeholder"));
+                        console.log($('.input-player-name').val());
                     });
 
 
