@@ -35,3 +35,7 @@
 #google-visualization-errors-0 {
     display: none;
 }
+
+.player-context-menu img {
+    max-height: 10em;
+}

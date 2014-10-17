@@ -81,14 +81,16 @@
         </div>
         <div class="row">
             <div class="large-12 columns">
-                <button id="button-delete-player" class=" button-delete-player large-3 columns large-offset-5">Spieler löschen</button>
+                <button id="button-delete-player" class=" button-delete-player large-3 columns large-offset-5">Spieler
+                    löschen
+                </button>
                 <button class="button-save-changes large-3 columns">Änderungen speichern</button>
             </div>
         </div>
         <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
             <fieldset>
-                <input type="file" name="fileselect" id="fileselect">
-                <input id="uploadbutton" type="button" value="Upload to Parse"/>
+                <input type="file" name="fileselect" id="fileselect" class="fileselect">
+                <input type="button" id="uploadbutton" class="button uploadbutton" value="Upload to Parse"/>
             </fieldset>
         </form>
         <a class="close-reveal-modal">&#215;</a>
@@ -108,12 +110,21 @@
                        placeholder="Vorname Nachname"/>
             </div>
             <div class="row">
-                <button id="button-delete-player-small" class="button-delete-player small-12 medium-12 columns">Spieler löschen
+                <button id="button-delete-player-small" class="button-delete-player small-12 medium-12 columns">Spieler
+                    löschen
                 </button>
             </div>
             <div class="row">
                 <button class="button-save-changes small-12 medium-12 columns">Änderungen speichern
                 </button>
+            </div>
+            <div class="row">
+                <form id="fileupload-small" class="small-12 medium-12 columns" name="fileupload" enctype="multipart/form-data" method="post">
+                    <fieldset>
+                        <input type="file" name="fileselect" id="fileselect-small" class="fileselect">
+                        <input id="uploadbutton-small" type="button" class="button uploadbutton" value="Auf TopTeam hochladen"/>
+                    </fieldset>
+                </form>
             </div>
         </div>
         <a class="close-reveal-modal">&#215;</a>
