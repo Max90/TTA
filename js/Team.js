@@ -112,6 +112,10 @@ function showPlayers() {
                         console.log($('.input-player-name').val());
                     });
 
+                    $('.button-delete-player').on('click', function (){
+                        deletePlayer($('.input-player-name').attr("placeholder"))
+                    })
+
 
 
                 }));
