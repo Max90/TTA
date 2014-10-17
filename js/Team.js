@@ -108,6 +108,10 @@ function showPlayers() {
                         saveChangedPlayerName($('.input-player-name').attr("placeholder"), $('.input-player-name').val());
                     });
 
+                    $('.button-delete-player').on('click', function (){
+                        deletePlayer($('.input-player-name').attr("placeholder"))
+                    })
+
 
 
                 }));
