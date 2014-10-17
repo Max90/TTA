@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/foundation.min.css"/>
     <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-    <link rel="stylesheet" href="jquery-ui/jquery.contextMenu.css"/>
     <script src="foundation-js/modernizr.js"></script>
 </head>
 <body>
@@ -18,7 +17,6 @@
             <li class="name">
                 <h1><a href="index.html">Top Team</a></h1>
             </li>
-            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
 
@@ -41,10 +39,6 @@
 <div class="row">
     <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
 </div>
-<!--<div class="row">-->
-<!--<a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-training">Training hinzufügen</a>-->
-
-<!--</div>-->
 
 <!-- player-container -------------------------------------------------------------------------------------------------------->
 <div class="row">
@@ -75,9 +69,52 @@
     <a class="close-reveal-modal">&#215;</a>
 </div>
 
+<!--spieler bearbeiten modal------------------------------------------------------------------------------------------------>
+<div id="modal-change-player-large" class="reveal-modal modal-change-player show-for-large" data-reveal>
+    <h2>Spieler bearbeiten</h2>
+
+    <div class="row">
+        <div class="row">
+            <img id="image-player" src="img/avatar.jpg" class="large-4 columns">
+            <input id="input-player-name" class="large-3 columns large-offset-2" required="true"
+                   placeholder="Vorname Nachname"/>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <button id="button-delete-player" class="large-3 columns large-offset-5">Spieler löschen</button>
+                <button id="button-save-changes" class="large-3 columns">Änderungen speichern</button>
+            </div>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>
+
+<div id="modal-change-player-small" class="reveal-modal modal-change-player show-for-medium-down" data-reveal>
+    <h2>Spieler bearbeiten</h2>
+
+    <div class="row">
+        <div class="small-12 medium-12 columns">
+            <div class="row">
+                <img id="image-player-small" src="img/avatar.jpg" class="small-12 columns">
+            </div>
+            <div class="row">
+                <input id="input-player-name-small" class="small-12 medium-12 columns" required="true"
+                       placeholder="Vorname Nachname"/>
+            </div>
+            <div class="row">
+                <button id="button-delete-player-small" class="small-12 medium-12 columns">Spieler löschen
+                </button>
+            </div>
+            <div class="row">
+                <button id="button-save-changes-small" class="small-12 medium-12 columns">Änderungen speichern
+                </button>
+            </div>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>
 <script src="js/jquery-2.1.1.min.js"></script>
 <script src="foundation-js/foundation.min.js"></script>
-<script type="text/javascript" src="jquery-ui/jquery.ui.position.js"></script>
 <script>
     $(document).foundation();
 </script>
