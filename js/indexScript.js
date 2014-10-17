@@ -36,6 +36,10 @@ $(document).ready(function () {
         });
     });
 
+    $('#button-close-modal').on('click', function () {
+        $('#modal-existing-team').foundation('reveal', 'close');
+    })
+
 });
 
 function checkIfUserLoggedIn() {

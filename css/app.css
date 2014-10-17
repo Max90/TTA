@@ -22,3 +22,16 @@
 .top-bar {
     margin-bottom: 20px;
 }
+
+#input-player-name {
+    position: absolute;
+    top: 50%
+}
+
+#input-player-name-small {
+    margin: 1em 0;
+}
+
+#google-visualization-errors-0 {
+    display: none;
+}
