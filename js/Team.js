@@ -93,7 +93,11 @@ function showPlayers() {
                 $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="img/avatar.jpg"></td>' + '<td class="player-name">' + object.get('playerName') + '</td>')).on("click", function () {
                     //@todo: was kann man durch klicken auf player machen? bild hinzufügen; spieler löschen; trainingsbeteiligung speziell von diesem Spieler betrachten
 
+
+                    console.log($(this).closest('tr').find('.player-name').text());
                     $('.modal-change-player').foundation('reveal', 'open');
+
+
                 }));
 
             }
