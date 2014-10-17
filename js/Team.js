@@ -97,9 +97,10 @@ function showPlayers() {
                     console.log($(this).closest('tr').find('.player-name').text());
 
                     $('.modal-change-player').foundation('reveal', 'open');
-                    $('.modal-change-player')
                     $('.modal-change-player').find(".input-player-name").attr("placeholder", $(this).closest('tr').find('.player-name').text());
-
+                    $('.modal-change-player').find(".button-save-changes").on("click", function () {
+                        console.log("Spielername " + "wurde geändert zu: " + $('.input-player-name').attr("placeholder").text());
+                    });
 
 
 
