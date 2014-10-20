@@ -100,7 +100,7 @@ function updatePicture(playerName, picUrl) {
     });
 }
 
-function uploadFile (playerName) {
+function uploadFile(playerName) {
     var file;
 
     // Set an event listener on the Choose File field.
@@ -204,12 +204,7 @@ function showPlayers() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-
                 getImageSrc(object, object.get('playerName'));
-
-
-
-
             }
         },
         error: function (error) {

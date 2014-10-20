@@ -308,6 +308,58 @@ function showPlayersNotInTraining(object, playerName, dateTraining) {
     });
 
 
+    function showPlayerList() {
+        var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+        var team = Parse.Object.extend(teamName);
+        var query = new Parse.Query(team);
+        query.ascending("playerName");
+        query.find({
+            success: function (results) {
+                // Do something with the returned Parse.Object values
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    getImageSrc(object, object.get('playerName'));
+                }
+            },
+            error: function (error) {
+                alert("Error: " + error.code + " " + error.message);
+            }
+        });
+
+    }
+
+
+    function getImageSrc(object, playerName) {
+
+        var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+        var team = Parse.Object.extend(teamName);
+        var query = new Parse.Query(team);
+        query.equalTo("playerName", playerName);
+
+        query.first({
+            success: function (player) {
+                var imgSrc = player.get("profilePic");
+                if (imgSrc == undefined) {
+                    imgSrc = "img/avatar.jpg";
+                }
+
+                $("#player-training-table").append($("<tr class='player-context-menu'>").append($('<td><img src="' + imgSrc + '"></td>'
+                    + '<td class="name-player">' + object.get('playerName') + '</td>')).on("click", function () {
+
+
+                }));
+
+
+            },
+            error: function (error) {
+                alert("Error: " + error.code + " " + error.message);
+            }
+        });
+
+
+    }
+
+
 }
 
 
