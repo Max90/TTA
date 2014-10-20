@@ -10,11 +10,11 @@ function drawChart() {
     data = [];
     data.push(['Datum', 'Spieler']);
     var tdata = new google.visualization.DataTable();
-    tdata.addColumn('string', 'Datum');
+    tdata.addColumn('date', 'Datum');
     tdata.addColumn('number', 'Spieler');
+    tdata.addColumn({type: 'number', role: 'annotation'});
     var options = {
         title: 'Spieler im Training',
-        vAxis: {format: '0'}
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -28,7 +28,7 @@ function drawChart() {
                 // Do something with the returned Parse.Object values
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
-                    tdata.addRow([object.get('dateTraining'), parseInt(object.get('trPlayerCount'))]);
+                    tdata.addRow([new Date(object.get('dateTraining')), parseInt(object.get('trPlayerCount')), parseInt(object.get('trPlayerCount'))]);
 //                    tdata.addRow(["2014" , parseInt(object.get('trPlayerCount'))]);
                 }
                 data.sort(function (x, y) {
