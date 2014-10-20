@@ -39,3 +39,31 @@
 .player-context-menu img {
     max-height: 10em;
 }
+
+#image-player {
+    position: absolute;
+    max-height: 20em;
+    width: auto;
+}
+
+#player-changes-container {
+    margin-top: 12em;
+}
+
+#input-player-name-big {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#button-delete-player,
+#button-save-changes {
+    margin-bottom: 2em;
+}
+
+#button-delete-player-small {
+    margin-bottom: 0.5em;
+}
+
+#button-save-changes-small {
+    margin-bottom: 0.5em;
+}

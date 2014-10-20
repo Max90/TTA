@@ -75,22 +75,23 @@
 
     <div class="row">
         <div class="row">
-            <img id="image-player" class="img-player" src="img/avatar.jpg" class="large-4 columns">
+            <img id="image-player" class="img-player large-4 columns" src="img/avatar.jpg">
             <input id="input-player-name-big" class="input-player-name large-3 columns large-offset-2" required="true"
                    placeholder="Vorname Nachname"/>
         </div>
-        <div class="row">
+        <div class="row" id="player-changes-container">
             <div class="large-12 columns">
                 <button id="button-delete-player" class=" button-delete-player large-3 columns large-offset-5">Spieler
                     löschen
                 </button>
-                <button class="button-save-changes large-3 columns">Änderungen speichern</button>
+                <button class="button-save-changes large-3 columns" id="button-save-changes">Änderungen speichern
+                </button>
             </div>
         </div>
         <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
             <fieldset>
                 <input type="file" name="fileselect" id="fileselect" class="fileselect">
-                <input type="button" id="uploadbutton" class="button uploadbutton" value="Upload to Parse"/>
+                <input type="button" id="uploadbutton" class="button uploadbutton" value="Auf TopTeam hochladen"/>
             </fieldset>
         </form>
         <a class="close-reveal-modal">&#215;</a>
@@ -115,7 +116,8 @@
                 </button>
             </div>
             <div class="row">
-                <button class="button-save-changes small-12 medium-12 columns">Änderungen speichern
+                <button class="button-save-changes small-12 medium-12 columns" id="button-save-changes-small">Änderungen
+                    speichern
                 </button>
             </div>
             <div class="row">
