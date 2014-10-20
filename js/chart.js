@@ -14,7 +14,7 @@ function drawChart() {
     tdata.addColumn('number', 'Spieler');
     tdata.addColumn({type: 'number', role: 'annotation'});
     var options = {
-        title: 'Spieler im Training',
+        title: 'Spieler im Training'
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));

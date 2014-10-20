@@ -76,6 +76,7 @@ function updatePlayerCount(dateTraining) {
         success: function (count) {
             console.log(count);
             savePlayerCount(count, dateTraining);
+            getPlayerCount(dateTraining);
         },
         error: function (error) {
             // The request failed
@@ -135,16 +136,14 @@ function showPlayersForModal(dateTraining) {
     query.find({
         success: function (results) {
             $('#player-modal-table tr:not(:first)').remove();
-            // Do something with the returned Parse.Object values
+            getPlayerCount(dateTraining);
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 playerIsInTraining(object.get('playerName'), dateTraining);
-
-
             }
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-                playerIsNotInTraining(object.get('playerName'), dateTraining);
+            for (var j = 0; i < results.length; i++) {
+                var obj = results[j];
+                playerIsNotInTraining(obj.get('playerName'), dateTraining);
 
             }
         },
@@ -229,6 +228,20 @@ function playerIsInTraining(playerName, dateTraining) {
     });
 }
 
+function getPlayerCount(dateTraining) {
+    var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_training";
+    var training = Parse.Object.extend(teamTrainingName);
+    var query = new Parse.Query(training);
+    query.equalTo("dateTraining", dateTraining);
+    query.count({
+        success: function (count) {
+            $('#modal-add-player-to-tr').find('#player-count').text("Spieler: " + count);
+        },
+        error: function (error) {
+            // The request failed
+        }
+    });
+}
 function showPlayersInTraining(object, playerName, dateTraining) {
 
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
@@ -243,11 +256,15 @@ function showPlayersInTraining(object, playerName, dateTraining) {
             if (imgSrc == undefined) {
                 imgSrc = "img/avatar.jpg";
             }
-
             if (object != undefined) {
                 $("#player-modal-table").append($('<tr class="anwesend player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                 }));
+                var d = new Date(dateTraining);
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
+                $('#modal-add-player-to-tr').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
             }
         },
         error: function (error) {
