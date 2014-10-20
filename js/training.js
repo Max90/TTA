@@ -245,7 +245,7 @@ function showPlayersInTraining(object, playerName, dateTraining) {
             }
 
             if (object != undefined) {
-                $("#player-modal-table").append($('<tr class="anwesend">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                $("#player-modal-table").append($('<tr class="anwesend player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                 }));
             }
@@ -297,7 +297,7 @@ function showPlayersNotInTraining(object, playerName, dateTraining) {
             }
 
             if (object == undefined) {
-                $("#player-modal-table").append($('<tr>').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                $("#player-modal-table").append($('<tr class="player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                 }));
             }

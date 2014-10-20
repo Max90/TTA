@@ -198,6 +198,7 @@ function showPlayers() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
+    query.ascending("playerName");
     query.find({
         success: function (results) {
             // Do something with the returned Parse.Object values
