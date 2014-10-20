@@ -76,3 +76,8 @@
 #player-count {
     margin-left: 2em;
 }
+
+.player-tr-table img {
+    max-height: 4em;
+    width: auto;
+}

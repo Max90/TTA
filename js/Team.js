@@ -67,6 +67,7 @@ function savePlayer(playerName) {
     var Tabelle = Parse.Object.extend(teamName);
     var players = new Tabelle();
     players.set("playerName", playerName);
+    players.set("trCount", 0);
     players.save(null, {
         success: function (players) {
             $('#player-table tr:not(:first)').remove();

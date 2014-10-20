@@ -20,6 +20,7 @@ $(document).ready(function () {
     });
 
     showTrainingList();
+    showPlayerList();
 
 });
 
@@ -132,18 +133,20 @@ function showPlayersForModal(dateTraining) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
-    var attended = "";
     query.find({
         success: function (results) {
             $('#player-modal-table tr:not(:first)').remove();
             getPlayerCount(dateTraining);
+
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 playerIsInTraining(object.get('playerName'), dateTraining);
+
             }
-            for (var j = 0; i < results.length; i++) {
-                var obj = results[j];
-                playerIsNotInTraining(obj.get('playerName'), dateTraining);
+
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                playerIsNotInTraining(object.get('playerName'), dateTraining);
 
             }
         },
@@ -174,6 +177,7 @@ function addToParseTrainingTable(playerName, dateTraining) {
         success: function (players) {
             //muss hier gemacht werden, weil sonst wegen asynchroner anfrage zahl manchmal nicht stimmt
             updatePlayerCount(dateTraining);
+            updatePlayerTrCount(playerName, 1);
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
@@ -181,6 +185,35 @@ function addToParseTrainingTable(playerName, dateTraining) {
             alert('Failed to create new object, with error code: ' + error.message);
         }
     });
+}
+
+function updatePlayerTrCount(playerName, trNum) {
+
+    console.log("neihupfa");
+
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+    query.first({
+        success: function (player) {
+
+            var trCount = player.get("trCount");
+
+            trCount = trCount + trNum;
+
+            player.set("trCount", trCount);
+            player.save();
+        },
+        error: function (players, error) {
+            // Execute any logic that should take place if the save fails.
+            // error is a Parse.Error with an error code and message.
+            alert('Failed to create new object, with error code: ' + error.message);
+        }
+    });
+
+
 }
 
 function removeFromParseTrainingTable(playerName, dateTraining) {
@@ -196,6 +229,8 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
         success: function (object) {
             //muss hier gemacht werden, weil sonst wegen asynchroner anfrage zahl manchmal nicht stimmt
             updatePlayerCount(dateTraining);
+            updatePlayerTrCount(playerName, -1);
+
             object[0].destroy({});
         },
         error: function (players, error) {
@@ -207,8 +242,9 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
 }
 
 function playerIsInTraining(playerName, dateTraining) {
-    var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
 
+
+    var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
     var Tabelle = Parse.Object.extend(teamNameTraining);
     var trainingQuery = new Parse.Query(Tabelle);
     trainingQuery.equalTo("playerName", playerName);
@@ -229,6 +265,7 @@ function playerIsInTraining(playerName, dateTraining) {
 }
 
 function getPlayerCount(dateTraining) {
+
     var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_training";
     var training = Parse.Object.extend(teamTrainingName);
     var query = new Parse.Query(training);
@@ -323,61 +360,97 @@ function showPlayersNotInTraining(object, playerName, dateTraining) {
             alert("Error: " + error.code + " " + error.message);
         }
     });
+}
 
 
-    function showPlayerList() {
-        var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
-        var team = Parse.Object.extend(teamName);
-        var query = new Parse.Query(team);
-        query.ascending("playerName");
-        query.find({
-            success: function (results) {
-                // Do something with the returned Parse.Object values
-                for (var i = 0; i < results.length; i++) {
-                    var object = results[i];
-                    getImageSrc(object, object.get('playerName'));
-                }
-            },
-            error: function (error) {
-                alert("Error: " + error.code + " " + error.message);
-            }
-        });
-
-    }
-
-
-    function getImageSrc(object, playerName) {
-
-        var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
-        var team = Parse.Object.extend(teamName);
-        var query = new Parse.Query(team);
-        query.equalTo("playerName", playerName);
-
-        query.first({
-            success: function (player) {
-                var imgSrc = player.get("profilePic");
+function showPlayerList() {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.descending("trCount");
+    query.find({
+        success: function (results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                var imgSrc = object.get("profilePic");
                 if (imgSrc == undefined) {
                     imgSrc = "img/avatar.jpg";
                 }
 
-                $("#player-training-table").append($("<tr class='player-context-menu'>").append($('<td><img src="' + imgSrc + '"></td>'
-                    + '<td class="name-player">' + object.get('playerName') + '</td>')).on("click", function () {
+                $("#player-training-table").append($("<tr class='player-tr-table'>").append($('<td><img src="' + imgSrc + '"></td>'
+                    + '<td class="name-player">' + object.get('playerName') + '</td>' + '<td>' + object.get('trCount') + '</td>')).on("click", function () {
 
 
                 }));
-
-
-            },
-            error: function (error) {
-                alert("Error: " + error.code + " " + error.message);
+                // getImageSrc(object, object.get('playerName'));
             }
-        });
-
-
-    }
-
-
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
 }
+
+
+function getImageSrc(object, playerName) {
+
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
+    query.equalTo("playerName", playerName);
+
+
+    query.first({
+        success: function (player) {
+            var imgSrc = player.get("profilePic");
+            if (imgSrc == undefined) {
+                imgSrc = "img/avatar.jpg";
+            }
+
+            $("#player-training-table").append($("<tr class='player-tr-table'>").append($('<td><img src="' + imgSrc + '"></td>'
+                + '<td class="name-player">' + player.get('playerName') + '</td>' + '<td>' + player.get('trCount') + '</td>')).on("click", function () {
+
+
+            }));
+
+            //trCount(player, imgSrc);
+
+
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+
+function trCount(player, imgSrc) {
+    var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_training";
+    var training = Parse.Object.extend(teamTrainingName);
+    var query = new Parse.Query(training);
+    query.equalTo("playerName", playerName);
+    query.ascending("trCount");
+
+    query.count({
+        success: function (count) {
+
+
+            $("#player-training-table").append($("<tr class='player-tr-table'>").append($('<td><img src="' + imgSrc + '"></td>'
+                + '<td class="name-player">' + player.get('playerName') + '</td>' + '<td>' + player.get('trCount') + '</td>')).on("click", function () {
+
+
+            }));
+
+        },
+        error: function (error) {
+            // The request failed
+        }
+    });
+}
+
+
+
 
 
 
