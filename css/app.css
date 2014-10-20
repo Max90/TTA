@@ -67,3 +67,12 @@
 #button-save-changes-small {
     margin-bottom: 0.5em;
 }
+
+#header-date,
+#player-count {
+    float: left;
+}
+
+#player-count {
+    margin-left: 2em;
+}
