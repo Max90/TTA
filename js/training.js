@@ -54,8 +54,13 @@ function showTrainingList() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
+                var d = new Date(object.get('dateTraining'));
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
+                var formatedTrDate = curr_date + "." + curr_month + "." + curr_year;
 
-                $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-player-to-tr'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
+                $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-player-to-tr'>").append($('<td>' + formatedTrDate + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
                     + '<td>' + object.get('trPlayerCount') + '</td>')).on("click", function () {
                     showPlayersForModal($(this).closest('tr').children('td:first').text());
                 }));
@@ -133,6 +138,7 @@ function showPlayersForModal(dateTraining) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
+    query.ascending("playerName");
     query.find({
         success: function (results) {
             $('#player-modal-table tr:not(:first)').remove();
@@ -141,13 +147,11 @@ function showPlayersForModal(dateTraining) {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 playerIsInTraining(object.get('playerName'), dateTraining);
-
             }
 
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 playerIsNotInTraining(object.get('playerName'), dateTraining);
-
             }
         },
         error: function (error) {
@@ -188,21 +192,15 @@ function addToParseTrainingTable(playerName, dateTraining) {
 }
 
 function updatePlayerTrCount(playerName, trNum) {
-
-    console.log("neihupfa");
-
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
     query.equalTo("playerName", playerName);
-
     query.first({
         success: function (player) {
 
             var trCount = player.get("trCount");
-
             trCount = trCount + trNum;
-
             player.set("trCount", trCount);
             player.save();
         },
@@ -223,8 +221,6 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
     var trainingQuery = new Parse.Query(Tabelle);
     trainingQuery.equalTo("playerName", playerName);
     trainingQuery.equalTo("dateTraining", dateTraining);
-
-
     trainingQuery.find({
         success: function (object) {
             //muss hier gemacht werden, weil sonst wegen asynchroner anfrage zahl manchmal nicht stimmt
@@ -242,19 +238,15 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
 }
 
 function playerIsInTraining(playerName, dateTraining) {
-
-
     var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
     var Tabelle = Parse.Object.extend(teamNameTraining);
     var trainingQuery = new Parse.Query(Tabelle);
     trainingQuery.equalTo("playerName", playerName);
     trainingQuery.equalTo("dateTraining", dateTraining);
+    trainingQuery.ascending("playerName");
     trainingQuery.first({
         success: function (object) {
-
             showPlayersInTraining(object, playerName, dateTraining);
-
-
         },
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
@@ -284,6 +276,7 @@ function showPlayersInTraining(object, playerName, dateTraining) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
+    query.ascending("playerName");
     query.equalTo("playerName", playerName);
 
 
@@ -294,14 +287,15 @@ function showPlayersInTraining(object, playerName, dateTraining) {
                 imgSrc = "img/avatar.jpg";
             }
             if (object != undefined) {
-                $("#player-modal-table").append($('<tr class="anwesend player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
-                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
-                }));
                 var d = new Date(dateTraining);
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth() + 1; //Months are zero based
                 var curr_year = d.getFullYear();
                 $('#modal-add-player-to-tr').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
+                $("#player-modal-table").append($('<tr class="anwesend player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>' + playerName + '</td>')).on("click", function () {
+                    addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
+                }));
+
             }
         },
         error: function (error) {
@@ -320,6 +314,7 @@ function playerIsNotInTraining(playerName, dateTraining) {
     var trainingQuery = new Parse.Query(Tabelle);
     trainingQuery.equalTo("playerName", playerName);
     trainingQuery.equalTo("dateTraining", dateTraining);
+    trainingQuery.ascending("playerName");
     trainingQuery.first({
         success: function (object) {
             showPlayersNotInTraining(object, playerName, dateTraining);
@@ -342,7 +337,7 @@ function showPlayersNotInTraining(object, playerName, dateTraining) {
     var query = new Parse.Query(team);
     query.equalTo("playerName", playerName);
 
-
+    query.ascending("playerName");
     query.first({
         success: function (player) {
             var imgSrc = player.get("profilePic");
