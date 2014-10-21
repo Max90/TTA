@@ -37,52 +37,127 @@
             </ul>
         </section>
     </nav>
+
+    <div class="off-canvas-wrap" data-offcanvas>
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">TopTeam</h1>
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><label>Trainerbereich</label></li>
+                    <li><a class="button" href="team.html">Spielerkader</a></li>
+                </ul>
+            </aside>
+
+            <section class="main-section">
+
+                <div class="row">
+                    <a class="button large-12 columns medium-12 small-12" href="#" data-reveal-id="modal-add-training">Training
+                        hinzufügen</a>
+
+                </div>
+
+                <!-- player-container -------------------------------------------------------------------------------------------------------->
+                <div class="row">
+                    <div class="large-12 columns" id="player-container">
+                        <table id="training-table">
+                            <thead>
+                            <tr>
+                                <th id="training-date">Datum</th>
+                                <th id="training-time">Uhrzeit</th>
+                                <th id="training-player-number">Anzahl der Spieler</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns" id="chart_div"></div>
+                </div>
+
+
+                <!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
+                <div class="row">
+                    <div class="large-12 columns" id="training-container">
+                        <table id="player-training-table">
+                            <thead>
+                            <tr>
+                                <th id="pic-player">Bild</th>
+                                <th id="name-player">Name</th>
+                                <th id="training-sum">Gesamt TR</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
 </div>
 <!--End of navbar-------------------------------------------------------------------------------------------------------->
 
+<div class="show-for-large-up">
+    <div class="row">
+        <a class="button large-12 columns medium-12 small-12" href="#" data-reveal-id="modal-add-training">Training
+            hinzufügen</a>
 
-<div class="row">
-    <a class="button large-12 columns medium-12 small-12" href="#" data-reveal-id="modal-add-training">Training
-        hinzufügen</a>
-
-</div>
-
-<!-- player-container -------------------------------------------------------------------------------------------------------->
-<div class="row">
-    <div class="large-12 columns" id="player-container">
-        <table id="training-table">
-            <thead>
-            <tr>
-                <th id="training-date">Datum</th>
-                <th id="training-time">Uhrzeit</th>
-                <th id="training-player-number">Anzahl der Spieler</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
-</div>
 
-<div class="row">
-    <div class="large-12 columns" id="chart_div"></div>
-</div>
+    <!-- player-container -------------------------------------------------------------------------------------------------------->
+    <div class="row">
+        <div class="large-12 columns" id="player-container">
+            <table id="training-table">
+                <thead>
+                <tr>
+                    <th id="training-date">Datum</th>
+                    <th id="training-time">Uhrzeit</th>
+                    <th id="training-player-number">Anzahl der Spieler</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns" id="chart_div"></div>
+    </div>
 
 
-<!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
-<div class="row">
-    <div class="large-12 columns" id="training-container">
-        <table id="player-training-table">
-            <thead>
-            <tr>
-                <th id="pic-player">Bild</th>
-                <th id="name-player">Name</th>
-                <th id="training-sum">Gesamt TR</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
+    <div class="row">
+        <div class="large-12 columns" id="training-container">
+            <table id="player-training-table">
+                <thead>
+                <tr>
+                    <th id="pic-player">Bild</th>
+                    <th id="name-player">Name</th>
+                    <th id="training-sum">Gesamt TR</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -115,7 +190,7 @@
     <!-- player-container -------------------------------------------------------------------------------------------------------->
     <div class="row">
         <div class="large-12 columns" id="player-modal-container">
-        <table id="player-modal-table">
+            <table id="player-modal-table">
                 <thead>
                 <tr>
                     <th id="player-icon">Spieler Avatar</th>

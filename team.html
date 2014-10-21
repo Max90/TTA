@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="fixed">
-    <nav class="top-bar" data-topbar role="navigation">
+    <nav class="top-bar show-for-large-up" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
                 <h1><a href="index.html">Top Team</a></h1>
@@ -33,26 +33,80 @@
             </ul>
         </section>
     </nav>
+
+    <!--offcanvas------------------------------------------------------------------------------------------------------------->
+
+    <div class="off-canvas-wrap show-for-medium-down" data-offcanvas>
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">TopTeam</h1>
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><label>Trainerbereich</label></li>
+                    <li><a href="training.html">Training</a></li>
+                </ul>
+            </aside>
+
+            <section class="main-section">
+                <div class="row">
+                    <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler
+                        hinzufügen</a>
+                </div>
+
+                <!-- player-container -------------------------------------------------------------------------------------------------------->
+                <div class="row">
+                    <div class="large-12 columns" id="player-container">
+                        <table id="player-table">
+                            <thead>
+                            <tr>
+                                <th width="200" id="player-icon">Spieler Avatar</th>
+                                <th width="150" id="player-name">Spieler Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
 </div>
 <!--End of navbar-------------------------------------------------------------------------------------------------------->
 
-<div class="row">
-    <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
-</div>
 
-<!-- player-container -------------------------------------------------------------------------------------------------------->
-<div class="row">
-    <div class="large-12 columns" id="player-container">
-        <table id="player-table">
-            <thead>
-            <tr>
-                <th width="200" id="player-icon">Spieler Avatar</th>
-                <th width="150" id="player-name">Spieler Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+<!--container for large-------------------------------------------------------------------------------------------------->
+<div class="show-for-large-up">
+    <div class="row">
+        <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
+    </div>
+
+    <!-- player-container -------------------------------------------------------------------------------------------------------->
+    <div class="row">
+        <div class="large-12 columns" id="player-container">
+            <table id="player-table">
+                <thead>
+                <tr>
+                    <th width="200" id="player-icon">Spieler Avatar</th>
+                    <th width="150" id="player-name">Spieler Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -121,10 +175,12 @@
                 </button>
             </div>
             <div class="row">
-                <form id="fileupload-small" class="small-12 medium-12 columns" name="fileupload" enctype="multipart/form-data" method="post">
+                <form id="fileupload-small" class="small-12 medium-12 columns" name="fileupload"
+                      enctype="multipart/form-data" method="post">
                     <fieldset>
                         <input type="file" name="fileselect" id="fileselect-small" class="fileselect">
-                        <input id="uploadbutton-small" type="button" class="button uploadbutton" value="Auf TopTeam hochladen"/>
+                        <input id="uploadbutton-small" type="button" class="button uploadbutton"
+                               value="Auf TopTeam hochladen"/>
                     </fieldset>
                 </form>
             </div>

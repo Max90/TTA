@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="fixed">
-    <nav class="top-bar" data-topbar role="navigation">
+    <nav class="top-bar show-for-large-up" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
                 <h1><a href="index.html">Top Team</a></h1>
@@ -33,10 +33,47 @@
             </ul>
         </section>
     </nav>
+
+    <!--offcanvas-------------------------------------------------------------------------------------------------------->
+    <div class="off-canvas-wrap show-for-medium-down" data-offcanvas>
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">TopTeam</h1>
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><a href="index.html" id="button-logout" class="button">Logout</a></li>
+                    <li><label>Spieler</label></li>
+                    <li><a href="">Training</a></li>
+                    <li><a href="">Beiner</a></li>
+                </ul>
+            </aside>
+
+            <section class="main-section">
+                <div style="background: pink; height: 300px">Player dummy container<br>
+                    Spieler sollen nichts eingeben können! Sehen können wer wie oft im Training war und auch an welchem Tag welcher
+                    SPieler im Training war in der Detailansicht.
+                    AUßerdem wie viele Beiner wer hat und wie viele Beiner wer noch bezahlen muss.
+
+                </div>
+            </section>
+
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
 </div>
 <!--End of navbar-------------------------------------------------------------------------------------------------------->
 
-<div style="background: pink; height: 300px">Player dummy container<br>
+<div class="show-for-large-up" style="background: pink; height: 300px">Player dummy container<br>
     Spieler sollen nichts eingeben können! Sehen können wer wie oft im Training war und auch an welchem Tag welcher
     SPieler im Training war in der Detailansicht.
     AUßerdem wie viele Beiner wer hat und wie viele Beiner wer noch bezahlen muss.

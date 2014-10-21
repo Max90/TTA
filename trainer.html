@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="fixed">
-    <nav class="top-bar" data-topbar role="navigation">
+    <nav class="top-bar show-for-large-up" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
                 <h1><a href="index.html">Top Team</a></h1>
@@ -33,13 +33,53 @@
             </ul>
         </section>
     </nav>
+
+
+    <!--offcanvas------------------------------------------------------------------------------------------------------->
+
+    <div class="off-canvas-wrap show-for-medium-down" data-offcanvas>
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">TopTeam</h1>
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><label>Trainerbereich</label></li>
+                    <li><a href="training.html">Training</a></li>
+                    <li><a href="team.html">Spielerkader</a></li>
+                </ul>
+            </aside>
+
+            <section class="main-section">
+                <div style="background: pink; height: 300px">Trainer dummy container<br>
+                    Hier könnte man den Spielerkader als Modal aufmachen und dann für das nächste Spiel die Spieler
+                    auswählen, welche
+                    aufgestellt werden...
+                    -----
+                </div>
+            </section>
+
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
 </div>
 <!--End of navbar-------------------------------------------------------------------------------------------------------->
-
-<div style="background: pink; height: 300px">Trainer dummy container<br>
-    Hier könnte man den Spielerkader als Modal aufmachen und dann für das nächste Spiel die Spieler auswählen, welche
-    aufgestellt werden...
-    -----
+<div class="show-for-large-up">
+    <div style="background: pink; height: 300px">Trainer dummy container<br>
+        Hier könnte man den Spielerkader als Modal aufmachen und dann für das nächste Spiel die Spieler auswählen,
+        welche
+        aufgestellt werden...
+        -----
+    </div>
 </div>
 
 <script src="js/jquery-2.1.1.min.js"></script>
