@@ -74,9 +74,7 @@ function savePlayer(playerName) {
             showPlayers();
         },
         error: function (players, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
+            console.log('Failed to create new object, with error code: ' + error.message);
         }
     });
 
@@ -146,7 +144,6 @@ function getImageSrc(object, playerName) {
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
     query.equalTo("playerName", playerName);
-    var test = "";
 
     query.first({
         success: function (player) {

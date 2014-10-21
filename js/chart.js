@@ -1,6 +1,3 @@
-/**
- * Created by max on 01.10.14.
- */
 google.load("visualization", "1", {packages: ["corechart"]});
 Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 
@@ -39,7 +36,7 @@ function drawChart() {
                 chart.draw(tdata, options);
             },
             error: function (error) {
-                alert("Error: " + error.code + " " + error.message);
+                console.log("Error: " + error.code + " " + error.message);
             }
         });
     }
