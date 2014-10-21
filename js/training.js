@@ -246,6 +246,9 @@ function getPlayerCount(dateTraining) {
     query.equalTo("dateTraining", dateTraining);
     query.count({
         success: function (count) {
+            $('#modal-add-player-to-tr').find("#delete-tr").on("click", function () {
+                deleteThisTr(dateTraining);
+            });
             $('#modal-add-player-to-tr').find('#player-count').text("Spieler: " + count);
         },
         error: function (error) {
@@ -253,6 +256,60 @@ function getPlayerCount(dateTraining) {
         }
     });
 }
+
+
+function deleteThisTr(dateTraining) {
+
+    // alle dateTraining rows aus _training löschen
+    // trCount _players Tabelle bei allen Spielern aktuallisieren, die in diesem Training waren
+    deleteThisTrEverywhere(dateTraining);
+
+    // training aus _trDates löschen
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
+    var trDates = Parse.Object.extend(teamName);
+    var query = new Parse.Query(trDates);
+    query.equalTo("dateTraining", dateTraining);
+    query.first({
+        success: function (tr) {
+            tr.destroy({});
+            $('#modal-add-player-to-tr').foundation('reveal', 'close');
+            location.reload();
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+
+
+}
+
+
+function deleteThisTrEverywhere(dateTraining) {
+    var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_training";
+    var Tabelle = Parse.Object.extend(teamNameTraining);
+    var trainingQuery = new Parse.Query(Tabelle);
+    trainingQuery.equalTo("dateTraining", dateTraining);
+    trainingQuery.find({
+        success: function (results) {
+            for (var i = 0; i < results.length; i++) {
+                var tr = results[i];
+                var playerName = tr.get("playerName");
+                updatePlayerTrCount(playerName, -1);
+                tr.destroy({});
+
+            }
+
+
+        },
+        error: function (players, error) {
+            console.log('Failed to create new object, with error code: ' + error.message);
+        }
+    });
+
+
+}
+
+
 function showPlayerTrainingModal(object, playerName, dateTraining) {
 
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
@@ -282,6 +339,8 @@ function showPlayerTrainingModal(object, playerName, dateTraining) {
             var curr_month = d.getMonth() + 1; //Months are zero based
             var curr_year = d.getFullYear();
             $('#modal-add-player-to-tr').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
+
+
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
@@ -311,9 +370,13 @@ function showPlayerTrDates(playerName) {
         success: function (results) {
             for (var i = 0; i < results.length; i++) {
                 var tr = results[i];
+                var d = new Date(tr.get("dateTraining"));
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
 
 
-                $("#player-tr-detail-table").append($('<tr>').append($('<td>').text(tr.get("dateTraining"))));
+                $("#player-tr-detail-table").append($('<tr>').append($('<td>').text(curr_date + "." + curr_month + "." + curr_year)));
             }
 
         },

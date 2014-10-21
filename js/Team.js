@@ -52,7 +52,7 @@ function deletePlayer(playerName) {
 
     query.find({
         success: function (myObj) {
-            console.log(myObj[0]);
+
             myObj[0].destroy({});
             location.reload();
         },
@@ -125,8 +125,6 @@ function uploadFile(playerName) {
             processData: false,
             contentType: false,
             success: function (data) {
-                console.log(data.url);
-                console.log(playerName);
                 updatePicture(playerName, data.url)
             },
             error: function (data) {
