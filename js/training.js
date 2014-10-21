@@ -182,6 +182,7 @@ function addToParseTrainingTable(playerName, dateTraining) {
 }
 
 function updatePlayerTrCount(playerName, trNum) {
+
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
@@ -295,6 +296,7 @@ function deleteThisTrEverywhere(dateTraining) {
                 var tr = results[i];
                 var playerName = tr.get("playerName");
                 updatePlayerTrCount(playerName, -1);
+
                 tr.destroy({});
 
             }
