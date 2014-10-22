@@ -36,12 +36,23 @@
         </div>
         <div class="row">
             <div class="large-12 columns content-wrapper">
-                <div style="background: pink; height: 300px">Trainer dummy container<br>
-                    Hier könnte man den Spielerkader als Modal aufmachen und dann für das nächste Spiel die Spieler auswählen,
-                    welche
-                    aufgestellt werden...
-                    -----
+
+
+                <div id="player-infobox" class="panel">
+
                 </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            <textarea id="input-current-player-info"
+                                      placeholder="Hier Info für Spieler Startseite eingeben!"></textarea>
+                        </label>
+                        <a href="#" id="button-send-player-info" class="button">Spieler-Info abschicken!</a>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <a class="exit-off-canvas"></a>
@@ -53,6 +64,6 @@
 <script>
     $(document).foundation();
 </script>
-<script src="js/team.js"></script>
+<script src="js/trainer.js"></script>
 </body>
 </html>
