@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="fixed">
-    <nav class="top-bar" data-topbar role="navigation">
+    <nav class="top-bar show-for-large-up" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
                 <h1><a href="index.html">Top Team</a></h1>
@@ -30,18 +30,45 @@
             <ul class="left">
                 <li><a class="button" href="training.html">Training</a></li>
                 <li><a class="button" href="team.html">Spielerkader</a></li>
-                <li><a class="button" href="">Infos einstellen</a></li>
             </ul>
         </section>
     </nav>
 </div>
-<!--End of navbar-------------------------------------------------------------------------------------------------------->
 
-<div class
-?>Trainer dummy container<br>
-Hier könnte man den Spielerkader als Modal aufmachen und dann für das nächste Spiel die Spieler auswählen, welche
-    aufgestellt werden...
-    -----
+<div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+        <div class="hybrid-bar">
+            <nav class="tab-bar">
+                <div class="title-area">
+                    <div class="name">
+                        <h1><a href="#">Top Team</a></h1>
+                    </div>
+                </div>
+                <section class="right-small show-for-small">
+                    <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+            </nav>
+            <aside class="right-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li class="show-for-small"><label>Foundation</label></li>
+                    <li><a href="training.html">Training</a></li>
+                    <li><a href="team.html">Spielerkader</a></li>
+                    <li><a href="index.html" id="button-logout">Logout</a></li>
+                </ul>
+            </aside>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <div style="background: pink; height: 300px">Trainer dummy container<br>
+                    Hier könnte man den Spielerkader als Modal aufmachen und dann für das nächste Spiel die Spieler auswählen,
+                    welche
+                    aufgestellt werden...
+                    -----
+                </div>
+            </div>
+        </div>
+        <a class="exit-off-canvas"></a>
+    </div>
 </div>
 
 <script src="js/jquery-2.1.1.min.js"></script>
