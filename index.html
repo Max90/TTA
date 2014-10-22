@@ -28,56 +28,19 @@
             </nav>
             <aside class="right-off-canvas-menu">
                 <ul class="off-canvas-list">
-                    <li class="show-for-small"><label>Foundation</label></li>
+                    <li class="show-for-small"><label>Top Team</label></li>
+                    <li><a href="#" data-reveal-id="topteam-login-modal">Login</a></li>
                     <li><a href="index.html" id="button-logout">Logout</a></li>
                 </ul>
             </aside>
         </div>
+
         <div class="row">
             <div class="large-12 columns content-wrapper">
                 <div class="row" id="button-create-new-team">
-                    <a class="button large-9 small-10 small-offset-1 columns" href="#" data-reveal-id="modal-create-team">Neues Team
+                    <a class="button large-9 small-10 small-offset-1 columns" href="#"
+                       data-reveal-id="modal-create-team">Neues Team
                         anlegen</a>
-                </div>
-
-
-                <div id="login-form">
-                    <div class="row">
-                        <div class="large-12 small-12 medium-12 columns">
-                            <form class="login-form">
-                                <div class="error" style="display:none"></div>
-                                <div class="row">
-                                    <!--<div class="large-1 small-12 columns">-->
-                                    <select id="select-role" class="large-12 small-12 medium-12 columns">
-                                        <option value="1">Trainer</option>
-                                        <option value="2">Verwalter</option>
-                                        <option value="3">Spieler</option>
-                                    </select>
-                                    <!--</div>-->
-                                </div>
-                                <div class="row">
-                                    <!--<div class="large-1 small-12 columns">-->
-                                    <input class="large-12 small-3 medium-12 columns" id="input-teamname-login" type="text"
-                                           placeholder="Teamname"/>
-                                    <!--</div>-->
-                                </div>
-                                <div class="row">
-                                    <!--<div class="large-1 small-12 columns">-->
-                                    <input class="large-12 small-12 medium-12 columns" id="input-password-login" type="password"
-                                           placeholder="Passwort"/>
-                                    <!--</div>-->
-                                </div>
-                                <div class="row">
-                                    <a id="button-forgotten-pw" class="large-12 small-12 columns" href="#"
-                                       data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
-                                </div>
-                                <div class="row">
-                                    <button id="button-login" class="large-9 small-10 medium-10 small-offset-1 columns">Login
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -86,8 +49,50 @@
 </div>
 
 
-
-    <!--End of login form--------------------------------------------------------------------------------------------------->
+<!--login form Modal--------------------------------------------------------------------------------------------------->
+<div id="topteam-login-modal" class="reveal-modal" data-reveal>
+    <div id="login-form">
+        <div class="row">
+            <div class="large-12 small-12 medium-12 columns">
+                <form class="login-form">
+                    <div class="error" style="display:none"></div>
+                    <div class="row">
+                        <!--<div class="large-1 small-12 columns">-->
+                        <select id="select-role" class="large-12 small-12 medium-12 columns">
+                            <option value="1">Trainer</option>
+                            <option value="2">Verwalter</option>
+                            <option value="3">Spieler</option>
+                        </select>
+                        <!--</div>-->
+                    </div>
+                    <div class="row">
+                        <!--<div class="large-1 small-12 columns">-->
+                        <input class="large-12 small-3 medium-12 columns" id="input-teamname-login"
+                               type="text"
+                               placeholder="Teamname"/>
+                        <!--</div>-->
+                    </div>
+                    <div class="row">
+                        <!--<div class="large-1 small-12 columns">-->
+                        <input class="large-12 small-12 medium-12 columns" id="input-password-login"
+                               type="password"
+                               placeholder="Passwort"/>
+                        <!--</div>-->
+                    </div>
+                    <div class="row">
+                        <a id="button-forgotten-pw" class="large-12 small-12 columns" href="#"
+                           data-reveal-id="modal-reset-pw">Passwort vergessen?</a>
+                    </div>
+                    <div class="row">
+                        <button id="button-login" class="large-9 small-10 medium-10 small-offset-1 columns">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!--team erstellen modal------------------------------------------------------------------------------------------------>

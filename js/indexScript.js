@@ -75,11 +75,11 @@ function saveUser(teamName, role, pw, email) {
 }
 
 
-//es werden drei verschiedene benutzer angelegt: admin, manager, player
+//es werden drei verschiedene benutzer angelegt: admin, js, player
 function saveNewTeam() {
     checkForValidTeamName();
     saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val(), $('#input-admin-email').val());
-    saveUser($('#input-team-name').val(), "manager", $('#input-manager-pw').val());
+    saveUser($('#input-team-name').val(), "js", $('#input-manager-pw').val());
     saveUser($('#input-team-name').val(), "player", $('#input-player-pw').val());
 }
 
@@ -91,7 +91,7 @@ function getRole() {
     if ($('#select-role option:selected').val() == 1) {
         var role = 'admin';
     } else if ($('#select-role option:selected').val() == 2) {
-        var role = 'manager';
+        var role = 'js';
     } else {
         var role = 'player';
     }
@@ -107,12 +107,11 @@ function login() {
             checkIfUserLoggedIn();
             console.log(getRole());
             if (getRole() == "admin") {
-                console.log("hierhierhier");
-                window.location.href = 'trainer.html';
-            } else if (getRole() == "manager") {
-                window.location.href = 'manager.html'
+                window.location.href = 'trainer/trainer.html';
+            } else if (getRole() == "js") {
+                window.location.href = 'manager/manager.html'
             } else if (getRole() == 'player') {
-                window.location.href = '../player/player.html';
+                window.location.href = 'player/player.html';
             }
         },
         error: function (user, error) {
