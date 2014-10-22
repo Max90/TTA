@@ -104,13 +104,26 @@
     float: right;
 }
 
-.img-player {
-    float: left;
-    position: relative;
+@media only screen and (min-width: 40.063em) {
+    .img-player {
+        float: left;
+        width: 25%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #player-tr-detail-table {
+        float: left;
+        width: 70%;
+        margin-left: 1em;
+        overflow: hidden;
+    }
 }
 
-.player-tr-detail-table {
-    float: right;
+@media only screen and (max-width: 40.063em) {
+    #player-tr-detail-table{
+        margin-top: 1em;
+    }
 }
 
 .panel {
