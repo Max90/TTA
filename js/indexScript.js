@@ -112,7 +112,7 @@ function login() {
             } else if (getRole() == "manager") {
                 window.location.href = 'manager.html'
             } else if (getRole() == 'player') {
-                window.location.href = 'player.html';
+                window.location.href = '../player/player.html';
             }
         },
         error: function (user, error) {
