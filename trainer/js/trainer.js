@@ -59,7 +59,23 @@ function updatePlayerInfoBox() {
     query.descending("createdAt");
     query.first({
         success: function (object) {
-            $("#player-infobox").text("Aktuelle Info an Ihre Spieler: " + object.get('playerInfoBox'));
+
+
+            var d = new Date(object.createdAt);
+            var curr_date = d.getDate();
+            var curr_month = d.getMonth() + 1; //Months are zero based
+            var curr_year = d.getFullYear();
+            var timeHours = d.getHours();
+            var timeMin = d.getMinutes();
+            var formatedDate = curr_date + "." + curr_month + "." + curr_year + " " + timeHours + ":" + timeMin + " Uhr";
+
+
+            $("#player-infobox-label").text(object.get('playerInfoBox'));
+            $("#player-infobox-createdat").text(" (Erstellt am: " + formatedDate + ")");
+
+
+
+
         },
         error: function (error) {
             console.log("Error: " + error.code + " " + error.message);
