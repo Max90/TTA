@@ -51,7 +51,7 @@ function showTrainingListNutmeg() {
                     var curr_month = d.getMonth() + 1; //Months are zero based
                     var curr_year = d.getFullYear();
                     $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
-                    console.log("printbeiclick " + $(this).closest('tr').children('td:first').text());
+                    // console.log("printbeiclick " + $(this).closest('tr').children('td:first').text());
                     showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
                 }));
 
@@ -91,7 +91,7 @@ function creatNutmegColumns(dateTraining) {
         error: function (training, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
+            console.log('Failed to create new object, with error code: ' + error.message);
         }
     });
 
@@ -109,6 +109,7 @@ function showPlayersForNutmegModal(dateTraining) {
             $('#player-modal-table tr:not(:first)').remove();
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
+
                 listPlayerInNutmegModal(object.get('playerName'), dateTraining);
             }
         },
@@ -152,41 +153,16 @@ function updateNutmegTrCount(playerName, dateTraining, count) {
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
     var date = dateTraining.replace(/-/g, "_");
-    console.log(date);
     query.equalTo("playerName", playerName);
     query.first({
         success: function (player) {
-            var temp;
-            if (player.get('nutmegCoung') == undefined) {
-                temp = 0
-            } else {
-                temp = player.get('nutmegCount');
-            }
-            var trCount = temp + count;
-            player.set("nm_" + date, trCount);
+            var temp = player.get("nm_" + date);
+            temp = temp + count;
+            player.set("nm_" + date, temp);
             player.save();
         },
         error: function (players, error) {
             console.log('Failed to create new object, with error code: ' + error.message);
         }
     });
-
-
 }
-
-
-/*function deleteUndefinedPlayer() {
- var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
- var team = Parse.Object.extend(teamName);
- var query = new Parse.Query(team);
- query.equalTo("playerName", undefined);
-
- query.first({
- success: function (myObj) {
- myObj.destroy({});
- },
- error: function (error) {
- alert("Error: " + error.code + " " + error.message);
- }
- });
- }*/
