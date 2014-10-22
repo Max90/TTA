@@ -3,14 +3,13 @@
 /*position: absolute;*/
 /*}*/
 
-body, html {
-    height: 100%;
-    width: 100%;
+.off-canvas-wrap, .inner-wrap {
+    min-height: 100%;
 }
 
-.off-canvas-wrap,
-.inner-wrap {
+.off-canvas-wrap{
     height: 100%;
+    overflow-y: auto;
 }
 
 #login-form label input {
