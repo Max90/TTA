@@ -1,6 +1,16 @@
-#login-form {
-    right: 0px;
-    position: absolute;
+/*#login-form {*/
+/*right: 0px;*/
+/*position: absolute;*/
+/*}*/
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+.off-canvas-wrap,
+.inner-wrap {
+    height: 100%;
 }
 
 #login-form label input {
@@ -94,8 +104,14 @@
     color: white;
     float: right;
 }
-.img-player{
-    float:left;
+
+.img-player {
+    float: left;
+    position: relative;
+}
+
+.player-tr-detail-table {
+    float: right;
 }
 
 .panel {
