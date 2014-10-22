@@ -9,57 +9,40 @@
     <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="jquery-ui/jquery.contextMenu.css"/>
+    <link rel="stylesheet" href="css/topbar.css"/>
     <script src="foundation-js/modernizr.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="js/chart.js"></script>
 </head>
 <body>
-<div class="fixed">
-    <nav class="top-bar show-for-large-up" data-topbar role="navigation">
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="index.html">Top Team</a></h1>
-            </li>
-            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-        </ul>
-
-        <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <ul class="right">
-                <li><a href="index.html" id="button-logout" class="button">Logout</a></li>
-            </ul>
-            <!--Left Nav Section-->
-            <ul class="left">
-                <!--<li><a class="button" href="training.html">Training</a></li>-->
-                <li><a class="button" href="team.html">Spielerkader</a></li>
-            </ul>
-        </section>
-    </nav>
-</div>
-    <div class="off-canvas-wrap show-for-medium-down" data-offcanvas>
-        <div class="inner-wrap">
+<div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+        <div class="hybrid-bar">
             <nav class="tab-bar">
-                <section class="left-small">
-                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                <div class="title-area">
+                    <div class="name">
+                        <h1><a href="#">Top Team</a></h1>
+                    </div>
+                </div>
+                <section class="right-small show-for-small">
+                    <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
                 </section>
-
-                <section class="middle tab-bar-section">
-                    <h1 class="title">TopTeam</h1>
-                </section>
-
             </nav>
-
-            <aside class="left-off-canvas-menu">
+            <aside class="right-off-canvas-menu">
                 <ul class="off-canvas-list">
-                    <li><label>Trainerbereich</label></li>
-                    <li><a class="button" href="team.html">Spielerkader</a></li>
+                    <li class="show-for-small">
+                        <label>Foundation</label>
+                    </li>
+                    <li><a href="team.html">Spielerkader</a>
+                    </li>
+                    <li><a href="index.html" id="button-logout">Logout</a>
+                    </li>
                 </ul>
             </aside>
-
-            <section class="main-section">
-
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
                 <div class="row">
                     <a class="button large-12 columns medium-12 small-12" href="#" data-reveal-id="modal-add-training">Training
                         hinzufügen</a>
@@ -104,62 +87,13 @@
                         </table>
                     </div>
                 </div>
-
-            </section>
-
-            <a class="exit-off-canvas"></a>
-
+            </div>
         </div>
-    </div>
-
-<!--End of navbar-------------------------------------------------------------------------------------------------------->
-
-<div class="show-for-large-up">
-    <div class="row">
-        <a class="button large-12 columns medium-12 small-12" href="#" data-reveal-id="modal-add-training">Training
-            hinzufügen</a>
-
-    </div>
-
-    <!-- player-container -------------------------------------------------------------------------------------------------------->
-    <div class="row">
-        <div class="large-12 columns" id="player-container">
-            <table id="training-table">
-                <thead>
-                <tr>
-                    <th id="training-date">Datum</th>
-                    <th id="training-time">Uhrzeit</th>
-                    <th id="training-player-number">Anzahl der Spieler</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="large-12 columns" id="chart_div"></div>
-    </div>
-
-
-    <!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
-    <div class="row">
-        <div class="large-12 columns" id="training-container">
-            <table id="player-training-table">
-                <thead>
-                <tr>
-                    <th id="pic-player">Bild</th>
-                    <th id="name-player">Name</th>
-                    <th id="training-sum">Gesamt TR</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+        <a class="exit-off-canvas"></a>
     </div>
 </div>
+
+<!--End of navbar-------------------------------------------------------------------------------------------------------->
 
 
 <!--Training  anlegen modal------------------------------------------------------------------------------------------------>

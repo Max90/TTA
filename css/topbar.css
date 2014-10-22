@@ -1,0 +1,86 @@
+.hybrid-bar .tab-bar {
+    height: 2.8125rem;
+}
+
+.hybrid-bar .name a  {
+    color: #FFFFFF;
+    display: block;
+    font-weight: normal;
+    padding: 0 15px;
+}
+@media only screen and (min-width: 40.063em) {
+    .contain-to-grid .hybrid-bar {
+        max-width: 62.5rem;
+        margin: 0 auto;
+        margin-bottom: 0;
+    }
+    .hybrid-bar {
+        background: none repeat scroll 0 0 #333333;
+        overflow: hidden;
+    }
+    .hybrid-bar .tab-bar {
+        display: inline-block;
+    }
+    .hybrid-bar .right-off-canvas-menu {
+        display: inline;
+        width: auto;
+        height: auto !important;
+        top: auto;
+        bottom: auto;
+        position: relative; }
+
+    .hybrid-bar ul.off-canvas-list {
+        float: right;
+        list-style-type: none;
+        padding: 0;
+        margin: 0; }
+    .hybrid-bar ul.off-canvas-list li label {
+        padding: 0.3rem 0.9375rem;
+        color: #999999;
+        text-transform: uppercase;
+        font-weight: bold;
+        background: #444444;
+        border-top: 1px solid #5e5e5e;
+        border-bottom: none;
+        margin: 0; }
+    .hybrid-bar ul.off-canvas-list li a {
+        font-size: 16px;
+        border-left: 1px solid #4D4D4D;
+        display: block;
+        width: 100%;
+        color: white;
+        padding: 12px 0 12px 0;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        font-size: 0.8125rem;
+        font-weight: normal;
+        text-transform: none;
+        background: #333333; }
+    .hybrid-bar ul.off-canvas-list li a:hover {
+        background: #242424; }
+    .hybrid-bar ul.off-canvas-list li {
+        float: left; }
+}
+
+.hybrid-bar ul.off-canvas-list li.btn-rfq {
+    background: #333333;
+    padding: 0 15px;
+    height: 45px; }
+
+.hybrid-bar ul.off-canvas-list li.btn-rfq > a {
+    position: relative;
+    top: 7px;
+    background-color: #008cba;
+    border-color: #007095;
+    padding-top: 0.45rem;
+    padding-bottom: 0.35rem;
+    line-height: normal;
+    color: white;}
+
+
+
+.hybrid-bar ul.off-canvas-list li.btn-rfq > a:hover, .hybrid-bar ul.off-canvas-list li.btn-rfq > a:focus {
+    background-color: #007095; }
+.hybrid-bar ul.off-canvas-list li.btn-rfq > a:hover, .hybrid-bar ul.off-canvas-list li.btn-rfq > a:focus {
+    color: white; }

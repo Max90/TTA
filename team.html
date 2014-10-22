@@ -11,56 +11,33 @@
     <script src="foundation-js/modernizr.js"></script>
 </head>
 <body>
-<div class="fixed">
-    <nav class="top-bar show-for-large-up" data-topbar role="navigation">
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="index.html">Top Team</a></h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-        </ul>
 
-        <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <ul class="right">
-                <li><a href="index.html" id="button-logout" class="button">Logout</a></li>
-            </ul>
-            <!--Left Nav Section-->
-            <ul class="left">
-
-                <li><a class="button" href="training.html">Training</a></li>
-                <!--<li><a class="button" href="team.html">Spielerkader</a></li>-->
-            </ul>
-        </section>
-    </nav>
-</div>
-
-    <!--offcanvas------------------------------------------------------------------------------------------------------------->
-
-    <div class="off-canvas-wrap show-for-medium-down" data-offcanvas>
-        <div class="inner-wrap">
+<div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+        <div class="hybrid-bar">
             <nav class="tab-bar">
-                <section class="left-small">
-                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                <div class="title-area">
+                    <div class="name">
+                        <h1><a href="#">Top Team</a></h1>
+                    </div>
+                </div>
+                <section class="right-small show-for-small">
+                    <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
                 </section>
-
-                <section class="middle tab-bar-section">
-                    <h1 class="title">TopTeam</h1>
-                </section>
-
             </nav>
-
-            <aside class="left-off-canvas-menu">
+            <aside class="right-off-canvas-menu">
                 <ul class="off-canvas-list">
-                    <li><label>Trainerbereich</label></li>
+                    <li class="show-for-small"><label>Foundation</label></li>
                     <li><a href="training.html">Training</a></li>
+                    <li><a href="index.html" id="button-logout">Logout</a></li>
                 </ul>
             </aside>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
 
-            <section class="main-section">
                 <div class="row">
-                    <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler
-                        hinzufügen</a>
+                    <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
                 </div>
 
                 <!-- player-container -------------------------------------------------------------------------------------------------------->
@@ -78,38 +55,11 @@
                         </table>
                     </div>
                 </div>
-            </section>
-
-            <a class="exit-off-canvas"></a>
-
+            </div>
         </div>
-    </div>
-<!--End of navbar-------------------------------------------------------------------------------------------------------->
-
-
-<!--container for large-------------------------------------------------------------------------------------------------->
-<div class="show-for-large-up">
-    <div class="row">
-        <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
-    </div>
-
-    <!-- player-container -------------------------------------------------------------------------------------------------------->
-    <div class="row">
-        <div class="large-12 columns" id="player-container">
-            <table id="player-table">
-                <thead>
-                <tr>
-                    <th width="200" id="player-icon">Spieler Avatar</th>
-                    <th width="150" id="player-name">Spieler Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+        <a class="exit-off-canvas"></a>
     </div>
 </div>
-
 
 <!--spieler anlegen modal------------------------------------------------------------------------------------------------>
 <div id="modal-add-player" class="reveal-modal" data-reveal>
