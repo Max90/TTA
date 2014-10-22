@@ -147,7 +147,7 @@ function getImageSrc(object, playerName) {
         success: function (player) {
             var imgSrc = player.get("profilePic");
             if (imgSrc == undefined) {
-                imgSrc = "img/avatar.jpg";
+                imgSrc = "../img/avatar.jpg";
             }
 
             $("#player-table").append($("<tr class='player-context-menu'>").append($('<td><img src="' + imgSrc + '"></td>'
