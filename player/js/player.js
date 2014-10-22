@@ -15,7 +15,7 @@ $(document).ready(function () {
     $('#close-player-addition-modal').on('click', function () {
         location.reload();
     });
-
+    updatePlayerInfoBox();
     showTrainingList();
     showPlayerList();
 
@@ -32,6 +32,21 @@ function checkIfUserLoggedIn() {
     }
 }
 
+
+function updatePlayerInfoBox() {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_playerInfoBox";
+    var infoBox = Parse.Object.extend(teamName);
+    var query = new Parse.Query(infoBox);
+    query.descending("createdAt");
+    query.first({
+        success: function (object) {
+            $("#player-infobox").text(object.get('playerInfoBox'));
+        },
+        error: function (error) {
+            console.log("Error: " + error.code + " " + error.message);
+        }
+    });
+}
 
 function showTrainingList() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
