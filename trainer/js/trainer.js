@@ -21,9 +21,6 @@ function updatePlayerInfo() {
     var Tabelle = Parse.Object.extend(teamName);
     var playerInfoBox = new Tabelle();
 
-    playerInfoBox.set("beiner", 0);
-    playerInfoBox.save();
-
 
     if ($("textarea#input-current-player-info").val() == undefined) {
         playerInfoBox.set("playerInfoBox", "Hier könnte eine aktuelle Info für Ihre Spieler stehen!");

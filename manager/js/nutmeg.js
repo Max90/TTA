@@ -56,6 +56,15 @@ function showTrainingListNutmeg() {
 function showPlayersForNutmegModal(dateTraining) {
 
 
+    //umgehen des neuen spalten problems hier
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var Tabelle = Parse.Object.extend(teamName);
+
+    var training = new Tabelle();
+    training.set("nm", 0);
+    training.save();
+//ende umgehen hier
+
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
@@ -77,10 +86,13 @@ function showPlayersForNutmegModal(dateTraining) {
 
 function listPlayerInNutmegModal(playerName, dateTraining) {
 
-    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
-    var team = Parse.Object.extend(teamName);
-    var query = new Parse.Query(team);
-    query.equalTo("playerName", playerName);
+
+
+
+
+
+    /* var query = new Parse.Query(team);
+     query.equalTo("playerName", playerName);
     query.ascending("playerName");
     query.first({
         success: function (player) {
@@ -99,8 +111,9 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
         }
-    });
+     });*/
 }
+
 
 function addNutmegToPlayer(object, playerName, dateTraining) {
     var teamNameNutmeg = Parse.User.current()['attributes']['teamname'] + "_players";
