@@ -55,12 +55,23 @@ function showTrainingList() {
                 var object = results[i];
                 /* var d = new Date(object.get('dateTraining'));
                  var curr_date = d.getDate();
-                var curr_month = d.getMonth() + 1; //Months are zero based
-                var curr_year = d.getFullYear();
+                 var curr_month = d.getMonth() + 1; //Months are zero based
+                 var curr_year = d.getFullYear();
                  var formatedTrDate = curr_date + "." + curr_month + "." + curr_year;*/
 
                 $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-player-to-tr'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
                     + '<td>' + object.get('trPlayerCount') + '</td>')).on("click", function () {
+
+                    $('#modal-add-player-to-tr').find("#delete-tr").on("click", function () {
+                        deleteThisTr(object.get('dateTraining'));
+                    });
+
+                    var d = new Date(object.get('dateTraining'));
+                    var curr_date = d.getDate();
+                    var curr_month = d.getMonth() + 1; //Months are zero based
+                    var curr_year = d.getFullYear();
+                    $('#modal-add-player-to-tr').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
+
                     showPlayersForModal($(this).closest('tr').children('td:first').text());
                 }));
 
@@ -126,12 +137,13 @@ function saveTraining(dateTraining, timeTraining) {
         error: function (training, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
+            console.log('Failed to create new object, with error code: ' + error.message);
         }
     });
 }
 
 function showPlayersForModal(dateTraining) {
+
 
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
@@ -189,6 +201,7 @@ function updatePlayerTrCount(playerName, trNum) {
     query.equalTo("playerName", playerName);
     query.first({
         success: function (player) {
+            console.log(playerName, trNum);
             var trCount = player.get("trCount") + trNum;
             player.set("trCount", trCount);
             player.save();
@@ -219,7 +232,7 @@ function removeFromParseTrainingTable(playerName, dateTraining) {
         error: function (players, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
+            console.log('Failed to create new object, with error code: ' + error.message);
         }
     });
 }
@@ -247,9 +260,6 @@ function getPlayerCount(dateTraining) {
     query.equalTo("dateTraining", dateTraining);
     query.count({
         success: function (count) {
-            $('#modal-add-player-to-tr').find("#delete-tr").on("click", function () {
-                deleteThisTr(dateTraining);
-            });
             $('#modal-add-player-to-tr').find('#player-count').text("Spieler: " + count);
         },
         error: function (error) {
@@ -277,7 +287,7 @@ function deleteThisTr(dateTraining) {
             location.reload();
         },
         error: function (error) {
-            alert("Error: " + error.code + " " + error.message);
+            console.log("Error: " + error.code + " " + error.message);
         }
     });
 
@@ -296,12 +306,10 @@ function deleteThisTrEverywhere(dateTraining) {
                 var tr = results[i];
                 var playerName = tr.get("playerName");
                 updatePlayerTrCount(playerName, -1);
-
                 tr.destroy({});
 
+
             }
-
-
         },
         error: function (players, error) {
             console.log('Failed to create new object, with error code: ' + error.message);
@@ -336,13 +344,6 @@ function showPlayerTrainingModal(object, playerName, dateTraining) {
                     addPlayerToTraining($(this), $(this).closest('tr').children('td:last').text(), dateTraining);
                 }));
             }
-            var d = new Date(dateTraining);
-            var curr_date = d.getDate();
-            var curr_month = d.getMonth() + 1; //Months are zero based
-            var curr_year = d.getFullYear();
-            $('#modal-add-player-to-tr').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
-
-
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
