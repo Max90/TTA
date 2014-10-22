@@ -319,7 +319,6 @@ function deleteThisTrEverywhere(dateTraining) {
 
 }
 
-
 function showPlayerTrainingModal(object, playerName, dateTraining) {
 
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
@@ -331,7 +330,7 @@ function showPlayerTrainingModal(object, playerName, dateTraining) {
         success: function (player) {
             var imgSrc = player.get("profilePic");
             if (imgSrc == undefined) {
-                imgSrc = "../img/avatar.jpg";
+                imgSrc = "../../img/avatar.jpg";
             }
             if (object != undefined) {
 
@@ -402,7 +401,7 @@ function showPlayerList() {
                 var object = results[i];
                 var imgSrc = object.get("profilePic");
                 if (imgSrc == undefined) {
-                    imgSrc = "../img/avatar.jpg";
+                    imgSrc = "img/avatar.jpg";
                 }
 
                 $("#player-training-table").append($("<tr class='player-tr-table'>").append($('<td><img class="img-src" src="' + imgSrc + '"></td>'
