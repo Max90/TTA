@@ -60,20 +60,21 @@ function updatePlayerInfoBox() {
     query.first({
         success: function (object) {
 
-
-            var d = new Date(object.createdAt);
-            var curr_date = d.getDate();
-            var curr_month = d.getMonth() + 1; //Months are zero based
-            var curr_year = d.getFullYear();
-            var timeHours = d.getHours();
-            var timeMin = d.getMinutes();
-            var formatedDate = curr_date + "." + curr_month + "." + curr_year + " " + timeHours + ":" + timeMin + " Uhr";
-
-
-            $("#player-infobox-label").text(object.get('playerInfoBox'));
-            $("#player-infobox-createdat").text(" (Erstellt am: " + formatedDate + ")");
+            if (object != undefined) {
+                var d = new Date(object.createdAt);
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
+                var timeHours = d.getHours();
+                var timeMin = d.getMinutes();
+                var formatedDate = curr_date + "." + curr_month + "." + curr_year + " " + timeHours + ":" + timeMin + " Uhr";
 
 
+                $("#player-infobox-label").text(object.get('playerInfoBox'));
+                $("#player-infobox-createdat").text(" (Erstellt am: " + formatedDate + ")");
+            } else {
+                $("#player-infobox-label").text("Sie haben noch keine Infos an ihre Spieler übermittelt!");
+            }
 
 
         },
