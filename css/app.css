@@ -82,15 +82,6 @@
     width: auto;
 }
 
-.panel {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #d8d8d8;
-    margin-bottom: 1.25rem;
-    padding: 1.25rem;
-    background: #f2f2f2;
-}
-
 .hybrid-bar .name a {
     color: #007095;
 }
@@ -105,6 +96,10 @@
 }
 .img-player{
     float:left;
+}
+
+.panel {
+    margin-bottom: 1.35em !important;
 }
 
 @font-face {
