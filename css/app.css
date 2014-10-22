@@ -90,3 +90,48 @@
     padding: 1.25rem;
     background: #f2f2f2;
 }
+
+.hybrid-bar .name a {
+    color: #007095;
+}
+
+.content-wrapper {
+    margin-top: 1em;
+}
+
+#delete-tr {
+    color: white;
+    float: right;
+}
+.img-player{
+    float:left;
+}
+
+@font-face {
+    font-family: 'GeneralFoundicons';
+    src: url('fonts/foundation_icons_general/fonts/general_foundicons.eot');
+    src: url('fonts/foundation_icons_general/fonts/general_foundicons.eot?#iefix') format('embedded-opentype'),
+    url('fonts/foundation_icons_general/fonts/general_foundicons.woff') format('woff'),
+    url('fonts/foundation_icons_general/fonts/general_foundicons.ttf') format('truetype'),
+    url('fonts/foundation_icons_general/fonts/general_foundicons.svg#GeneralFoundicons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class*="foundicon-"] {
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0 0;
+    background-repeat: repeat;
+}
+
+[class*="foundicon-"]:before {
+    font-family: "GeneralFoundicons";
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+}
