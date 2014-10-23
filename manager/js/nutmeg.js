@@ -95,7 +95,7 @@ function showPlayersForNutmegModal(dateTraining) {
             $('#player-modal-table tr:not(:first)').remove();
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-
+                console.log("hhhhhhhhhhhhhh");
                 listPlayerInNutmegModal(object.get('playerName'), dateTraining);
             }
         },

@@ -13,7 +13,7 @@
     <script src="../foundation-js/modernizr.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="../js/chart.js"></script>
+
 </head>
 <body>
 <div class="off-canvas-wrap" data-offcanvas>
@@ -34,7 +34,7 @@
                     <li class="show-for-small">
                         <label>Top Team</label>
                     </li>
-                    <li><a href="nutmeg.html">Beiner</a>
+                    <li><a href="player.html">Spieler-Start</a>
                     </li>
                     <li><a href="../index.html" id="button-logout">Logout</a>
                     </li>
@@ -44,22 +44,16 @@
         <div class="row">
             <div class="large-12 columns content-wrapper">
 
-                <div id="player-infobox" class="panel">
-                    <b>Aktuelle Info vom Trainer: </b>
-                    <label id="player-infobox-label"></label>
-                    <label id="player-infobox-createdat"></label>
-                </div>
-
 
                 <!-- player-container -------------------------------------------------------------------------------------------------------->
                 <div class="row">
                     <div class="large-12 columns" id="player-container">
-                        <table id="training-table">
+                        <table id="training-nutmeg-table">
                             <thead>
                             <tr>
                                 <th id="training-date">Datum</th>
                                 <th id="training-time">Uhrzeit</th>
-                                <th id="training-player-number">Anzahl der Spieler</th>
+                                <th id="training-nutmeg-number">Anzahl Beiner</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -68,20 +62,16 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="large-12 columns" id="chart_div"></div>
-                </div>
-
 
                 <!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
                 <div class="row">
                     <div class="large-12 columns" id="training-container">
-                        <table id="player-training-table">
+                        <table id="player-nutmeg-table">
                             <thead>
                             <tr>
                                 <th id="pic-player">Bild</th>
                                 <th id="name-player">Name</th>
-                                <th id="training-sum">Gesamt TR</th>
+                                <th id="nutmeg-sum">Gesamt Beiner</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -95,35 +85,11 @@
     </div>
 </div>
 
-
-<!------modal-tr-detail-player-------------------------------------------------------------------------------------------->
-<div id="modal-tr-detail-player" class="reveal-modal" data-reveal>
-    <h2>Spieler Trainings Details</h2>
-
-    <h3 id="playername"></h3>
-
-    <div class="row">
-        <img class="img-player" src="../img/avatar.jpg">
-        <table id="player-tr-detail-table">
-            <thead>
-            <tr>
-                <th>Trainings Daten:</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-    <a class="close-reveal-modal" id="close-modal-tr-detail-player">&#215;</a>
-</div>
-
-
 <script src="../foundation-js/foundation.min.js"></script>
 <script type="text/javascript" src="../jquery-ui/jquery.ui.position.js"></script>
 <script>
     $(document).foundation();
 </script>
-<script src="js/player.js"></script>
+<script src="js/nutmeg.js"></script>
 </body>
 </html>
