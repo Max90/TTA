@@ -159,7 +159,7 @@ function showPlayersForModal(dateTraining) {
             }
         },
         error: function (error) {
-            alert("Error: " + error.code + " " + error.message);
+            console.log("Error: " + error.code + " " + error.message);
         }
     });
 
@@ -401,7 +401,7 @@ function showPlayerList() {
                 var object = results[i];
                 var imgSrc = object.get("profilePic");
                 if (imgSrc == undefined) {
-                    imgSrc = "img/avatar.jpg";
+                    imgSrc = "../../img/avatar.jpg";
                 }
 
                 $("#player-training-table").append($("<tr class='player-tr-table'>").append($('<td><img class="img-src" src="' + imgSrc + '"></td>'
