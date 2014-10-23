@@ -28,20 +28,6 @@ function showTrainingListNutmeg() {
 
                 creatNutmegColumns(results[i].get('dateTraining'));
 
-                /*  $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td>'
-                 + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>')).on("click", function () {
-
-
-                 var d = new Date(object.get('dateTraining'));
-                 var curr_date = d.getDate();
-                 var curr_month = d.getMonth() + 1; //Months are zero based
-                 var curr_year = d.getFullYear();
-                 $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
-
-                 showPlayersForNutmegModal(object.get('dateTraining'));
-                 }));*/
-
-
                 $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
                 )).on("click", function () {
 
@@ -51,7 +37,7 @@ function showTrainingListNutmeg() {
                     var curr_month = d.getMonth() + 1; //Months are zero based
                     var curr_year = d.getFullYear();
                     $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
-                    // console.log("printbeiclick " + $(this).closest('tr').children('td:first').text());
+
                     showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
                 }));
 
@@ -81,7 +67,7 @@ function creatNutmegColumns(dateTraining) {
                 if (object.get(columname) == undefined) {
                     var date = dateTraining.replace(/-/g, "_");
                     var columname = "nm_" + date;
-                    console.log("Nutmeg: " + dateTraining + " columnname: " + columname);
+
                     object.set(columname, 0);
                     object.save();
                 }
@@ -134,11 +120,23 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
             if (imgSrc == undefined) {
                 imgSrc = "../img/avatar.jpg";
             }
-            $("#player-modal-table").append($('<tr class="player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td>'
-                + playerName + '</td>')).on("click", function () {
-                updateNutmegTrCount(playerName, dateTraining, 1)
-            }));
+            var date = dateTraining.replace(/-/g, "_");
+            var nutmegCount = player.get("nm_" + date);
+            $("#player-modal-table").append($('<tr class="player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td class="nm-player">'
+                + playerName + '</td>' + '<td class="nutmeg-count">' + nutmegCount + '</td>' + '<td>' + '<button class="minus">' + '-' + '</button>' + '</td>')));
 
+
+            $("#player-modal-table").find(".player-context-menu").on("click", function (e) {
+                updateNutmegTrCount($(this).closest('tr').find('.nm-player').text(), dateTraining, 1, $(this).closest('tr').find('.nutmeg-count'));
+                e.stopPropagation();
+
+            });
+
+            $("#player-modal-table").find("button.minus").on("click", function (e) {
+                updateNutmegTrCount($(this).closest('tr').find('.nm-player').text(), dateTraining, -1, $(this).closest('tr').find('.nutmeg-count'));
+                e.stopPropagation();
+
+            });
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
@@ -147,8 +145,7 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
 }
 
 
-function updateNutmegTrCount(playerName, dateTraining, count) {
-
+function updateNutmegTrCount(playerName, dateTraining, count, countView) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
@@ -157,9 +154,12 @@ function updateNutmegTrCount(playerName, dateTraining, count) {
     query.first({
         success: function (player) {
             var temp = player.get("nm_" + date);
-            temp = temp + count;
+            if (temp > 0) {
+                temp = temp + count;
+            }
             player.set("nm_" + date, temp);
             player.save();
+            countView.text(temp);
         },
         error: function (players, error) {
             console.log('Failed to create new object, with error code: ' + error.message);

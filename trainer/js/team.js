@@ -173,7 +173,7 @@ function getImageSrc(object, playerName) {
                 });
 
                 $('.button-delete-player').on('click', function () {
-                    deletePlayer($('.input-player-name').attr("placeholder"))
+                    deletePlayer($('.input-player-name').attr("placeholder"));
                 });
                 uploadFile($('.modal-change-player').find('.input-player-name').attr("placeholder"));
 
