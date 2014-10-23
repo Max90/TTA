@@ -30,20 +30,17 @@ function showTrainingListNutmeg() {
 
                 $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
                 )).on("click", function () {
-
-
                     var d = new Date($(this).closest('tr').children('td:first').text());
                     var curr_date = d.getDate();
                     var curr_month = d.getMonth() + 1; //Months are zero based
                     var curr_year = d.getFullYear();
-                    $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
 
+
+                    $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
                     showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
                 }));
 
-
             }
-
 
         },
         error: function (error) {
@@ -95,7 +92,6 @@ function showPlayersForNutmegModal(dateTraining) {
             $('#player-modal-table tr:not(:first)').remove();
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                console.log("hhhhhhhhhhhhhh");
                 listPlayerInNutmegModal(object.get('playerName'), dateTraining);
             }
         },
@@ -122,21 +118,10 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
             }
             var date = dateTraining.replace(/-/g, "_");
             var nutmegCount = player.get("nm_" + date);
+
             $("#player-modal-table").append($('<tr class="player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td class="nm-player">'
-                + playerName + '</td>' + '<td class="nutmeg-count">' + nutmegCount + '</td>' + '<td>' + '<button class="minus">' + '-' + '</button>' + '</td>')));
+                + playerName + '</td>' + '<td class="nutmeg-count">' + nutmegCount + '</td>' + '<td>' + '<button onclick="minusButtonClicked($(this))" class="minus">' + '-' + '</button>' + '</td>' + '<td>' + '<button onclick="plusButtonClicked($(this))" class="plus">' + '+' + '</button>' + '</td>')));
 
-
-            $("#player-modal-table").find(".player-context-menu").on("click", function (e) {
-                updateNutmegTrCount($(this).closest('tr').find('.nm-player').text(), dateTraining, 1, $(this).closest('tr').find('.nutmeg-count'));
-                e.stopPropagation();
-
-            });
-
-            $("#player-modal-table").find("button.minus").on("click", function (e) {
-                updateNutmegTrCount($(this).closest('tr').find('.nm-player').text(), dateTraining, -1, $(this).closest('tr').find('.nutmeg-count'));
-                e.stopPropagation();
-
-            });
         },
         error: function (error) {
             alert("Error: " + error.code + " " + error.message);
@@ -144,19 +129,50 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
     });
 }
 
+function minusButtonClicked(object) {
+
+    updateNutmegTrCount(object.closest('tr').find('.nm-player').text(), $('#modal-add-nutmeg-to-player').find('#header-date').text(), -1, object.closest('tr').find('.nutmeg-count'));
+}
+
+function plusButtonClicked(object) {
+    updateNutmegTrCount(object.closest('tr').find('.nm-player').text(), $('#modal-add-nutmeg-to-player').find('#header-date').text(), 1, object.closest('tr').find('.nutmeg-count'));
+}
+
 
 function updateNutmegTrCount(playerName, dateTraining, count, countView) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
-    var date = dateTraining.replace(/-/g, "_");
+
+    var d = new Date(dateTraining);
+
+    function addZ(n) {
+        return n < 10 ? '0' + n : '' + n;
+    }
+
+    var curr_date = addZ(d.getDate());
+    var curr_month = addZ(d.getMonth() + 1); //Months are zero based
+    var curr_year = d.getFullYear();
+
+
+    var date = curr_year + "_" + curr_date + "_" + curr_month;
+
     query.equalTo("playerName", playerName);
     query.first({
         success: function (player) {
+
             var temp = player.get("nm_" + date);
-            if (temp > 0) {
+
+            if (count == -1) {
+                if (temp > 0) {
+                    temp = temp + count;
+                }
+
+            } else {
                 temp = temp + count;
             }
+
+
             player.set("nm_" + date, temp);
             player.save();
             countView.text(temp);
