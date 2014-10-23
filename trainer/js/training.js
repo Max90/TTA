@@ -129,6 +129,7 @@ function saveTraining(dateTraining, timeTraining) {
     training.set("dateTraining", dateTraining);
     training.set("timeTraining", timeTraining);
     training.set("trPlayerCount", 0);
+    training.set("trNutmegPlayerCount", 0);
     training.save(null, {
         success: function (training) {
             $('#training-table tr:not(:first)').remove();
