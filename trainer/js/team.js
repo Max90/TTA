@@ -16,10 +16,10 @@ if (currentUser['attributes']['username'].indexOf(trainerString) >= 0) {
         });
 
         $('#button-add-player').on('click', function () {
-            addNewPlayer("add-player");
+            queryAllPlayers("add-player");
         });
         $('#button-add-next-player').on('click', function () {
-            addNewPlayer("add-next-player");
+            queryAllPlayers("add-next-player");
         });
 
         showPlayers();
@@ -38,8 +38,27 @@ function checkIfUserLoggedIn() {
     }
 }
 
-function addNewPlayer(string) {
+function queryAllPlayers(string) {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var team = Parse.Object.extend(teamName);
+    var query = new Parse.Query(team);
     var playerName = $('#input-player-name').val();
+    query.equalTo('playerName', playerName);
+    query.first({
+        success: function (player) {
+            if (player == undefined) {
+                addNewPlayer(playerName, string);
+            } else {
+                alert("Es existiert bereits ein Spieler mit diesem Namen. Bitte wählen Sie einen anderen Namen aus.");
+            }
+        },
+        error: function (error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+function addNewPlayer(playerName, string) {
     if (playerName != "") {
         if (string == "add-player") {
             savePlayer(playerName);

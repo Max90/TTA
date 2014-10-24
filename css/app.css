@@ -41,6 +41,10 @@
     margin: 1em 0;
 }
 
+#button-add-next-player-small {
+    margin-top: 0.5em;
+}
+
 #google-visualization-errors-0 {
     display: none;
 }
