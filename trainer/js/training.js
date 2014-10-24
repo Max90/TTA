@@ -1,38 +1,28 @@
-$(document).ready(function () {
+Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+var currentUser = Parse.User.current();
+var trainerString = "trainer";
+if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
+    window.location.href = "../index.html";
+} else {
+    $(document).ready(function () {
+        $('#button-logout').on('click', function () {
+            Parse.User.logOut();
+        });
 
-    Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+        $('#button-add-training').on('click', function () {
+            addNewTraining();
+        });
 
-    $('#button-logout').on('click', function () {
-        Parse.User.logOut();
+        //reloads page to refresh count of players in training
+        //@todo: evtl noch mit ajax machen
+        $('#close-player-addition-modal').on('click', function () {
+            location.reload();
+        });
 
-        var currentUser = Parse.User.current();
-        checkIfUserLoggedIn();
+        showTrainingList();
+        showPlayerList();
+
     });
-
-    $('#button-add-training').on('click', function () {
-        addNewTraining();
-    });
-
-    //reloads page to refresh count of players in training
-    //@todo: evtl noch mit ajax machen
-    $('#close-player-addition-modal').on('click', function () {
-        location.reload();
-    });
-
-    showTrainingList();
-    showPlayerList();
-
-});
-
-
-function checkIfUserLoggedIn() {
-    var currentUser = Parse.User.current();
-    if (currentUser) {
-        $('#button-logout').show();
-    } else {
-        $('#button-logout').hide();
-        $('.login-form').show();
-    }
 }
 
 function addNewTraining() {

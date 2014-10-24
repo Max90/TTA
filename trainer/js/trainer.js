@@ -1,20 +1,22 @@
-$(document).ready(function () {
+Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+var currentUser = Parse.User.current();
+var trainerString = "trainer";
+if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
+    window.location.href = "../index.html";
+} else {
+    $(document).ready(function () {
+        $('#button-logout').on('click', function () {
+            Parse.User.logOut();
+        });
 
-    Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
-    $('#button-logout').on('click', function () {
-        Parse.User.logOut();
+        $('#button-send-player-info').on('click', function () {
+            updatePlayerInfo();
+        });
 
-        var currentUser = Parse.User.current();
-        checkIfUserLoggedIn();
+        updatePlayerInfoBox();
     });
+}
 
-
-    $('#button-send-player-info').on('click', function () {
-        updatePlayerInfo();
-    });
-
-    updatePlayerInfoBox();
-});
 
 function updatePlayerInfo() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_playerInfoBox";
@@ -39,18 +41,6 @@ function updatePlayerInfo() {
 
 
 }
-
-function checkIfUserLoggedIn() {
-    var currentUser = Parse.User.current();
-    if (currentUser) {
-        $('#button-logout').show();
-    } else {
-        $('#button-logout').hide();
-        $('.login-form').show();
-    }
-
-}
-
 
 function updatePlayerInfoBox() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_playerInfoBox";
