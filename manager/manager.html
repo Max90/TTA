@@ -8,6 +8,7 @@
     <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
     <link rel="stylesheet" href="../css/foundation.min.css"/>
     <link rel="stylesheet" href="../css/normalize.css"/>
+
     <link rel="stylesheet" href="../css/app.css"/>
     <link rel="stylesheet" href="../jquery-ui/jquery.contextMenu.css"/>
     <link rel="stylesheet" href="../css/topbar.css"/>
@@ -35,7 +36,7 @@
                     <li class="show-for-small">
                         <label>Top Team</label>
                     </li>
-                    <li><a href="manager-nutmeg.html">Beiner Verwaltung</a></li>
+                    <li><a href="manager-nutmeg.html">Beiner</a></li>
                     <li><a href="../index.html" id="button-logout">Logout</a>
                     </li>
                 </ul>
@@ -54,6 +55,7 @@
                 <!-- player-container -------------------------------------------------------------------------------------------------------->
                 <div class="row">
                     <div class="large-12 columns" id="player-container">
+                        <b>Übersicht Trainings und Trainingsbeteiligung:</b>
                         <table id="training-table">
                             <thead>
                             <tr>
@@ -76,6 +78,9 @@
                 <!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
                 <div class="row">
                     <div class="large-12 columns" id="training-container">
+
+                        <span data-tooltip class="has-tip" title="Spieler Trainings Details durch klicken auf Spieler!">Trainingsbeteilung Ranking:</span>
+
                         <table id="player-training-table">
                             <thead>
                             <tr>
