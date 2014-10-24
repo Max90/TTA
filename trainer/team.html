@@ -69,10 +69,19 @@
 
     <p class="lead">Informationen zum Spieler</p>
 
-    <p><input id="input-player-name" required="true" placeholder="Vorname Nachname"/></p>
-    <button id="button-add-player">Spieler anlegen</button>
-    <button id="button-add-next-player">Weiteren Spieler anlegen</button>
-    <a class="close-reveal-modal">&#215;</a>
+    <div class="row">
+        <p><input id="add-player-modal-input-player-name" required="true" placeholder="Vorname Nachname"/></p>
+    </div>
+    <div class="row show-for-large-up">
+        <button class="large-4 columns" id="button-add-player">Spieler anlegen</button>
+        <button class="large-4 columns large-offset-4" id="button-add-next-player">Weiteren Spieler anlegen</button>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div class="row show-for-medium-down">
+        <button class="small-12 columns" id="button-add-player-small">Spieler anlegen</button>
+        <button class="small-12 columns" id="button-add-next-player-small">Weiteren Spieler anlegen</button>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
 </div>
 
 <!--spieler bearbeiten modal------------------------------------------------------------------------------------------------>
