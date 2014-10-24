@@ -7,18 +7,13 @@
     <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
     <link rel="stylesheet" href="../css/foundation.min.css"/>
     <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/topbar.css"/>
     <!--[if lt IE 8]>
     <link rel="stylesheet" href="../css/fonts/foundation_icons_general/stylesheets/general_foundicons_ie7.css">
     <![endif]-->
     <link rel="stylesheet" href="../css/fonts/foundation_icons_general/stylesheets/general_foundicons.css">
     <link rel="stylesheet" href="../css/app.css"/>
-    <link rel="stylesheet" href="../jquery-ui/jquery.contextMenu.css"/>
-    <link rel="stylesheet" href="../css/topbar.css"/>
     <script src="../foundation-js/modernizr.js"></script>
-    <script src="../js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="js/nutmegchart.js"></script>
-
 </head>
 <body>
 <div class="off-canvas-wrap" data-offcanvas>
@@ -27,7 +22,7 @@
             <nav class="tab-bar">
                 <div class="title-area">
                     <div class="name">
-                        <h1><a href="../index.html">Top Team</a></h1>
+                        <h1><a href="#">Top Team</a></h1>
                     </div>
                 </div>
                 <section class="right-small show-for-small">
@@ -39,8 +34,7 @@
                     <li class="show-for-small">
                         <label>Top Team</label>
                     </li>
-                    <li><a href="player.html">Spieler-Start</a>
-                    </li>
+                    <li><a href="manager.html">Verwalter Start</a>
                     <li><a href="../index.html" id="button-logout">Logout</a>
                     </li>
                 </ul>
@@ -48,8 +42,6 @@
         </div>
         <div class="row">
             <div class="large-12 columns content-wrapper">
-
-
                 <!-- player-container -------------------------------------------------------------------------------------------------------->
                 <div class="row">
                     <div class="large-12 columns" id="player-container">
@@ -68,11 +60,6 @@
                 </div>
 
 
-                <div class="row">
-                    <div class="large-12 columns" id="chart_div"></div>
-                </div>
-
-
                 <!-- player-nutmeg -------------------------------------------------------------------------------------------------------->
                 <div class="row">
                     <div class="large-12 columns" id="training-container">
@@ -83,6 +70,8 @@
                                 <th id="name-player">Name</th>
                                 <th id="nutmeg-sum">Gesamt Beiner</th>
                                 <th id="nutmeg-not-paid-sum">Beiner (nicht bezahlt)</th>
+                                <th class="input-nm"></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -90,17 +79,52 @@
                         </table>
                     </div>
                 </div>
+
+
+                <a class="exit-off-canvas"></a>
             </div>
         </div>
-        <a class="exit-off-canvas"></a>
-    </div>
-</div>
 
-<script src="../foundation-js/foundation.min.js"></script>
-<script type="text/javascript" src="../jquery-ui/jquery.ui.position.js"></script>
-<script>
-    $(document).foundation();
-</script>
-<script src="js/nutmeg.js"></script>
+
+        <!--End of navbar-------------------------------------------------------------------------------------------------------->
+
+        <div id="modal-add-nutmeg-to-player" class="reveal-modal" data-reveal>
+            <h2>Fügen Sie Beinschüsse für Spieler hinzu!</h2>
+
+            <div class="row">
+                <div class="large-12 columns" id="modal-add-nutmeg-to-player-controll-panel">
+
+                    <div id="header-date"></div>
+                    <div id="player-count"></div>
+                </div>
+            </div>
+            <!-- player-container -------------------------------------------------------------------------------------------------------->
+
+            <div id="player-modal-container">
+                <table id="player-modal-table">
+                    <thead>
+                    <tr>
+                        <th id="player-icon" class="player-icon-column">Spieler Avatar</th>
+                        <th id="player-name" class="player-name-column">Spieler Name</th>
+                        <th class="nutmeg-column"></th>
+                        <th class="minus-column">Beiner</th>
+                        <th class="plus-column"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+
+        <script src="../js/jquery-2.1.1.min.js"></script>
+        <script src="../foundation-js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
+        <script src="js/manager-nutmeg.js"></script>
 </body>
 </html>

@@ -160,7 +160,7 @@ function showNutmegPlayerTable(columnNmDateNames) {
 
                 $("#player-nutmeg-table").append($("<tr>").append($('<td><img src="' + imgSrc + '"></td>'
                     + '<td class="player-nm-name">' + obj.get('playerName') + '</td>'
-                    + '<td>' + sum + '</td>' + '<td>' + obj.get('nutmegNotPaid') + '</td>' + '<td class="input-nm">' + '<input class="input-nm-val" type="text" placeholder="0">' + '</td>' + '<td class="checkmark-nm">' + '<i onclick="newNotPaidNutmeg($(this))" class="foundicon-checkmark"></i>' + '</td>')));
+                    + '<td>' + sum + '</td>' + '<td>' + obj.get('nutmegNotPaid') + '</td>')));
             }
 
 
