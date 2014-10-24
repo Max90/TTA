@@ -1,9 +1,9 @@
 Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 var currentUser = Parse.User.current();
-var trainerString = "trainer";
-if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
-    window.location.href = "../index.html";
-} else {
+var trainerString = "admin";
+var userName = currentUser['attributes']['username'];
+console.log(userName);
+if (userName.indexOf(trainerString) >= 0) {
     $(document).ready(function () {
         $('#button-logout').on('click', function () {
             Parse.User.logOut();
@@ -15,6 +15,8 @@ if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
 
         updatePlayerInfoBox();
     });
+} else {
+    window.location.href = "../index.html";
 }
 
 
@@ -28,7 +30,7 @@ function updatePlayerInfo() {
         playerInfoBox.set("playerInfoBox", "Hier könnte eine aktuelle Info für Ihre Spieler stehen!");
     } else {
         playerInfoBox.set("playerInfoBox", $("textarea#input-current-player-info").val());
-    }
+        }
 
     playerInfoBox.save(null, {
         success: function (infoBox) {

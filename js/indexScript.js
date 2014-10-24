@@ -55,13 +55,11 @@ function checkIfUserLoggedIn() {
 
 
 function saveUser(teamName, role, pw, email) {
+    var name = teamName.replace(/ /g, "_");
     var user = new Parse.User();
-    user.set("username", teamName + "_" + role);
+    user.set("username", name + "_" + role);
     user.set("password", pw);
     user.set("email", email);
-
-
-    user.set("teamname", teamName.replace(" ", ""));
 
     user.signUp(null, {
         success: function (user) {
@@ -76,7 +74,7 @@ function saveUser(teamName, role, pw, email) {
 }
 
 
-//es werden drei verschiedene benutzer angelegt: admin, js, player
+//es werden drei verschiedene benutzer angelegt: admin, manager, player
 function saveNewTeam() {
     checkForValidTeamName();
     saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val(), $('#input-admin-email').val());
@@ -92,7 +90,7 @@ function getRole() {
     if ($('#select-role option:selected').val() == 1) {
         var role = 'admin';
     } else if ($('#select-role option:selected').val() == 2) {
-        var role = 'js';
+        var role = 'manager';
     } else {
         var role = 'player';
     }
@@ -100,7 +98,8 @@ function getRole() {
 }
 function login() {
     var teamName = $('#input-teamname-login').val();
-    var username = teamName + "_" + getRole();
+    var name = teamName.replace(/ /g, "_");
+    var username = name + "_" + getRole();
     var password = $('#input-password-login').val();
     Parse.User.logIn(username, password, {
         success: function (user) {

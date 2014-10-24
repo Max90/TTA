@@ -1,9 +1,9 @@
 Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 var currentUser = Parse.User.current();
-var trainerString = "trainer";
-if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
-    window.location.href = "../index.html";
-} else {
+var trainerString = "admin";
+var userName = currentUser['attributes']['username'];
+console.log(userName);
+if (userName.indexOf(trainerString) >= 0) {
     $(document).ready(function () {
         $('#button-logout').on('click', function () {
             Parse.User.logOut();
@@ -21,6 +21,8 @@ if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
 
         showPlayers();
     });
+} else {
+    window.location.href = "../index.html";
 }
 
 function checkIfUserLoggedIn() {
