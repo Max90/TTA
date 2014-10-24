@@ -167,7 +167,6 @@ function trCount(player, imgSrc) {
     var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_training";
     var training = Parse.Object.extend(teamTrainingName);
     var query = new Parse.Query(training);
-    query.equalTo("playerName", playerName);
     query.ascending("trCount");
 
     query.count({

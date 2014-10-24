@@ -3,13 +3,18 @@ $(document).ready(function () {
 
     checkIfUserLoggedIn();
 
-
     $('#submit-button').on('click', function () {
         saveNewPlayer();
     });
 
     $('#button-create-team').on('click', function () {
-        saveNewTeam();
+        if ($('#input-team-name').val() == "" || $('#input-admin-email').val() == "" || $('#input-admin-pw').val() == ""
+            || $('#input-player-pw').val() == "" || $('#input-manager-pw').val() == "") {
+            alert("Bitte füllen Sie erst alle Felder aus bevor Sie fortfahren");
+        } else {
+            saveNewTeam();
+        }
+
     });
 
     $(".login-form").submit(function (event) {
@@ -55,8 +60,9 @@ function checkIfUserLoggedIn() {
 
 
 function saveUser(teamName, role, pw, email) {
-    var name = teamName.replace(/ /g, "_");
     var user = new Parse.User();
+    var name = teamName.replace(/ /g, "_");
+    user.set("teamname", name);
     user.set("username", name + "_" + role);
     user.set("password", pw);
     user.set("email", email);
@@ -74,7 +80,7 @@ function saveUser(teamName, role, pw, email) {
 }
 
 
-//es werden drei verschiedene benutzer angelegt: admin, manager, player
+//es werden drei verschiedene benutzer angelegt: admin, js, player
 function saveNewTeam() {
     checkForValidTeamName();
     saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val(), $('#input-admin-email').val());
@@ -98,14 +104,13 @@ function getRole() {
 }
 function login() {
     var teamName = $('#input-teamname-login').val();
-    var name = teamName.replace(/ /g, "_");
-    var username = name + "_" + getRole();
+    var username = teamName.replace(/ /g, "_") + "_" + getRole();
+    console.log(username);
     var password = $('#input-password-login').val();
     Parse.User.logIn(username, password, {
         success: function (user) {
             $('.login-form').hide();
             checkIfUserLoggedIn();
-            console.log(getRole());
             if (getRole() == "admin") {
                 window.location.href = 'trainer/trainer.html';
             } else if (getRole() == "manager") {
