@@ -1,9 +1,9 @@
 Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 var currentUser = Parse.User.current();
-var managerString = "manager";
-if (!currentUser) {
-    window.location.href = "../index.html";
-} else {
+var playerString = "player";
+var userName = currentUser['attributes']['username'];
+console.log(userName);
+if (userName.indexOf(playerString) >= 0) {
     $(document).ready(function () {
 
         $('#button-logout').on('click', function () {
@@ -13,6 +13,8 @@ if (!currentUser) {
         getNutmegSumForPlayerTable();
         creatNutmegSumColumn();
     });
+} else {
+    window.location.href = "../index.html"
 }
 
 function creatNutmegSumColumn() {
