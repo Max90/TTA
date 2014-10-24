@@ -7,6 +7,10 @@
     <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
     <link rel="stylesheet" href="../css/foundation.min.css"/>
     <link rel="stylesheet" href="../css/normalize.css"/>
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="../css/fonts/foundation_icons_general/stylesheets/general_foundicons_ie7.css">
+    <![endif]-->
+    <link rel="stylesheet" href="../css/fonts/foundation_icons_general/stylesheets/general_foundicons.css">
     <link rel="stylesheet" href="../css/app.css"/>
     <link rel="stylesheet" href="../jquery-ui/jquery.contextMenu.css"/>
     <link rel="stylesheet" href="../css/topbar.css"/>
@@ -75,9 +79,12 @@
                         <table id="player-nutmeg-table">
                             <thead>
                             <tr>
+                                <th id="player-pic">Name</th>
                                 <th id="name-player">Name</th>
                                 <th id="nutmeg-sum">Gesamt Beiner</th>
                                 <th id="nutmeg-not-paid-sum">Beiner (nicht bezahlt)</th>
+                                <th class="input-nm"></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
