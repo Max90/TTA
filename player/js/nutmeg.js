@@ -87,7 +87,7 @@ function showNutmegPlayerTable(columnNmDateNames) {
     var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_players";
     var training = Parse.Object.extend(teamTrainingName);
     var query = new Parse.Query(training);
-    query.ascending("playerName")
+    query.ascending("playerName");
     query.find({
         success: function (results) {
 
