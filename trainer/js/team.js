@@ -15,10 +15,10 @@ if (currentUser['attributes']['username'].indexOf(trainerString) >= 0) {
             checkIfUserLoggedIn();
         });
 
-        $('#button-add-player').on('click', function () {
+        $('.button-add-player').on('click', function () {
             queryAllPlayers("add-player");
         });
-        $('#button-add-next-player').on('click', function () {
+        $('.button-add-next-player').on('click', function () {
             queryAllPlayers("add-next-player");
         });
 
@@ -42,7 +42,7 @@ function queryAllPlayers(string) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
-    var playerName = $('#input-player-name').val();
+    var playerName = $('#add-player-modal-input-player-name').val();
     query.equalTo('playerName', playerName);
     query.first({
         success: function (player) {
@@ -59,6 +59,7 @@ function queryAllPlayers(string) {
 }
 
 function addNewPlayer(playerName, string) {
+    console.log(playerName);
     if (playerName != "") {
         if (string == "add-player") {
             savePlayer(playerName);
@@ -95,6 +96,7 @@ function savePlayer(playerName) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var Tabelle = Parse.Object.extend(teamName);
     var players = new Tabelle();
+    console.log(playerName);
     players.set("playerName", playerName);
     players.set("trCount", 0);
     players.save(null, {
