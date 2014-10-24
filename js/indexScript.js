@@ -25,13 +25,14 @@ $(document).ready(function () {
     });
 
     $('#button-reset-pw').on('click', function () {
+        alert("Sie haben eine E-Mail mit dem Link zum zurücksetzen Ihres Passworts erhalten.");
+        $('#modal-reset-pw').foundation('reveal', 'close');
         Parse.User.requestPasswordReset($('#input-email-reset-pw').val(), {
             success: function () {
-                // Password reset request was sent successfully
             },
             error: function (error) {
                 // Show the error message somewhere
-                alert("Error: " + error.code + " " + error.message);
+                alert("Für diese E-Mail Adresse gibt es keinen Top Team Account.");
             }
         });
     });
@@ -108,7 +109,7 @@ function login() {
             console.log(getRole());
             if (getRole() == "admin") {
                 window.location.href = 'trainer/trainer.html';
-            } else if (getRole() == "js") {
+            } else if (getRole() == "manager") {
                 window.location.href = 'manager/manager.html'
             } else if (getRole() == 'player') {
                 window.location.href = 'player/player.html';
