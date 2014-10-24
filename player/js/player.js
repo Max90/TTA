@@ -1,25 +1,32 @@
-$(document).ready(function () {
+Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+var currentUser = Parse.User.current();
+var managerString = "manager";
+if (!currentUser) {
+    window.location.href = "../index.html";
+} else {
+    $(document).ready(function () {
 
-    Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+        Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
 
-    $('#button-logout').on('click', function () {
-        Parse.User.logOut();
+        $('#button-logout').on('click', function () {
+            Parse.User.logOut();
 
-        var currentUser = Parse.User.current();
-        checkIfUserLoggedIn();
+            var currentUser = Parse.User.current();
+            checkIfUserLoggedIn();
+        });
+
+
+        //reloads page to refresh count of players in training
+        //@todo: evtl noch mit ajax machen
+        $('#close-player-addition-modal').on('click', function () {
+            location.reload();
+        });
+        updatePlayerInfoBox();
+        showTrainingList();
+        showPlayerList();
+
     });
-
-
-    //reloads page to refresh count of players in training
-    //@todo: evtl noch mit ajax machen
-    $('#close-player-addition-modal').on('click', function () {
-        location.reload();
-    });
-    updatePlayerInfoBox();
-    showTrainingList();
-    showPlayerList();
-
-});
+}
 
 
 function checkIfUserLoggedIn() {

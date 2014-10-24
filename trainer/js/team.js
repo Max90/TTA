@@ -1,22 +1,27 @@
-$(document).ready(function () {
+Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+var currentUser = Parse.User.current();
+var trainerString = "trainer";
+if (!trainerString.indexOf(currentUser['attributes']['username']) >= 0) {
+    window.location.href = "../index.html";
+} else {
+    $(document).ready(function () {
+        $('#button-logout').on('click', function () {
+            Parse.User.logOut();
 
-    Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
-    $('#button-logout').on('click', function () {
-        Parse.User.logOut();
+            var currentUser = Parse.User.current();
+            checkIfUserLoggedIn();
+        });
 
-        var currentUser = Parse.User.current();
-        checkIfUserLoggedIn();
+        $('#button-add-player').on('click', function () {
+            addNewPlayer("add-player");
+        });
+        $('#button-add-next-player').on('click', function () {
+            addNewPlayer("add-next-player");
+        });
+
+        showPlayers();
     });
-
-    $('#button-add-player').on('click', function () {
-        addNewPlayer("add-player");
-    });
-    $('#button-add-next-player').on('click', function () {
-        addNewPlayer("add-next-player");
-    });
-
-    showPlayers();
-});
+}
 
 function checkIfUserLoggedIn() {
     var currentUser = Parse.User.current();
@@ -163,6 +168,8 @@ function getImageSrc(object, playerName) {
                 $('#input-player-name-small').on("change", function () {
                     $('#input-player-name-big').val($('#input-player-name-small').val());
                 });
+
+                $('.modal-change-player').find('.player-name-change-modal').text($(this).closest('tr').find('.player-name').text());
 
                 $('#input-player-name-big').on("change", function () {
                     $('#input-player-name-small').val($('#input-player-name-big').val());

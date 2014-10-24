@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="../css/topbar.css"/>
     <link rel="stylesheet" href="../css/app.css"/>
     <script src="../foundation-js/modernizr.js"></script>
+
 </head>
 <body>
-
 <div class="off-canvas-wrap" data-offcanvas>
     <div class="inner-wrap">
         <div class="hybrid-bar">
@@ -38,7 +38,8 @@
             <div class="large-12 columns content-wrapper">
 
                 <div class="row">
-                    <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler hinzufügen</a>
+                    <a class="button large-12 columns small-12" href="#" data-reveal-id="modal-add-player">Spieler
+                        hinzufügen</a>
                 </div>
 
                 <!-- player-container -------------------------------------------------------------------------------------------------------->
@@ -81,9 +82,18 @@
     <div class="row">
         <div class="row">
             <img id="image-player" class="img-player large-4 columns" src="../img/avatar.jpg">
-            <input id="input-player-name-big" class="input-player-name large-3 columns large-offset-2" required="true"
+
+            <h3 class="player-name-change-modal large-3 columns large-offset-5"></h3>
+            <input id="input-player-name-big" class="input-player-name-big large-3 columns" required="true"
                    placeholder="Vorname Nachname"/>
         </div>
+        <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
+            <fieldset>
+                <h4>Hier Bild für den Spieler hochladen</h4>
+                <input type="file" name="fileselect" id="fileselect" class="fileselect">
+                <input type="button" id="uploadbutton" class="button uploadbutton" value="Auf TopTeam hochladen"/>
+            </fieldset>
+        </form>
         <div class="row" id="player-changes-container">
             <div class="large-12 columns">
                 <button id="button-delete-player" class=" button-delete-player large-3 columns large-offset-5">Spieler
@@ -93,12 +103,6 @@
                 </button>
             </div>
         </div>
-        <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
-            <fieldset>
-                <input type="file" name="fileselect" id="fileselect" class="fileselect">
-                <input type="button" id="uploadbutton" class="button uploadbutton" value="Auf TopTeam hochladen"/>
-            </fieldset>
-        </form>
         <a class="close-reveal-modal">&#215;</a>
     </div>
 </div>
@@ -112,8 +116,22 @@
                 <img id="image-player-small" class="img-player" src="../img/avatar.jpg" class="small-12 columns">
             </div>
             <div class="row">
+                <h3 class="player-name-change-modal"></h3>
+            </div>
+            <div class="row">
                 <input id="input-player-name-small" class="input-player-name small-12 medium-12 columns" required="true"
                        placeholder="Vorname Nachname"/>
+            </div>
+            <div class="row">
+                <form id="fileupload-small" class="small-12 medium-12 columns" name="fileupload"
+                      enctype="multipart/form-data" method="post">
+                    <fieldset>
+                        <h4>Hier Bild für den Spieler hochladen</h4>
+                        <input type="file" name="fileselect" id="fileselect-small" class="fileselect">
+                        <input id="uploadbutton-small" type="button" class="button uploadbutton"
+                               value="Auf TopTeam hochladen"/>
+                    </fieldset>
+                </form>
             </div>
             <div class="row">
                 <button id="button-delete-player-small" class="button-delete-player small-12 medium-12 columns">Spieler
@@ -124,16 +142,6 @@
                 <button class="button-save-changes small-12 medium-12 columns" id="button-save-changes-small">Änderungen
                     speichern
                 </button>
-            </div>
-            <div class="row">
-                <form id="fileupload-small" class="small-12 medium-12 columns" name="fileupload"
-                      enctype="multipart/form-data" method="post">
-                    <fieldset>
-                        <input type="file" name="fileselect" id="fileselect-small" class="fileselect">
-                        <input id="uploadbutton-small" type="button" class="button uploadbutton"
-                               value="Auf TopTeam hochladen"/>
-                    </fieldset>
-                </form>
             </div>
         </div>
         <a class="close-reveal-modal">&#215;</a>

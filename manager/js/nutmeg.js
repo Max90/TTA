@@ -1,17 +1,19 @@
-$(document).ready(function () {
+Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+var currentUser = Parse.User.current();
+var managerString = "manager";
+if (!managerString.indexOf(currentUser['attributes']['username']) >= 0) {
+    window.location.href = "../index.html";
+} else {
+    $(document).ready(function () {
 
-    Parse.initialize("9nPPbQxM1lKkfOOSiJWDiVhP1Ze6leFgeKNxWvTz", "3212hWENS0Iv0CHmFgZh4gfgP9s3vJnLeRsHVbPN");
+        $('#button-logout').on('click', function () {
+            Parse.User.logOut();
+        });
 
-    $('#button-logout').on('click', function () {
-        Parse.User.logOut();
+        showTrainingListNutmeg();
 
-        var currentUser = Parse.User.current();
-        checkIfUserLoggedIn();
     });
-
-    showTrainingListNutmeg();
-
-});
+}
 
 function showTrainingListNutmeg() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
@@ -119,8 +121,9 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
             var date = dateTraining.replace(/-/g, "_");
             var nutmegCount = player.get("nm_" + date);
 
-            $("#player-modal-table").append($('<tr class="player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td class="nm-player">'
-                + playerName + '</td>' + '<td class="nutmeg-count">' + nutmegCount + '</td>' + '<td>' + '<button onclick="minusButtonClicked($(this))" class="minus">' + '-' + '</button>' + '</td>' + '<td>' + '<button onclick="plusButtonClicked($(this))" class="plus">' + '+' + '</button>' + '</td>')));
+            $("#player-modal-table").append($('<tr class="player-context-menu">').append($('<td><img src="' + imgSrc + '"></td>' + '<td class="nm-player player-name-column">'
+                + playerName + '</td>' + '<td>' + '<i onclick="minusButtonClicked($(this))" class="minus foundicon-minus minus-column"></i>'
+                + '</td>' + '<td class="nutmeg-count nutmeg-column">' + nutmegCount + '</td>' + '<td>' + '<i onclick="plusButtonClicked($(this))" class="plus foundicon-plus plus-column"></i>' + '</td>')));
 
         },
         error: function (error) {
