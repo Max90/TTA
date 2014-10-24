@@ -90,6 +90,11 @@
     width: auto;
 }
 
+#player-nutmeg-table img {
+    max-height: 4em;
+    width: auto;
+}
+
 .hybrid-bar .name a {
     color: #007095;
 }
@@ -186,4 +191,8 @@
     font-weight: normal;
     font-style: normal;
     text-decoration: inherit;
+}
+
+.input-nm {
+    width: 5em !important;
 }
