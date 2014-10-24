@@ -200,3 +200,36 @@
 .input-nm {
     width: 5em !important;
 }
+
+.training-nutmeg-number {
+    width: 40%;
+    text-align: center;
+}
+
+.training-time {
+    width: 30%;
+}
+
+.training-date {
+    width: 30%;
+}
+
+.player-pic {
+    width: 14%;
+}
+
+.name-player {
+    width: 20%;
+}
+
+.nutmeg-sum,
+.nutmeg-not-paid-sum {
+    width: 18%;
+    text-align: center;
+}
+
+.input-nm
+.checkmark-nm {
+    width: 15%;
+    vertical-align: middle;
+}
