@@ -9,6 +9,7 @@ $(document).ready(function () {
         checkIfUserLoggedIn();
     });
     showNutmegTrainingList();
+    getNutmegSumForPlayerTable();
 });
 
 
@@ -33,11 +34,6 @@ function showNutmegTrainingList() {
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                //von Training Gesamt-Anzahl Beiner zählen und für X einfügen
-                /* $("#training-nutmeg-table").append($("<tr>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
-                 + '<td>' + "X" + '</td>')));*/
-
-
                 trNutmegCount(object);
             }
         },
@@ -71,6 +67,59 @@ function trNutmegCount(object) {
         }
     });
 }
+function getNutmegSumForPlayerTable() {
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
+    var trDates = Parse.Object.extend(teamName);
+    var query = new Parse.Query(trDates);
+
+    query.find({
+        success: function (results) {
+            // Do something with the returned Parse.Object values
+            var columnNmDateNames = [];
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+
+
+                var columnNmDateName = "nm_" + object.get('dateTraining').replace(/-/g, "_");
+                columnNmDateNames.push(columnNmDateName);
+            }
+            showNutmegPlayerTable(columnNmDateNames);
+
+        },
+        error: function (error) {
+            console.log("Error: " + error.code + " " + error.message);
+        }
+    });
+
+}
+function showNutmegPlayerTable(columnNmDateNames) {
+    var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var training = Parse.Object.extend(teamTrainingName);
+    var query = new Parse.Query(training);
+    query.ascending("playerName")
+    query.find({
+        success: function (results) {
+
+            for (var i = 0; i < results.length; i++) {
+                var obj = results[i];
+                var sum = 0;
+                for (var j = 0; j < columnNmDateNames.length; j++) {
+                    sum = sum + obj.get(columnNmDateNames[j]);
+                }
+
+                $("#player-nutmeg-table").append($("<tr>").append($('</td>' + '<td>' + obj.get('playerName') + '</td>'
+                    + '<td>' + sum + '</td>')));
+
+            }
+
+
+        },
+        error: function (error) {
+            // The request failed
+        }
+    });
+}
+
 
 
 
