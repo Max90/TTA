@@ -105,9 +105,11 @@ function showNutmegPlayerTable(columnNmDateNames) {
                 var sum = 0;
                 for (var j = 0; j < columnNmDateNames.length; j++) {
                     sum = sum + obj.get(columnNmDateNames[j]);
-                }
 
-                $("#player-nutmeg-table").append($("<tr>").append($('</td>' + '<td>' + obj.get('playerName') + '</td>'
+                }
+                obj.set("nutmegSum", sum);
+
+                $("#player-nutmeg-table").append($("<tr>").append($('<td>' + obj.get('playerName') + '</td>'
                     + '<td>' + sum + '</td>')));
 
             }
