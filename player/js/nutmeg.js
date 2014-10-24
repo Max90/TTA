@@ -62,10 +62,6 @@ function trNutmegCount(object) {
                 sum = sum + obj.get("nm_" + object.get('dateTraining').replace(/-/g, "_"));
             }
 
-            saveTrNutmegCount(object.get('dateTraining').replace(/-/g, "_"), sum);
-
-
-
             $("#training-nutmeg-table").append($("<tr>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
                 + '<td>' + sum + '</td>')));
 
@@ -75,36 +71,6 @@ function trNutmegCount(object) {
         }
     });
 }
-
-
-function saveTrNutmegCount(dateTraining, sum) {
-
-    var teamNameTraining = Parse.User.current()['attributes']['teamname'] + "_trDates";
-
-    var Tabelle = Parse.Object.extend(teamNameTraining);
-    var training = new Parse.Query(Tabelle);
-
-    training.equalTo("dateTraining", dateTraining);
-    training.first({
-        success: function (training) {
-            training.set("trNutmegPlayerCount", count);
-            training.save();
-        },
-        error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
-        }
-    });
-
-
-}
-
-
-
-
-
-
 
 
 
