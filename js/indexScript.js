@@ -62,6 +62,10 @@ function checkIfUserLoggedIn() {
 function saveUser(teamName, role, pw, email) {
     var user = new Parse.User();
     var name = teamName.replace(/ /g, "_");
+    if (!isNaN(+name.charAt(0))) {
+        name = "TT_" + name;
+        console.log('koa nummer');
+    }
     user.set("teamname", name);
     user.set("username", name + "_" + role);
     user.set("password", pw);
@@ -105,7 +109,9 @@ function getRole() {
 function login() {
     var teamName = $('#input-teamname-login').val();
     var username = teamName.replace(/ /g, "_") + "_" + getRole();
-    console.log(username);
+    if (!isNaN(+username.charAt(0))) {
+        username = "TT_" + username;
+    }
     var password = $('#input-password-login').val();
     Parse.User.logIn(username, password, {
         success: function (user) {
