@@ -24,43 +24,6 @@ if (userName.indexOf(managerString) >= 0) {
     window.location.href = "../index.html";
 }
 
-function showTrainingListNutmeg() {
-    var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
-    var trDates = Parse.Object.extend(teamName);
-    var query = new Parse.Query(trDates);
-
-    query.find({
-        success: function (results) {
-
-
-            // holt die Trainings von Parse und gibt diese aus
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-
-                creatNutmegColumns(results[i].get('dateTraining'));
-
-                $("#training-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
-                )).on("click", function () {
-                    var d = new Date($(this).closest('tr').children('td:first').text());
-                    var curr_date = d.getDate();
-                    var curr_month = d.getMonth() + 1; //Months are zero based
-                    var curr_year = d.getFullYear();
-
-
-                    $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
-                    showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
-                }));
-
-            }
-
-        },
-        error: function (error) {
-            alert("Error: " + error.code + " " + error.message);
-        }
-    });
-}
-
-
 function showNutmegTrainingList() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
     var trDates = Parse.Object.extend(teamName);
@@ -94,8 +57,9 @@ function trNutmegCount(object) {
                 sum = sum + obj.get("nm_" + object.get('dateTraining').replace(/-/g, "_"));
             }
 
-            $("#training-nutmeg-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td>' + object.get('dateTraining') + '</td>' + '<td>' + object.get('timeTraining') + '</td>'
-                + '<td>' + sum + '</td>')).on("click", function () {
+            $("#training-nutmeg-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td class="training-date">' + object.get('dateTraining') + '</td>'
+                + '<td class="training-time">' + object.get('timeTraining') + '</td>'
+                + '<td class="training-nutmeg-number">' + sum + '</td>')).on("click", function () {
                 console.log("MODAL");
                 var d = new Date($(this).closest('tr').children('td:first').text());
                 var curr_date = d.getDate();
@@ -346,8 +310,10 @@ function showNutmegPlayerTable(columnNmDateNames) {
                 fillNutmegSumColumn(obj.get('playerName'), sum);
 
                 $("#player-nutmeg-table").append($("<tr>").append($('<td><img src="' + imgSrc + '"></td>'
-                    + '<td class="player-nm-name">' + obj.get('playerName') + '</td>'
-                    + '<td>' + sum + '</td>' + '<td>' + obj.get('nutmegNotPaid') + '</td>' + '<td class="input-nm">' + '<input class="input-nm-val" type="text" placeholder="0">' + '</td>' + '<td class="checkmark-nm">' + '<i onclick="newNotPaidNutmeg($(this))" class="foundicon-checkmark"></i>' + '</td>')));
+                    + '<td class="player-nm-name name-player">' + obj.get('playerName') + '</td>'
+                    + '<td class="nutmeg-sum">' + sum + '</td>' + '<td class="nutmeg-not-paid-sum">'
+                    + obj.get('nutmegNotPaid') + '</td>' + '<td class="input-nm">' + '<input class="input-nm-val" type="text" placeholder="0">'
+                    + '</td>' + '<td class="checkmark-nm">' + '<i onclick="newNotPaidNutmeg($(this))" class="foundicon-checkmark"></i>' + '</td>')));
             }
 
 

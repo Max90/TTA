@@ -49,9 +49,9 @@
                         <table id="training-nutmeg-table">
                             <thead>
                             <tr>
-                                <th id="training-date">Datum</th>
-                                <th id="training-time">Uhrzeit</th>
-                                <th id="training-nutmeg-number">Anzahl Beiner</th>
+                                <th id="training-date" class="training-date">Datum</th>
+                                <th id="training-time" class="training-time">Uhrzeit</th>
+                                <th id="training-nutmeg-number" class="training-nutmeg-number">Anzahl Beiner</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,12 +67,12 @@
                         <table id="player-nutmeg-table">
                             <thead>
                             <tr>
-                                <th id="player-pic">Name</th>
-                                <th id="name-player">Name</th>
-                                <th id="nutmeg-sum">Gesamt Beiner</th>
-                                <th id="nutmeg-not-paid-sum">Beiner (nicht bezahlt)</th>
+                                <th id="player-pic" class="player-pic">Name</th>
+                                <th id="name-player" class="name-player">Name</th>
+                                <th id="nutmeg-sum" class="nutmeg-sum">Gesamt Beiner</th>
+                                <th id="nutmeg-not-paid-sum" class="nutmeg-not-paid-sum">Nicht bezahlt</th>
                                 <th class="input-nm"></th>
-                                <th></th>
+                                <th class="checkmark-nm"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -119,13 +119,14 @@
 
             <a class="close-reveal-modal">&#215;</a>
         </div>
+    </div>
+</div>
 
-
-        <script src="../js/jquery-2.1.1.min.js"></script>
-        <script src="../foundation-js/foundation.min.js"></script>
-        <script>
-            $(document).foundation();
-        </script>
-        <script src="js/manager-nutmeg.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="../foundation-js/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+</script>
+<script src="js/manager-nutmeg.js"></script>
 </body>
 </html>
