@@ -80,7 +80,7 @@ function saveUser(teamName, role, pw, email) {
 function saveNewTeam() {
     checkForValidTeamName();
     saveUser($('#input-team-name').val(), "admin", $('#input-admin-pw').val(), $('#input-admin-email').val());
-    saveUser($('#input-team-name').val(), "js", $('#input-manager-pw').val());
+    saveUser($('#input-team-name').val(), "manager", $('#input-manager-pw').val());
     saveUser($('#input-team-name').val(), "player", $('#input-player-pw').val());
 }
 
