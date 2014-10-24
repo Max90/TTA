@@ -5,7 +5,7 @@ if (currentUser == null) {
 }
 var managerString = "manager";
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (userName.indexOf(managerString) >= 0) {
     $(document).ready(function () {
 
@@ -18,12 +18,10 @@ if (userName.indexOf(managerString) >= 0) {
             checkIfUserLoggedIn();
         });
 
-
-        //reloads page to refresh count of players in training
-        //@todo: evtl noch mit ajax machen
         $('#close-player-addition-modal').on('click', function () {
             location.reload();
         });
+
         updatePlayerInfoBox();
         showTrainingList();
         showPlayerList();
@@ -32,7 +30,6 @@ if (userName.indexOf(managerString) >= 0) {
 } else {
     window.location.href = "../index.html";
 }
-
 
 function checkIfUserLoggedIn() {
     var currentUser = Parse.User.current();
@@ -43,7 +40,6 @@ function checkIfUserLoggedIn() {
         $('.login-form').show();
     }
 }
-
 
 function updatePlayerInfoBox() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_playerInfoBox";
@@ -60,7 +56,6 @@ function updatePlayerInfoBox() {
                 var timeHours = d.getHours();
                 var timeMin = d.getMinutes();
                 var formatedDate = curr_date + "." + curr_month + "." + curr_year + " " + timeHours + ":" + timeMin + " Uhr";
-
 
                 $("#player-infobox-label").text(object.get('playerInfoBox'));
                 $("#player-infobox-createdat").text(" (Erstellt am: " + formatedDate + ")");
@@ -102,13 +97,12 @@ function showTrainingList() {
 function showPlayerTrDetails(playerName, imgSrc) {
 
     $('#modal-tr-detail-player').foundation('reveal', 'open');
-
-
     $('#modal-tr-detail-player').find(".img-player").attr("src", imgSrc);
     $('#modal-tr-detail-player').find("h3").text(playerName);
 
 
     $('#player-tr-detail-table tr:not(:first)').remove();
+
     showPlayerTrDates(playerName);
 
 }
@@ -126,13 +120,12 @@ function showPlayerTrDates(playerName) {
                 var curr_month = d.getMonth() + 1; //Months are zero based
                 var curr_year = d.getFullYear();
 
-
                 $("#player-tr-detail-table").append($('<tr>').append($('<td>').text(curr_date + "." + curr_month + "." + curr_year)));
             }
 
         },
         error: function (players, error) {
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 
@@ -145,7 +138,6 @@ function showPlayerList() {
     query.descending("trCount");
     query.find({
         success: function (results) {
-            // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 var imgSrc = object.get("profilePic");
@@ -157,7 +149,6 @@ function showPlayerList() {
                     + '<td class="name-player">' + object.get('playerName') + '</td>' + '<td>' + object.get('trCount') + '</td>')).on("click", function () {
                     showPlayerTrDetails($(this).closest('tr').find('.name-player').text(), $(this).closest('tr').find('.img-src').attr('src'));
                 }));
-
             }
         },
         error: function (error) {
@@ -179,7 +170,7 @@ function trCount(player, imgSrc) {
                 + '<td class="name-player">' + player.get('playerName') + '</td>' + '<td>' + player.get('trCount') + '</td>')));
         },
         error: function (error) {
-            // The request failed
+            console.log(error.message);
         }
     });
 }

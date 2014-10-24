@@ -5,7 +5,7 @@ if (currentUser == null) {
 }
 var trainerString = "admin";
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (userName.indexOf(trainerString) >= 0) {
     $(document).ready(function () {
         $('#button-logout').on('click', function () {
@@ -197,7 +197,6 @@ function updatePlayerTrCount(playerName, trNum) {
     query.equalTo("playerName", playerName);
     query.first({
         success: function (player) {
-            console.log(playerName, trNum);
             var trCount = player.get("trCount") + trNum;
             player.set("trCount", trCount);
             player.save();

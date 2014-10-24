@@ -5,7 +5,7 @@ if (currentUser == null) {
 }
 var managerString = "manager";
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (userName.indexOf(managerString) >= 0) {
     $(document).ready(function () {
 
@@ -13,11 +13,9 @@ if (userName.indexOf(managerString) >= 0) {
             Parse.User.logOut();
         });
 
-        //showTrainingListNutmeg();
         showNutmegTrainingList();
         getNutmegSumForPlayerTable();
         creatNutmegSumColumn();
-
 
     });
 } else {
@@ -60,7 +58,7 @@ function trNutmegCount(object) {
             $("#training-nutmeg-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td class="training-date">' + object.get('dateTraining') + '</td>'
                 + '<td class="training-time">' + object.get('timeTraining') + '</td>'
                 + '<td class="training-nutmeg-number">' + sum + '</td>')).on("click", function () {
-                console.log("MODAL");
+
                 var d = new Date($(this).closest('tr').children('td:first').text());
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth() + 1; //Months are zero based
@@ -76,38 +74,6 @@ function trNutmegCount(object) {
             // The request failed
         }
     });
-}
-
-function creatNutmegColumns(dateTraining) {
-
-    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
-    var Tabelle = Parse.Object.extend(teamName);
-    var training = new Parse.Query(Tabelle);
-
-    training.find({
-        success: function (training) {
-            for (var i = 0; i < training.length; i++) {
-                var object = training[i];
-
-
-                if (object.get(columname) == undefined) {
-                    var date = dateTraining.replace(/-/g, "_");
-                    var columname = "nm_" + date;
-
-                    object.set(columname, 0);
-                    object.save();
-                }
-
-            }
-        },
-        error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
-        }
-    });
-
-
 }
 
 
@@ -184,14 +150,13 @@ function updateNutmegTrCount(playerName, dateTraining, count, countView) {
     var curr_month = addZ(d.getMonth() + 1); //Months are zero based
     var curr_year = d.getFullYear();
 
-
     var date = curr_year + "_" + curr_date + "_" + curr_month;
 
     query.equalTo("playerName", playerName);
     query.first({
         success: function (player) {
 
-            var temp = player.get("nm_" + date);
+            var temp = player.get("nm_" + date) * 1;
 
             if (count == -1) {
                 if (temp > 0) {
@@ -251,9 +216,7 @@ function creatNutmegSumColumn() {
             }
         },
         error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 
@@ -319,7 +282,7 @@ function showNutmegPlayerTable(columnNmDateNames) {
 
         },
         error: function (error) {
-            // The request failed
+            console.log(error.message);
         }
     });
 }
@@ -337,9 +300,7 @@ function fillNutmegSumColumn(playerName, sum) {
             player.save();
         },
         error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 
@@ -349,14 +310,14 @@ function fillNutmegSumColumn(playerName, sum) {
 function newNotPaidNutmeg(obj) {
     var playerName = obj.closest('tr').find('.player-nm-name').text();
     var numPaidNutmegs = obj.closest('tr').find('.input-nm-val').val();
+
     if (numPaidNutmegs == "") {
         numPaidNutmegs = 0;
     }
+
     if (numPaidNutmegs * 1 < 0) {
         numPaidNutmegs = 0;
     }
-    console.log(playerName, numPaidNutmegs);
-
 
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var Tabelle = Parse.Object.extend(teamName);
@@ -375,12 +336,10 @@ function newNotPaidNutmeg(obj) {
             player.set("nutmegNotPaid", nmNotPaid);
             player.set("nutmegPaid", nmPaid);
             player.save();
-
+            location.reload();
         },
         error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 

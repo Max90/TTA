@@ -5,7 +5,7 @@ if (currentUser == null) {
 }
 var trainerString = "admin";
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (userName.indexOf(trainerString) >= 0) {
     $(document).ready(function () {
         $('#button-logout').on('click', function () {
@@ -33,7 +33,7 @@ function updatePlayerInfo() {
         playerInfoBox.set("playerInfoBox", "Hier könnte eine aktuelle Info für Ihre Spieler stehen!");
     } else {
         playerInfoBox.set("playerInfoBox", $("textarea#input-current-player-info").val());
-        }
+    }
 
     playerInfoBox.save(null, {
         success: function (infoBox) {

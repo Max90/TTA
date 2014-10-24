@@ -1,7 +1,21 @@
-/*#login-form {*/
-/*right: 0px;*/
-/*position: absolute;*/
-/*}*/
+.indexbg {
+    background: -moz-radial-gradient(center, ellipse cover, rgba(0, 112, 149, 0.3) 0%, rgba(125, 185, 232, 0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 112, 149, 0.3)), color-stop(100%, rgba(125, 185, 232, 0))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 112, 149, 0.3) 0%, rgba(125, 185, 232, 0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, rgba(0, 112, 149, 0.3) 0%, rgba(125, 185, 232, 0) 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(0, 112, 149, 0.3) 0%, rgba(125, 185, 232, 0) 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, rgba(0, 112, 149, 0.3) 0%, rgba(125, 185, 232, 0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4d007095', endColorstr='#007db9e8', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+}
+
+.topteam-label {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.tt-logo {
+    text-align: center;
+}
 
 .off-canvas-wrap, .inner-wrap {
     min-height: 100%;
@@ -122,9 +136,9 @@
 
     #player-tr-detail-table {
         float: left;
-        width: 70%;
+        width: 60%;
         margin-left: 1em;
-        overflow: hidden;
+
     }
 }
 
@@ -136,6 +150,7 @@
 
 .panel {
     margin-bottom: 1.35em !important;
+    cursor: default !important;
 }
 
 .nutmeg-count {
@@ -232,4 +247,12 @@
 .checkmark-nm {
     width: 15%;
     vertical-align: middle;
+}
+
+#button-send-player-info {
+    margin-top: 0.5em;
+}
+
+#player-infobox-label, #player-infobox-createdat {
+    cursor: default !important;
 }

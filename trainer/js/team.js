@@ -5,7 +5,7 @@ if (currentUser == null) {
     window.location.href = "../index.html";
 }
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (currentUser['attributes']['username'].indexOf(trainerString) >= 0) {
     $(document).ready(function () {
         $('#button-logout').on('click', function () {

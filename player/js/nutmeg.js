@@ -5,7 +5,7 @@ if (currentUser == null) {
 }
 var playerString = "player";
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (userName.indexOf(playerString) >= 0) {
     $(document).ready(function () {
 

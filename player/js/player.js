@@ -5,7 +5,7 @@ if (currentUser == null) {
 }
 var playerString = "player";
 var userName = currentUser['attributes']['username'];
-console.log(userName);
+
 if (userName.indexOf(playerString) >= 0) {
     $(document).ready(function () {
 
@@ -18,12 +18,10 @@ if (userName.indexOf(playerString) >= 0) {
             checkIfUserLoggedIn();
         });
 
-
-        //reloads page to refresh count of players in training
-        //@todo: evtl noch mit ajax machen
         $('#close-player-addition-modal').on('click', function () {
             location.reload();
         });
+
         updatePlayerInfoBox();
         showTrainingList();
         showPlayerList();
@@ -61,15 +59,12 @@ function updatePlayerInfoBox() {
                 var timeMin = d.getMinutes();
                 var formatedDate = curr_date + "." + curr_month + "." + curr_year + " " + timeHours + ":" + timeMin + " Uhr";
 
-
                 $("#player-infobox-label").text(object.get('playerInfoBox'));
                 $("#player-infobox-createdat").text(" (Erstellt am: " + formatedDate + ")");
 
             } else {
                 $("#player-infobox-label").text("Es gibt im Moment keine aktuellen Infos!");
             }
-
-
         },
         error: function (error) {
             console.log("Error: " + error.code + " " + error.message);
@@ -102,13 +97,12 @@ function showTrainingList() {
 function showPlayerTrDetails(playerName, imgSrc) {
 
     $('#modal-tr-detail-player').foundation('reveal', 'open');
-
-
     $('#modal-tr-detail-player').find(".img-player").attr("src", imgSrc);
     $('#modal-tr-detail-player').find("h3").text(playerName);
 
 
     $('#player-tr-detail-table tr:not(:first)').remove();
+
     showPlayerTrDates(playerName);
 
 }
@@ -126,13 +120,12 @@ function showPlayerTrDates(playerName) {
                 var curr_month = d.getMonth() + 1; //Months are zero based
                 var curr_year = d.getFullYear();
 
-
                 $("#player-tr-detail-table").append($('<tr>').append($('<td>').text(curr_date + "." + curr_month + "." + curr_year)));
             }
 
         },
         error: function (players, error) {
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 
@@ -145,7 +138,6 @@ function showPlayerList() {
     query.descending("trCount");
     query.find({
         success: function (results) {
-            // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 var imgSrc = object.get("profilePic");
@@ -179,7 +171,7 @@ function trCount(player, imgSrc) {
                 + '<td class="name-player">' + player.get('playerName') + '</td>' + '<td>' + player.get('trCount') + '</td>')));
         },
         error: function (error) {
-            // The request failed
+            console.log(error.message);
         }
     });
 }
