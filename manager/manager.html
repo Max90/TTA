@@ -7,9 +7,13 @@
     <script src="//www.parsecdn.com/js/parse-1.3.0.min.js"></script>
     <link rel="stylesheet" href="../css/foundation.min.css"/>
     <link rel="stylesheet" href="../css/normalize.css"/>
-    <link rel="stylesheet" href="../css/topbar.css"/>
     <link rel="stylesheet" href="../css/app.css"/>
+    <link rel="stylesheet" href="../jquery-ui/jquery.contextMenu.css"/>
+    <link rel="stylesheet" href="../css/topbar.css"/>
     <script src="../foundation-js/modernizr.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="../js/chart.js"></script>
 </head>
 <body>
 <div class="off-canvas-wrap" data-offcanvas>
@@ -18,7 +22,7 @@
             <nav class="tab-bar">
                 <div class="title-area">
                     <div class="name">
-                        <h1><a href="#">Top Team</a></h1>
+                        <h1><a href="../index.html">Top Team</a></h1>
                     </div>
                 </div>
                 <section class="right-small show-for-small">
@@ -28,10 +32,9 @@
             <aside class="right-off-canvas-menu">
                 <ul class="off-canvas-list">
                     <li class="show-for-small">
-                        <label>Foundation</label>
+                        <label>Top Team</label>
                     </li>
-                    <li><a href="team.html">Spielerkader</a>
-                    </li>
+                    <li><a href="nutmeg.html">Beiner Verwaltung</a></li>
                     <li><a href="../index.html" id="button-logout">Logout</a>
                     </li>
                 </ul>
@@ -39,11 +42,13 @@
         </div>
         <div class="row">
             <div class="large-12 columns content-wrapper">
-                <div class="row">
-                    <a class="button large-12 columns medium-12 small-12" href="#" data-reveal-id="modal-add-training">Training
-                        hinzufügen</a>
 
+                <div id="player-infobox" class="panel">
+                    <b>Aktuelle Info vom Trainer: </b>
+                    <label id="player-infobox-label"></label>
+                    <label id="player-infobox-createdat"></label>
                 </div>
+
 
                 <!-- player-container -------------------------------------------------------------------------------------------------------->
                 <div class="row">
@@ -53,6 +58,7 @@
                             <tr>
                                 <th id="training-date">Datum</th>
                                 <th id="training-time">Uhrzeit</th>
+                                <th id="training-player-number">Anzahl der Spieler</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -65,21 +71,55 @@
                     <div class="large-12 columns" id="chart_div"></div>
                 </div>
 
+
+                <!-- player-in-training-container -------------------------------------------------------------------------------------------------------->
+                <div class="row">
+                    <div class="large-12 columns" id="training-container">
+                        <table id="player-training-table">
+                            <thead>
+                            <tr>
+                                <th id="pic-player">Bild</th>
+                                <th id="name-player">Name</th>
+                                <th id="training-sum">Gesamt TR</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <a class="exit-off-canvas"></a>
     </div>
 </div>
-<!--End of navbar-------------------------------------------------------------------------------------------------------->
 
-<div style="background: pink; height: 300px">Verwalter dummy container<br>
-    Verwalter können Beiner eingeben, abrechnen, Mannschaftskasse verwalten, Strafenkatalog anlegen und verwalten...,
-    und infos auf spielerstartseite einstellen
 
+<!------modal-tr-detail-player-------------------------------------------------------------------------------------------->
+<div id="modal-tr-detail-player" class="reveal-modal" data-reveal>
+    <h2>Spieler Trainings Details</h2>
+
+    <h3 id="playername"></h3>
+
+    <div class="row">
+        <img class="img-player" src="../img/avatar.jpg">
+        <table id="player-tr-detail-table">
+            <thead>
+            <tr>
+                <th>Trainings Daten:</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <a class="close-reveal-modal" id="close-modal-tr-detail-player">&#215;</a>
 </div>
 
-<script src="../js/jquery-2.1.1.min.js"></script>
+
 <script src="../foundation-js/foundation.min.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery.ui.position.js"></script>
 <script>
     $(document).foundation();
 </script>
