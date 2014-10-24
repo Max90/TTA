@@ -11,7 +11,7 @@ function drawChart() {
     data.addColumn('number', 'Beiner');
     data.addColumn({type: 'number', role: 'annotation'});
     var options = {
-        title: 'Beiner',
+        title: 'Auswertung Beiner',
         seriesType: "bars",
         series: {
             1: {
@@ -27,21 +27,45 @@ function drawChart() {
 
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
 
-    function getDataForChart() {
-        var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    function getTrDatesForChart() {
+        var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
         var trDates = Parse.Object.extend(teamName);
         var query = new Parse.Query(trDates);
 
         query.find({
             success: function (results) {
                 // Do something with the returned Parse.Object values
-
-
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
-                    data.addRow([new Date(object.get('dateTraining')), parseInt(object.get('trPlayerCount')), parseInt(object.get('trPlayerCount'))]);
 
+
+                    getDataForChart(object);
                 }
+            },
+            error: function (error) {
+                console.log("Error: " + error.code + " " + error.message);
+            }
+        });
+    }
+
+
+    function getDataForChart(object) {
+        var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_players";
+        var training = Parse.Object.extend(teamTrainingName);
+        var query = new Parse.Query(training);
+
+
+        query.find({
+            success: function (results) {
+                var sum = 0;
+                for (var i = 0; i < results.length; i++) {
+                    var obj = results[i];
+                    sum = sum + obj.get("nm_" + object.get('dateTraining').replace(/-/g, "_"));
+                }
+
+
+                data.addRow([new Date(object.get('dateTraining')), sum, sum]);
+
 
                 // Create a DataView that adds another column which is all the same (empty-string) to be able to aggregate on.
                 var viewWithKey = new google.visualization.DataView(data);
@@ -51,7 +75,7 @@ function drawChart() {
                     calc: function (d, r) {
                         return ''
                     }
-                }])
+                }]);
 
                 // Aggregate the previous view to calculate the average. This table should be a single table that looks like:
                 // [['', AVERAGE]], so you can get the Average with .getValue(0,1)
@@ -83,8 +107,7 @@ function drawChart() {
         });
     }
 
-
-    getDataForChart();
+    getTrDatesForChart();
 
 
 }
