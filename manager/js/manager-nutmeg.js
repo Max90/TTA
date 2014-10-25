@@ -103,12 +103,21 @@ function showNutmegTrainingList(columnNmDateNames, trDates) {
 
                 $("#training-nutmeg-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td class="training-date">' + trDate + '</td>' + '<td class="training-nutmeg-number">' + sum + '</td>')).on("click", function () {
 
+
                     var d = new Date($(this).closest('tr').children('td:first').text());
-                    var curr_date = d.getDate();
-                    var curr_month = d.getMonth() + 1;
+
+                    function addZ(n) {
+                        return n < 10 ? '0' + n : '' + n;
+                    }
+
+                    var curr_date = addZ(d.getDate());
+                    var curr_month = addZ(d.getMonth() + 1); //Months are zero based
                     var curr_year = d.getFullYear();
 
-                    $('#modal-add-nutmeg-to-player').find('#header-date').text(curr_year + "_" + curr_month + "_" + curr_date);
+
+                    var date = curr_year + "_" + curr_month + "_" + curr_date;
+
+                    $('#modal-add-nutmeg-to-player').find('#header-date').text(date);
                     showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
                 }));
             }
