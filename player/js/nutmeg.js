@@ -36,7 +36,7 @@ function creatNutmegSumColumn() {
 
                     var columname = "nutmegSum";
 
-                    object.set(columname, 0);
+                    object.set(columname, 0 * 1);
                     object.save();
 
 
@@ -50,16 +50,12 @@ function creatNutmegSumColumn() {
                     object.set(column, 0);
                     object.save();
 
-
                 }
-
 
             }
         },
         error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 
@@ -106,7 +102,6 @@ function trNutmegCount(object) {
 
         },
         error: function (error) {
-            // The request failed
         }
     });
 }
@@ -117,7 +112,6 @@ function getNutmegSumForPlayerTable() {
 
     query.find({
         success: function (results) {
-            // Do something with the returned Parse.Object values
             var columnNmDateNames = [];
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
@@ -202,9 +196,7 @@ function newNotPaidNutmeg(obj) {
 
         },
         error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 
@@ -223,9 +215,7 @@ function fillNutmegSumColumn(playerName, sum) {
             player.save();
         },
         error: function (training, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            console.log('Failed to create new object, with error code: ' + error.message);
+            console.log(error.message);
         }
     });
 

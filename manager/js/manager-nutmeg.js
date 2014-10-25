@@ -13,27 +13,30 @@ if (userName.indexOf(managerString) >= 0) {
             Parse.User.logOut();
         });
 
-        showNutmegTrainingList();
-        getNutmegSumForPlayerTable();
-        creatNutmegSumColumn();
 
+        getColumnNmDateNamesAndCreateNmColumns();
+        getNutmegSumForPlayerTable();
     });
 } else {
     window.location.href = "../index.html";
 }
-
-function showNutmegTrainingList() {
+function getColumnNmDateNamesAndCreateNmColumns() {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_trDates";
     var trDates = Parse.Object.extend(teamName);
     var query = new Parse.Query(trDates);
 
     query.find({
         success: function (results) {
-            // Do something with the returned Parse.Object values
+            var columnNmDateNames = [];
+            var trDates = [];
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                trNutmegCount(object);
+                var columnNmDateName = "nm_" + object.get('dateTraining').replace(/-/g, "_");
+                columnNmDateNames.push(columnNmDateName);
+                trDates.push(object.get('dateTraining'));
             }
+            createNutmegColumns(columnNmDateNames);
+            showNutmegTrainingList(columnNmDateNames, trDates);
         },
         error: function (error) {
             console.log("Error: " + error.code + " " + error.message);
@@ -41,41 +44,82 @@ function showNutmegTrainingList() {
     });
 }
 
-function trNutmegCount(object) {
+function createNutmegColumns(columnNmDateNames) {
+
+    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
+    var Tabelle = Parse.Object.extend(teamName);
+    var training = new Parse.Query(Tabelle);
+
+    training.find({
+        success: function (training) {
+            for (var i = 0; i < training.length; i++) {
+                var object = training[i];
+
+                if (object.get("nutmegSum") == undefined) {
+                    object.set("nutmegSum", 0 * 1);
+                }
+                if (object.get("nutmegPaid") == undefined) {
+                    object.set("nutmegPaid", 0);
+                }
+                if (object.get("nutmegNotPaid") == undefined) {
+                    object.set("nutmegNotPaid", 0);
+                }
+
+                for (var j = 0; j < columnNmDateNames.length; j++) {
+                    if (object.get(columnNmDateNames[j]) == undefined) {
+                        object.set(columnNmDateNames[j], 0);
+                    }
+                }
+
+                object.save();
+            }
+        },
+        error: function (training, error) {
+            console.log(error.message);
+        }
+    });
+}
+
+function showNutmegTrainingList(columnNmDateNames, trDates) {
     var teamTrainingName = Parse.User.current()['attributes']['teamname'] + "_players";
     var training = Parse.Object.extend(teamTrainingName);
     var query = new Parse.Query(training);
 
-
     query.find({
         success: function (results) {
-            var sum = 0;
-            for (var i = 0; i < results.length; i++) {
-                var obj = results[i];
-                sum = sum + obj.get("nm_" + object.get('dateTraining').replace(/-/g, "_"));
+
+            for (j = 0; j < columnNmDateNames.length; j++) {
+                var sum = 0;
+                for (var i = 0; i < results.length; i++) {
+                    var obj = results[i];
+                    sum = sum + obj.get(columnNmDateNames[j]);
+                }
+
+                if (sum == undefined || isNaN(sum)) {
+                    sum = 0;
+                }
+
+                var trDate = trDates[j];
+
+                $("#training-nutmeg-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td class="training-date">' + trDate + '</td>' + '<td class="training-nutmeg-number">' + sum + '</td>')).on("click", function () {
+
+                    var d = new Date($(this).closest('tr').children('td:first').text());
+                    var curr_date = d.getDate();
+                    var curr_month = d.getMonth() + 1;
+                    var curr_year = d.getFullYear();
+
+                    $('#modal-add-nutmeg-to-player').find('#header-date').text(curr_year + "_" + curr_month + "_" + curr_date);
+                    showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
+                }));
             }
-
-            $("#training-nutmeg-table").append($("<tr href='#' data-reveal-id='modal-add-nutmeg-to-player'>").append($('<td class="training-date">' + object.get('dateTraining') + '</td>'
-                + '<td class="training-time">' + object.get('timeTraining') + '</td>'
-                + '<td class="training-nutmeg-number">' + sum + '</td>')).on("click", function () {
-
-                var d = new Date($(this).closest('tr').children('td:first').text());
-                var curr_date = d.getDate();
-                var curr_month = d.getMonth() + 1; //Months are zero based
-                var curr_year = d.getFullYear();
-
-
-                $('#modal-add-nutmeg-to-player').find('#header-date').text("Datum: " + curr_date + "." + curr_month + "." + curr_year);
-                showPlayersForNutmegModal($(this).closest('tr').children('td:first').text());
-            }));
 
         },
         error: function (error) {
             // The request failed
         }
     });
-}
 
+}
 
 function showPlayersForNutmegModal(dateTraining) {
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
@@ -126,7 +170,6 @@ function listPlayerInNutmegModal(playerName, dateTraining) {
 }
 
 function minusButtonClicked(object) {
-
     updateNutmegTrCount(object.closest('tr').find('.nm-player').text(), $('#modal-add-nutmeg-to-player').find('#header-date').text(), -1, object.closest('tr').find('.nutmeg-count'));
 }
 
@@ -135,22 +178,11 @@ function plusButtonClicked(object) {
 }
 
 
-function updateNutmegTrCount(playerName, dateTraining, count, countView) {
+function updateNutmegTrCount(playerName, date, count, countView) {
+
     var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
     var team = Parse.Object.extend(teamName);
     var query = new Parse.Query(team);
-
-    var d = new Date(dateTraining);
-
-    function addZ(n) {
-        return n < 10 ? '0' + n : '' + n;
-    }
-
-    var curr_date = addZ(d.getDate());
-    var curr_month = addZ(d.getMonth() + 1); //Months are zero based
-    var curr_year = d.getFullYear();
-
-    var date = curr_year + "_" + curr_date + "_" + curr_month;
 
     query.equalTo("playerName", playerName);
     query.first({
@@ -167,60 +199,14 @@ function updateNutmegTrCount(playerName, dateTraining, count, countView) {
                 temp = temp + count;
             }
 
-
             player.set("nm_" + date, temp);
             player.save();
             countView.text(temp);
         },
         error: function (players, error) {
-            console.log('Failed to create new object, with error code: ' + error.message);
-        }
-    });
-}
-
-
-function creatNutmegSumColumn() {
-
-    var teamName = Parse.User.current()['attributes']['teamname'] + "_players";
-    var Tabelle = Parse.Object.extend(teamName);
-    var training = new Parse.Query(Tabelle);
-
-    training.find({
-        success: function (training) {
-            for (var i = 0; i < training.length; i++) {
-                var object = training[i];
-
-
-                if (object.get(columname) == undefined) {
-
-                    var columname = "nutmegSum";
-
-                    object.set(columname, 0);
-                    object.save();
-
-
-                }
-
-
-                if (object.get(column) == undefined) {
-
-                    var column = "nutmegPaid";
-
-                    object.set(column, 0);
-                    object.save();
-
-
-                }
-
-
-            }
-        },
-        error: function (training, error) {
             console.log(error.message);
         }
     });
-
-
 }
 
 
@@ -231,15 +217,13 @@ function getNutmegSumForPlayerTable() {
 
     query.find({
         success: function (results) {
-            // Do something with the returned Parse.Object values
             var columnNmDateNames = [];
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-
-
                 var columnNmDateName = "nm_" + object.get('dateTraining').replace(/-/g, "_");
                 columnNmDateNames.push(columnNmDateName);
             }
+
             showNutmegPlayerTable(columnNmDateNames);
 
         },
@@ -263,7 +247,6 @@ function showNutmegPlayerTable(columnNmDateNames) {
                 var sum = 0;
                 for (var j = 0; j < columnNmDateNames.length; j++) {
                     sum = sum + obj.get(columnNmDateNames[j]);
-
                 }
                 var imgSrc = obj.get("profilePic");
                 if (imgSrc == undefined) {
