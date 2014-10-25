@@ -263,6 +263,10 @@ function showNutmegPlayerTable(columnNmDateNames) {
                 }
 
                 fillNutmegSumColumn(obj.get('playerName'), sum);
+                var nmNotPaid = obj.get('nutmegNotPaid');
+                nmNotPaid = nmNotPaid + obj.get("nutmegSum") * 1;
+                obj.set("nutmegNotPaid", nmNotPaid);
+                obj.save();
 
                 $("#player-nutmeg-table").append($("<tr>").append($('<td><img src="' + imgSrc + '"></td>'
                     + '<td class="player-nm-name name-player">' + obj.get('playerName') + '</td>'
