@@ -264,14 +264,22 @@ function showNutmegPlayerTable(columnNmDateNames) {
 
                 fillNutmegSumColumn(obj.get('playerName'), sum);
                 var nmNotPaid = obj.get('nutmegNotPaid');
-                nmNotPaid = nmNotPaid + obj.get("nutmegSum") * 1;
+                nmNotPaid = obj.get("nutmegSum") * 1 - obj.get('nutmegPaid');
                 obj.set("nutmegNotPaid", nmNotPaid);
                 obj.save();
+
+
+                if (nmNotPaid == undefined || isNaN(nmNotPaid)) {
+                    nmNotPaid = 0;
+                }
+                if (sum == undefined || isNaN(sum)) {
+                    sum = 0;
+                }
 
                 $("#player-nutmeg-table").append($("<tr>").append($('<td><img src="' + imgSrc + '"></td>'
                     + '<td class="player-nm-name name-player">' + obj.get('playerName') + '</td>'
                     + '<td class="nutmeg-sum">' + sum + '</td>' + '<td class="nutmeg-not-paid-sum">'
-                    + obj.get('nutmegNotPaid') + '</td>' + '<td class="input-nm">' + '<input class="input-nm-val" type="text" placeholder="0">'
+                    + nmNotPaid + '</td>' + '<td class="input-nm">' + '<input class="input-nm-val" type="text" placeholder="0">'
                     + '</td>' + '<td class="checkmark-nm">' + '<i onclick="newNotPaidNutmeg($(this))" class="foundicon-checkmark"></i>' + '</td>')));
             }
 
@@ -293,6 +301,8 @@ function fillNutmegSumColumn(playerName, sum) {
     player.first({
         success: function (player) {
             player.set("nutmegSum", sum);
+            var nmNotPaid = sum - player.get('nutmegPaid');
+            player.set("nutmegNotPaid", nmNotPaid);
             player.save();
         },
         error: function (training, error) {
@@ -323,6 +333,7 @@ function newNotPaidNutmeg(obj) {
         success: function (player) {
             var nmNotPaid = player.get('nutmegNotPaid');
             var nmPaid = player.get('nutmegPaid');
+            console.log(numPaidNutmegs);
 
             if (player.get('nutmegNotPaid') > 0) {
                 nmNotPaid = player.get('nutmegNotPaid') - numPaidNutmegs * 1;
